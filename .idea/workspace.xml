@@ -4,18 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e39fd36a-6d8c-4f36-90b3-3bb900585fb9" name="Changes" comment="init commit + the basis of the bot has been created">
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/States/AvailableCommands.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/States/StateEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/matrix/Matrix.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/UsersData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/CommandManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/ServiceCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/StartCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/на_будущее.txt" afterDir="false" />
+    <list default="true" id="e39fd36a-6d8c-4f36-90b3-3bb900585fb9" name="Changes" comment="Добавлены &quot;сервисные команды&quot;(с /)&#10;Добавлена команда /help">
+      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/exceptions/TooLongSentenceExceptions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/Command.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/CommandFormatter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/StartMatrixCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/StateCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/states/AvailableCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/states/AvailableCommands.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/Bot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/CommandManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/CommandManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/StartCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/StartCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +27,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -106,7 +105,8 @@
       <workItem from="1634727414323" duration="1235000" />
       <workItem from="1635074965885" duration="10004000" />
       <workItem from="1635138051840" duration="9234000" />
-      <workItem from="1635148792553" duration="1834000" />
+      <workItem from="1635148792553" duration="3376000" />
+      <workItem from="1635154863010" duration="6582000" />
     </task>
     <task id="LOCAL-00001" summary="init commit + the basis of the bot has been created">
       <created>1633798496729</created>
@@ -115,7 +115,42 @@
       <option name="project" value="LOCAL" />
       <updated>1633798496729</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Добавлена зависимость от telegram-bots-extensions">
+      <created>1635152818018</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1635152818018</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Добавлен класс матриц">
+      <created>1635152838597</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1635152838597</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Сохранение состояния бота у каждого пользователя, проверка возможности выполнения команды">
+      <created>1635152936665</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1635152936665</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Сохранение состояния бота у каждого пользователя, проверка возможности выполнения команды">
+      <created>1635152987133</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1635152987133</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Добавлены &quot;сервисные команды&quot;(с /)&#10;Добавлена команда /help">
+      <created>1635153041197</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1635153041197</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -135,6 +170,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init commit + the basis of the bot has been created" />
-    <option name="LAST_COMMIT_MESSAGE" value="init commit + the basis of the bot has been created" />
+    <MESSAGE value="Добавлена зависимость от telegram-bots-extensions" />
+    <MESSAGE value="Добавлен класс матриц" />
+    <MESSAGE value="Сохранение состояния бота у каждого пользователя, проверка возможности выполнения команды" />
+    <MESSAGE value="Добавлены &quot;сервисные команды&quot;(с /)&#10;Добавлена команда /help" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлены &quot;сервисные команды&quot;(с /)&#10;Добавлена команда /help" />
   </component>
 </project>
