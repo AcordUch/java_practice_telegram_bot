@@ -1,7 +1,8 @@
-package practice_telegram_bot.telegram.commands;
+package practice_telegram_bot.telegram.commands.textCommands;
 
-import practice_telegram_bot.states.StateEnum;
+import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.telegram.UsersData;
+import practice_telegram_bot.telegram.commands.Command;
 import practice_telegram_bot.telegram.commands.service.StartCommand;
 
 public class ReturnToMenuCommand implements Command {
@@ -11,7 +12,7 @@ public class ReturnToMenuCommand implements Command {
     }
 
     @Override
-    public Command execute(Long chatId) {
+    public Command execute(Long chatId, String addInfo) {
         UsersData.setUsersState(chatId, StateEnum.START);
         return this;
     }

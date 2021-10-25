@@ -1,6 +1,6 @@
 package practice_telegram_bot.telegram;
 
-import practice_telegram_bot.states.*;
+import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.matrix.Matrix;
 
 import java.util.HashMap;
@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class UsersData {
     private static final Map<Long, StateEnum> usersState = new HashMap<>();
-    private static final Map<Long, Matrix> usersMatrix = new HashMap<>();
+    private static final Map<Long, MatrixData> usersMatrixData = new HashMap<>();
 
     public static StateEnum getUserState(Long chatId){
         var res = usersState.get(chatId);
@@ -27,18 +27,18 @@ public class UsersData {
     }
 
     public static boolean containUserMatrix(Long chatId){
-        return usersMatrix.containsKey(chatId);
+        return usersMatrixData.containsKey(chatId);
     }
 
-    public static Matrix getUserMatrix(Long userId){
-        var res = usersMatrix.get(userId);
+    public static MatrixData getUserMatrixData(Long userId){
+        var res = usersMatrixData.get(userId);
         if(res == null){
             System.out.printf("method getUserMatrix; usedId %s не найдено", userId);
         }
         return res;
     }
 
-    public static void setUsersMatrix(Long userId, Matrix matrix){
-        usersMatrix.put(userId, matrix);
+    public static void setUsersMatrixData(Long userId, MatrixData matrixData){
+        usersMatrixData.put(userId, matrixData);
     }
 }

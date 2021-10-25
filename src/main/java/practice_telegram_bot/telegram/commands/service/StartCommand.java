@@ -3,7 +3,7 @@ package practice_telegram_bot.telegram.commands.service;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
-import practice_telegram_bot.states.StateEnum;
+import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.telegram.UsersData;
 
 public class StartCommand extends ServiceCommand{
