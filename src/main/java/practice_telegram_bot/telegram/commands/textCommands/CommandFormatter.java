@@ -1,7 +1,7 @@
-package practice_telegram_bot.telegram.commands;
+package practice_telegram_bot.telegram.commands.textCommands;
 
 import practice_telegram_bot.exceptions.TooLongSentenceExceptions;
-import practice_telegram_bot.states.AvailableCommands;
+import practice_telegram_bot.telegram.commands.AvailableCommands;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +14,8 @@ public class CommandFormatter {
     private static final Map<String, List<String>> COMMAND_MAP = Map.ofEntries(
             entry("матрица", Arrays.asList("матрица", "матрицы", "матрицу")),
             entry("игра", Arrays.asList("игра", "сыграем", "играем", "быки и коровы")),
-            entry(AvailableCommands.RETURN_COMMAND, Arrays.asList("меню", "начало"))
+            entry(AvailableCommands.RETURN_COMMAND, Arrays.asList("меню", "начало")),
+            entry("операция", Arrays.asList("гаусс", "определитель", "сложение", "вычитание", "умножение"))
     );
 
     public static String formatCommand(String command) throws TooLongSentenceExceptions {
