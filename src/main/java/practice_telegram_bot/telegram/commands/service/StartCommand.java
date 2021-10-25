@@ -24,4 +24,8 @@ public class StartCommand extends ServiceCommand{
         UsersData.setUsersState(chatId, StateEnum.START);
         sendAnswer(absSender, chat.getId(), ANSWER);
     }
+
+    public static String GetAnswer(){
+        return ANSWER;
+    }
 }

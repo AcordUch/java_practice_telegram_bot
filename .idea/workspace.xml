@@ -4,15 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e39fd36a-6d8c-4f36-90b3-3bb900585fb9" name="Changes" comment="Добавлены &quot;сервисные команды&quot;(с /)&#10;Добавлена команда /help">
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/exceptions/TooLongSentenceExceptions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/Command.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/CommandFormatter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/StartMatrixCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/StateCommand.java" afterDir="false" />
+    <list default="true" id="e39fd36a-6d8c-4f36-90b3-3bb900585fb9" name="Changes" comment="Добавлена возможность вводить более произвольные предложения">
+      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/ReturnToMenuCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/StartGameCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/states/AvailableCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/states/AvailableCommands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/Bot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/CommandFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/CommandFormatter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/CommandManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/CommandManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/StartCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/StartCommand.java" afterDir="false" />
     </list>
@@ -106,7 +103,7 @@
       <workItem from="1635074965885" duration="10004000" />
       <workItem from="1635138051840" duration="9234000" />
       <workItem from="1635148792553" duration="3376000" />
-      <workItem from="1635154863010" duration="6582000" />
+      <workItem from="1635154863010" duration="8913000" />
     </task>
     <task id="LOCAL-00001" summary="init commit + the basis of the bot has been created">
       <created>1633798496729</created>
@@ -150,7 +147,21 @@
       <option name="project" value="LOCAL" />
       <updated>1635153041197</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Добавлена команда /state">
+      <created>1635161710983</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1635161710983</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Добавлена возможность вводить более произвольные предложения">
+      <created>1635161842529</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1635161842529</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,6 +185,8 @@
     <MESSAGE value="Добавлен класс матриц" />
     <MESSAGE value="Сохранение состояния бота у каждого пользователя, проверка возможности выполнения команды" />
     <MESSAGE value="Добавлены &quot;сервисные команды&quot;(с /)&#10;Добавлена команда /help" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлены &quot;сервисные команды&quot;(с /)&#10;Добавлена команда /help" />
+    <MESSAGE value="Добавлена команда /state" />
+    <MESSAGE value="Добавлена возможность вводить более произвольные предложения" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлена возможность вводить более произвольные предложения" />
   </component>
 </project>

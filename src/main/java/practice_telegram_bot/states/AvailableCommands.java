@@ -8,10 +8,12 @@ import static java.util.Map.entry;
 import static practice_telegram_bot.states.StateEnum.*;
 
 public class AvailableCommands {
-    private static final String BACK_COMMAND = "назад";
+    public static final String RETURN_COMMAND = "меню";
     private static final Map<StateEnum, List<String>> availableCommands = Map.ofEntries(
-            entry(START, Arrays.asList("игра", "быки и коровы", "матрицы", "матрица")),
-            entry(MATRIX_START, Arrays.asList(BACK_COMMAND, "решить", "определитель", "сложение", "вычитание", "умножение"))
+            entry(START, Arrays.asList("игра", "матрица")),
+            entry(MATRIX_START,
+                    Arrays.asList(RETURN_COMMAND, "решить", "определитель", "сложение", "вычитание", "умножение")),
+            entry(GAME_START, Arrays.asList(RETURN_COMMAND))
     );
 
     public static List<String> getAvailableCommands(StateEnum state){

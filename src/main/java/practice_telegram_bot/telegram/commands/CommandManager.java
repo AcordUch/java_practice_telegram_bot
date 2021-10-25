@@ -10,7 +10,9 @@ import static java.util.Map.entry;
 
 public class CommandManager {
     private static final Map<String, Command> COMMAND_MAP = Map.ofEntries(
-            entry("матрица", new StartMatrixCommand())
+            entry("матрица", new StartMatrixCommand()),
+            entry("игра", new StartGameCommand()),
+            entry(AvailableCommands.RETURN_COMMAND, new ReturnToMenuCommand())
     );
 
     public String processCommand(Long usedId, String command) {
