@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import practice_telegram_bot.telegram.commands.CommandManager;
 import practice_telegram_bot.telegram.commands.service.StartCommand;
+import practice_telegram_bot.telegram.commands.service.StateCommand;
 
 import java.util.List;
 import java.util.Locale;
@@ -22,6 +23,7 @@ public class Bot extends TelegramLongPollingCommandBot {
         BOT_NAME = botName;
         BOT_TOKEN = botToken;
         register(new StartCommand("start", "Начало общения"));
+        register(new StateCommand("state", "Показывает текущее положение"));
     }
     @Override
     public String getBotUsername() {
