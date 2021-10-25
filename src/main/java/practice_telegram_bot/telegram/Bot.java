@@ -1,20 +1,27 @@
 package practice_telegram_bot.telegram;
 
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import practice_telegram_bot.telegram.commands.CommandManager;
+import practice_telegram_bot.telegram.commands.service.StartCommand;
 
-public class Bot extends TelegramLongPollingBot {
+import java.util.List;
+import java.util.Locale;
+
+public class Bot extends TelegramLongPollingCommandBot {
     private final String BOT_NAME;
     private final String BOT_TOKEN;
+    private final CommandManager commandManager = new CommandManager();
 
     public Bot(String botName, String botToken)
     {
         BOT_NAME = botName;
         BOT_TOKEN = botToken;
+        register(new StartCommand("start", "Начало общения"));
     }
     @Override
     public String getBotUsername() {
@@ -27,13 +34,24 @@ public class Bot extends TelegramLongPollingBot {
     }
 
     @Override
-    public void onUpdateReceived(Update update) {
-        System.out.println("new Update Received");
+    public void onUpdatesReceived(List<Update> updates) {
+        System.out.println("\nnew Update Received");
+        for (var update : updates) {
+            Message message = update.getMessage();
+            Long chatID = message.getChatId();
+            String userName =getUserName(message);
+            System.out.printf("Пользователь: %s\nChatID: %s\nСообщение: %s\n", userName, chatID.toString(), message.getText());
+        }
+        super.onUpdatesReceived(updates);
+    }
+
+    @Override
+    public void processNonCommandUpdate(Update update) {
         Message message = update.getMessage();
         Long chatID = message.getChatId();
         String userName =getUserName(message);
-        System.out.printf("Пользователь: %s\nChatID: %s\nСообщение: %s\n", userName, chatID.toString(), message.getText());
-        sendAnswer(chatID, String.format("Вы только что мне сказали: %s", message.getText()));
+        var answer = commandManager.processCommand(chatID, message.getText().toLowerCase(Locale.ROOT));
+        sendAnswer(chatID, answer);
     }
 
     private String getUserName(Message msg){
