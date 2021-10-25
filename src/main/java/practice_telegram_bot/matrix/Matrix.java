@@ -10,6 +10,14 @@ public class Matrix {
         matrix = new double[rows][columns];
     }
 
+    public int getVerticalSize(){
+        return matrix.length;
+    }
+
+    public int getHorizontalSize(){
+        return matrix[0].length;
+    }
+
     public double getElement(int row, int column){
         return matrix[row][column];
     }
