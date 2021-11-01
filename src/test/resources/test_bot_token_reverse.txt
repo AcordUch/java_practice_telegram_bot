@@ -1,0 +1,2 @@
+i_am_bot=BOT_NAME
+312353635=BOT_TOKEN
