@@ -6,6 +6,8 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import practice_telegram_bot.telegram.commands.service.AboutCommand;
+import practice_telegram_bot.telegram.commands.service.HelpCommand;
 import practice_telegram_bot.telegram.commands.textCommands.CommandManager;
 import practice_telegram_bot.telegram.commands.service.StartCommand;
 import practice_telegram_bot.telegram.commands.service.StateCommand;
@@ -24,6 +26,8 @@ public class Bot extends TelegramLongPollingCommandBot {
         BOT_TOKEN = botToken;
         register(new StartCommand("start", "Начало общения"));
         register(new StateCommand("state", "Показывает текущее положение"));
+        register(new AboutCommand("about", "Показывает информацию о создателях бота"));
+        register(new HelpCommand("help", "Показывает информацию о боте и доступные команды"));
     }
     @Override
     public String getBotUsername() {

@@ -4,22 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e39fd36a-6d8c-4f36-90b3-3bb900585fb9" name="Changes" comment="Добавлена команда &quot;игра&quot;&#10;Добавлена команда &quot;меню&quot;">
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/enums/Operations.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/MatrixData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/ChooseOperationsCommand.java" afterDir="false" />
+    <list default="true" id="e39fd36a-6d8c-4f36-90b3-3bb900585fb9" name="Changes" comment="Добавлена команда по выбору операции">
+      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/AboutCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/HelpCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/states/AvailableCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/AvailableCommands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/states/StateEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/enums/StateEnum.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/Bot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/UsersData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/UsersData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/Command.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/CommandFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/CommandFormatter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/CommandManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/CommandManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/ReturnToMenuCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/ReturnToMenuCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/StartGameCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/gameCommands/StartGameCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/StartMatrixCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/StartMatrixCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/StartCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/StartCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/StateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/StateCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -68,7 +57,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../test2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -112,7 +101,11 @@
       <workItem from="1635074965885" duration="10004000" />
       <workItem from="1635138051840" duration="9234000" />
       <workItem from="1635148792553" duration="3376000" />
-      <workItem from="1635154863010" duration="21777000" />
+      <workItem from="1635154863010" duration="22430000" />
+      <workItem from="1635227348930" duration="38000" />
+      <workItem from="1635227604203" duration="1299000" />
+      <workItem from="1635703881163" duration="221000" />
+      <workItem from="1635766232661" duration="4436000" />
     </task>
     <task id="LOCAL-00001" summary="init commit + the basis of the bot has been created">
       <created>1633798496729</created>
@@ -177,7 +170,28 @@
       <option name="project" value="LOCAL" />
       <updated>1635164666949</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Подготовка к добавлению команд по вводу матриц">
+      <created>1635187659714</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1635187659714</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Изменения в командах: подогнаны под измененный ранее интерфейс">
+      <created>1635187827851</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1635187827851</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Добавлена команда по выбору операции">
+      <created>1635187903931</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1635187903931</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,6 +218,9 @@
     <MESSAGE value="Добавлена команда /state" />
     <MESSAGE value="Добавлена возможность вводить более произвольные предложения" />
     <MESSAGE value="Добавлена команда &quot;игра&quot;&#10;Добавлена команда &quot;меню&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлена команда &quot;игра&quot;&#10;Добавлена команда &quot;меню&quot;" />
+    <MESSAGE value="Подготовка к добавлению команд по вводу матриц" />
+    <MESSAGE value="Изменения в командах: подогнаны под измененный ранее интерфейс" />
+    <MESSAGE value="Добавлена команда по выбору операции" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлена команда по выбору операции" />
   </component>
 </project>
