@@ -1,5 +1,6 @@
 package practice_telegram_bot.telegram.commands.textCommands;
 
+import practice_telegram_bot.enums.CommandEnum;
 import practice_telegram_bot.exceptions.TooLongSentenceExceptions;
 import practice_telegram_bot.telegram.commands.AvailableCommands;
 import practice_telegram_bot.telegram.UsersData;
@@ -13,20 +14,19 @@ import java.util.Map;
 import static java.util.Map.entry;
 
 public class CommandManager {
-    private static final Map<String, Command> COMMAND_MAP = Map.ofEntries(
-            entry("матрица", new StartMatrixCommand()),
-            entry("игра", new StartGameCommand()),
-            entry(AvailableCommands.RETURN_COMMAND, new ReturnToMenuCommand()),
-            entry("операция", new ChooseOperationsCommand())
+    private static final Map<CommandEnum, Command> COMMAND_MAP = Map.ofEntries(
+            entry(CommandEnum.MATRIX, new StartMatrixCommand()),
+            entry(CommandEnum.GAME, new StartGameCommand()),
+            entry(CommandEnum.RETURN, new ReturnToMenuCommand()),
+            entry(CommandEnum.OPERATIONS, new ChooseOperationsCommand())
     );
 
     public String processCommand(Long usedId, String input) {
-        var state = UsersData.getUserState(usedId);
         try
         {
             var command = CommandFormatter.formatCommand(input);
-            if(AvailableCommands.checkingForAvailability(state, command)){
-                return COMMAND_MAP.get(command).execute(usedId, input).formAnswer();
+            if(command.isPresent()){
+                return COMMAND_MAP.get(command.get()).execute(usedId, input).formAnswer();
             }
             else{
                 return "В нынешнем состоянии команда не доступна";

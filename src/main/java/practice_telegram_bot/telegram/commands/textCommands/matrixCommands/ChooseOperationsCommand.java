@@ -1,5 +1,6 @@
 package practice_telegram_bot.telegram.commands.textCommands.matrixCommands;
 
+import practice_telegram_bot.enums.Operations;
 import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.telegram.MatrixData;
 import practice_telegram_bot.telegram.UsersData;
@@ -20,20 +21,19 @@ public class ChooseOperationsCommand implements Command {
             Пример: 5 6
             """;
 
-    private String _addInfo = "";
+    private Operations operation;
 
     @Override
     public String formAnswer() {
-        return _addInfo.equals("гаусс") ? ANSWER_SQUARE_MATRIX : ANSWER_COMMON_MATRIX;
+        return operation == Operations.GAUSS_SOLUTION ? ANSWER_SQUARE_MATRIX : ANSWER_COMMON_MATRIX;
     }
 
     @Override
     public Command execute(Long chatId, String addInfo) {
-        _addInfo = addInfo;
+        operation = Operations.fromString(addInfo);
         UsersData.setUsersState(chatId, StateEnum.MATRIX_SIZE_INPUT);
         int matricesNumber = operationsWithTwoMatrix.contains(addInfo) ? 2 : 1;
-        UsersData.setUsersMatrixData(chatId, new MatrixData(addInfo, matricesNumber));
-        var temp = UsersData.getUserMatrixData(1L);
+        UsersData.setUsersMatrixData(chatId, new MatrixData(operation, matricesNumber));
         return this;
     }
 }

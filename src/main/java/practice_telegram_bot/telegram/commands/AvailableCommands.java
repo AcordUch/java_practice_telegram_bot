@@ -1,5 +1,6 @@
 package practice_telegram_bot.telegram.commands;
 
+import practice_telegram_bot.enums.CommandEnum;
 import practice_telegram_bot.enums.StateEnum;
 
 import java.util.ArrayList;
@@ -13,28 +14,32 @@ import static practice_telegram_bot.enums.StateEnum.*;
 public class AvailableCommands {
     public static final String RETURN_COMMAND = "меню";
 
-    private static final Map<StateEnum, List<String>> availableCommands = Map.ofEntries(
-            entry(START, Arrays.asList("игра", "матрица")),
+    private static final Map<StateEnum, List<CommandEnum>> availableCommands = Map.ofEntries(
+            entry(START, Arrays.asList(CommandEnum.GAME, CommandEnum.MATRIX)),
             entry(MATRIX_OPERATION_SELECT,
-                    Arrays.asList(RETURN_COMMAND, "операция")),
-            entry(GAME_START, Arrays.asList(RETURN_COMMAND))
+                    Arrays.asList(CommandEnum.RETURN, CommandEnum.OPERATIONS)),
+            entry(GAME_START, Arrays.asList(CommandEnum.RETURN))
     );
 
-    public static List<String> getAvailableCommands(StateEnum state){
+    public static List<CommandEnum> getAvailableCommands(StateEnum state){
         try {
             return availableCommands.get(state);
         }
         catch(Exception ex){
             System.out.println("Ошибка в getAvailableCommands: значение ключа не найдено");
-            return new ArrayList<String>();
+            return new ArrayList<CommandEnum>();
         }
     }
 
-    public static boolean checkingForAvailability(StateEnum state, String command){
-        return getAvailableCommands(state).contains(command);
+    public static String getAvailableCommandsAsString(StateEnum state){
+        var res = new StringBuilder();
+        for(var command : getAvailableCommands(state)){
+            res.append(String.join("\n", command.getCommands())).append("\n");
+        }
+        return res.toString();
     }
 
-    public static String getAvailableCommandsAsString(StateEnum state){
-        return String.join("\n", getAvailableCommands(state));
+    public static boolean checkingForAvailability(StateEnum state, CommandEnum command){
+        return getAvailableCommands(state).contains(command);
     }
 }

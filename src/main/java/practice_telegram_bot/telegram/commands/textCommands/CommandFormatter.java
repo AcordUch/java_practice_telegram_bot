@@ -1,24 +1,27 @@
 package practice_telegram_bot.telegram.commands.textCommands;
 
+import practice_telegram_bot.enums.CommandEnum;
 import practice_telegram_bot.exceptions.TooLongSentenceExceptions;
 import practice_telegram_bot.telegram.commands.AvailableCommands;
 
+import javax.validation.constraints.Null;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static java.util.Map.entry;
 
 public class CommandFormatter {
     private static final int MAX_COMMAND_LENGTH = 20;
-    private static final Map<String, List<String>> COMMAND_MAP = Map.ofEntries(
-            entry("матрица", Arrays.asList("матрица", "матрицы", "матрицу")),
-            entry("игра", Arrays.asList("игра", "сыграем", "играем", "быки и коровы")),
-            entry(AvailableCommands.RETURN_COMMAND, Arrays.asList("меню", "начало")),
-            entry("операция", Arrays.asList("гаусс", "определитель", "сложение", "вычитание", "умножение"))
+    private static final Map<CommandEnum, List<String>> COMMAND_MAP = Map.ofEntries(
+            entry(CommandEnum.MATRIX, Arrays.asList("матрица", "матрицы", "матрицу")),
+            entry(CommandEnum.GAME, Arrays.asList("игра", "сыграем", "играем", "быки и коровы")),
+            entry(CommandEnum.RETURN, Arrays.asList("меню", "начало")),
+            entry(CommandEnum.OPERATIONS, Arrays.asList("гаусс", "определитель", "сложение", "вычитание", "умножение"))
     );
 
-    public static String formatCommand(String command) throws TooLongSentenceExceptions {
+    public static Optional<CommandEnum> formatCommand(String command) throws TooLongSentenceExceptions {
         var tokens = command.split(" ");
         if(tokens.length > MAX_COMMAND_LENGTH){
             throw new TooLongSentenceExceptions();
@@ -26,10 +29,10 @@ public class CommandFormatter {
         for (var token : tokens){
             for(var kvPair : COMMAND_MAP.entrySet()){
                 if(kvPair.getValue().contains(token)){
-                    return kvPair.getKey();
+                    return Optional.of(kvPair.getKey());
                 }
             }
         }
-        return "";
+        return Optional.empty();
     }
 }

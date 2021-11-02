@@ -1,17 +1,21 @@
 package practice_telegram_bot.telegram;
 
+import practice_telegram_bot.enums.Operations;
 import practice_telegram_bot.matrix.Matrix;
+import practice_telegram_bot.matrix.MatrixBuilder;
 
 import java.util.List;
 
 public class MatrixData {
-    public final String operation;
+    public final Operations operation;
     private List<Matrix> matrices;
+//    private MatrixBuilder matrixBuilder;
     private int numberOfMatricesToEnter;
 
-    public MatrixData(String operation, int matricesNumber){
+    public MatrixData(Operations operation, int matricesNumber){
         this.operation = operation;
         numberOfMatricesToEnter = matricesNumber;
+//        matrixBuilder = new MatrixBuilder();
     }
 
     public int matrixCount(){

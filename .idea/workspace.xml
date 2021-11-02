@@ -4,12 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e39fd36a-6d8c-4f36-90b3-3bb900585fb9" name="Changes" comment="Добавлена команда по выбору операции">
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/AboutCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/HelpCommand.java" afterDir="false" />
+    <list default="true" id="e39fd36a-6d8c-4f36-90b3-3bb900585fb9" name="Changes" comment="Добавлены команды help и about">
+      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/enums/CommandEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/exceptions/IncorrectNumberOfElements.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/exceptions/NotEqualSizesOfMatrixException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/matrix/MatrixBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/SizeInputCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/Bot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/StateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/StateCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/enums/Operations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/enums/Operations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/matrix/MatrixOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/matrix/MatrixOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/MatrixData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/MatrixData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/AvailableCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/AvailableCommands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/HelpCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/HelpCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/CommandFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/CommandFormatter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/CommandManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/CommandManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/ChooseOperationsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/ChooseOperationsCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +40,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="develop" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -105,7 +114,8 @@
       <workItem from="1635227348930" duration="38000" />
       <workItem from="1635227604203" duration="1299000" />
       <workItem from="1635703881163" duration="221000" />
-      <workItem from="1635766232661" duration="4436000" />
+      <workItem from="1635766232661" duration="15301000" />
+      <workItem from="1635836858974" duration="818000" />
     </task>
     <task id="LOCAL-00001" summary="init commit + the basis of the bot has been created">
       <created>1633798496729</created>
@@ -191,7 +201,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635187903931</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Добавлены команды help и about">
+      <created>1635771003748</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1635771003748</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -221,6 +238,7 @@
     <MESSAGE value="Подготовка к добавлению команд по вводу матриц" />
     <MESSAGE value="Изменения в командах: подогнаны под измененный ранее интерфейс" />
     <MESSAGE value="Добавлена команда по выбору операции" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлена команда по выбору операции" />
+    <MESSAGE value="Добавлены команды help и about" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлены команды help и about" />
   </component>
 </project>
