@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e39fd36a-6d8c-4f36-90b3-3bb900585fb9" name="Changes" comment="Добавлена возможность вызова команд из команды">
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/service/CommandEventInitiaterInterface.java" afterDir="false" />
+    <list default="true" id="e39fd36a-6d8c-4f36-90b3-3bb900585fb9" name="Changes" comment="CommandEventInitiater теперь абстрактный класс&#10;Автоматическая регистрация пользователей при любом первом сообщении">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/service/CommandEventInitiater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/service/CommandEventInitiater.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/Bot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/CommandManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/CommandManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/MatrixInputCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/MatrixInputCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +54,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TelegaBot-develop" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
@@ -110,7 +106,7 @@
       <workItem from="1635766232661" duration="15301000" />
       <workItem from="1635836858974" duration="10223000" />
       <workItem from="1636183151260" duration="4584000" />
-      <workItem from="1636270824764" duration="16952000" />
+      <workItem from="1636270824764" duration="20217000" />
     </task>
     <task id="LOCAL-00001" summary="init commit + the basis of the bot has been created">
       <created>1633798496729</created>
@@ -224,7 +220,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636294872181</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="CommandEventInitiater теперь абстрактный класс&#10;Автоматическая регистрация пользователей при любом первом сообщении">
+      <created>1636306544852</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1636306544852</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -258,6 +261,7 @@
     <MESSAGE value="Команды теперь представлены в виде enum" />
     <MESSAGE value="Добавлены команды на ввод матриц" />
     <MESSAGE value="Добавлена возможность вызова команд из команды" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлена возможность вызова команд из команды" />
+    <MESSAGE value="CommandEventInitiater теперь абстрактный класс&#10;Автоматическая регистрация пользователей при любом первом сообщении" />
+    <option name="LAST_COMMIT_MESSAGE" value="CommandEventInitiater теперь абстрактный класс&#10;Автоматическая регистрация пользователей при любом первом сообщении" />
   </component>
 </project>

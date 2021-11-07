@@ -23,6 +23,7 @@ import java.util.Locale;
 public class Bot extends TelegramLongPollingCommandBot implements CommandEventListener {
     private final String BOT_NAME;
     private final String BOT_TOKEN;
+    private final String ANSWER_ON_NULL_MASSAGE = "Ваше сообщение не распознано, попробуйте ещё раз";
     private final CommandManager commandManager = new CommandManager();
     private final Deque<InnerUpdate> updateToProcess = new ArrayDeque<>();
 
@@ -67,7 +68,14 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
     public void processNonCommandUpdate(Update update) {
         Message message = update.getMessage();
         Long chatId = message.getChatId();
-        var answer = commandManager.processCommand(chatId, message.getText().toLowerCase(Locale.ROOT));
+        var messageText = message.getText();
+        var answer = "";
+        if(messageText == null || messageText.isEmpty()) {
+            answer = ANSWER_ON_NULL_MASSAGE;
+        }
+        else{
+            answer = commandManager.processCommand(chatId, messageText.toLowerCase(Locale.ROOT));
+        }
         if(!answer.isEmpty()){
             sendAnswer(chatId, answer);
         }
