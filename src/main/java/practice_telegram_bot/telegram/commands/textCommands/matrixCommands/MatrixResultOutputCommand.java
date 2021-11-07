@@ -1,8 +1,11 @@
 package practice_telegram_bot.telegram.commands.textCommands.matrixCommands;
 
+import practice_telegram_bot.enums.Operations;
 import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.telegram.UsersData;
 import practice_telegram_bot.telegram.commands.Command;
+
+import java.util.Map;
 
 public class MatrixResultOutputCommand implements Command {
     private static final String ANSWER = """

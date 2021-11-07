@@ -2,6 +2,8 @@ package practice_telegram_bot.telegram.commands.textCommands;
 
 import practice_telegram_bot.enums.CommandEnum;
 import practice_telegram_bot.exceptions.TooLongSentenceExceptions;
+import practice_telegram_bot.service.CommandEventInitiater;
+import practice_telegram_bot.service.CommandEventListener;
 import practice_telegram_bot.telegram.UsersData;
 import practice_telegram_bot.telegram.commands.Command;
 import practice_telegram_bot.telegram.commands.textCommands.gameCommands.StartGameCommand;
@@ -36,6 +38,14 @@ public class CommandManager {
         }
         catch (TooLongSentenceExceptions ex) {
             return "Вы ввели слишком длинное предложение, попробуйте сформулировать что вы хотите покороче";
+        }
+    }
+
+    public void addListenerForCommands(CommandEventListener listener){
+        for(var command : COMMAND_MAP.values()){
+            if(command instanceof CommandEventInitiater){
+                ((CommandEventInitiater) command).addListener(listener);
+            }
         }
     }
 }

@@ -2,17 +2,23 @@ package practice_telegram_bot.telegram.commands.textCommands.matrixCommands;
 
 import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.exceptions.IncorrectNumberOfElements;
+import practice_telegram_bot.service.CommandEventInitiater;
+import practice_telegram_bot.service.CommandEventListener;
 import practice_telegram_bot.telegram.UsersData;
 import practice_telegram_bot.telegram.commands.Command;
 
-public class MatrixInputCommand implements Command {
-//    private static final String ANSWER_SQUARE_MATRIX = """
-//            Построчно введите матрицу. Элементы через пробел
-//            Пример: 3 4 5 -1 14.34 1
-//                    1 22 4 42 44 111
-//            """;
+import java.util.ArrayList;
+import java.util.List;
+
+public class MatrixInputCommand implements Command, CommandEventInitiater {
+    private final List<CommandEventListener> eventListeners = new ArrayList<>();
 
     private String answer = "";
+
+    @Override
+    public void addListener(CommandEventListener listener) {
+        eventListeners.add(listener);
+    }
 
     @Override
     public String formAnswer() {
@@ -36,6 +42,7 @@ public class MatrixInputCommand implements Command {
                 matrixData.reduceNumberOfMatricesToEnter();
                 if(matrixData.numberOfMatricesToEnter() < 1){
                     UsersData.setUsersState(chatId, StateEnum.MATRIX_RESULT_OUTPUT);
+                    notifyListeners(chatId, "результат");
                     answer = "Ввод матрицы завершен";
                 }
                 else{
@@ -50,5 +57,11 @@ public class MatrixInputCommand implements Command {
             answer = "Произошла непонятная ошибка, попробуйте ещё раз";
         }
         return this;
+    }
+
+    private void notifyListeners(Long chatId, String message){
+        for (var listener : eventListeners){
+            listener.executeNextCommand(chatId, message);
+        }
     }
 }
