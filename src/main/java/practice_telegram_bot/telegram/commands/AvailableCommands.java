@@ -6,7 +6,6 @@ import practice_telegram_bot.enums.StateEnum;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Arrays;
 
 import static java.util.Map.entry;
 import static practice_telegram_bot.enums.StateEnum.*;
@@ -15,10 +14,13 @@ public class AvailableCommands {
     public static final String RETURN_COMMAND = "меню";
 
     private static final Map<StateEnum, List<CommandEnum>> availableCommands = Map.ofEntries(
-            entry(START, Arrays.asList(CommandEnum.GAME, CommandEnum.MATRIX)),
+            entry(START, List.of(CommandEnum.GAME, CommandEnum.MATRIX)),
             entry(MATRIX_OPERATION_SELECT,
-                    Arrays.asList(CommandEnum.RETURN, CommandEnum.OPERATIONS)),
-            entry(GAME_START, Arrays.asList(CommandEnum.RETURN))
+                    List.of(CommandEnum.RETURN, CommandEnum.MATRIX_OPERATIONS)),
+            entry(GAME_START, List.of(CommandEnum.RETURN)),
+            entry(MATRIX_SIZE_INPUT, List.of(CommandEnum.RETURN, CommandEnum.MATRIX_SIZE)),
+            entry(MATRIX_INPUT, List.of(CommandEnum.RETURN, CommandEnum.MATRIX_ROW)),
+            entry(MATRIX_RESULT_OUTPUT, List.of(CommandEnum.RETURN, CommandEnum.MATRIX_RESULT))
     );
 
     public static List<CommandEnum> getAvailableCommands(StateEnum state){

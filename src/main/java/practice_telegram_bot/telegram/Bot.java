@@ -57,7 +57,9 @@ public class Bot extends TelegramLongPollingCommandBot {
         Long chatID = message.getChatId();
         String userName =getUserName(message);
         var answer = commandManager.processCommand(chatID, message.getText().toLowerCase(Locale.ROOT));
-        sendAnswer(chatID, answer);
+        if(!answer.isEmpty()){
+            sendAnswer(chatID, answer);
+        }
     }
 
     private String getUserName(Message msg){

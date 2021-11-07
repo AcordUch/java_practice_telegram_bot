@@ -41,4 +41,8 @@ public class UsersData {
     public static void setUsersMatrixData(Long userId, MatrixData matrixData){
         usersMatrixData.put(userId, matrixData);
     }
+
+    public static void clearUsersMatrixData(Long userId){
+        usersMatrixData.remove(userId);
+    }
 }

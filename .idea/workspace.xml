@@ -4,21 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e39fd36a-6d8c-4f36-90b3-3bb900585fb9" name="Changes" comment="Добавлены команды help и about">
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/enums/CommandEnum.java" afterDir="false" />
+    <list default="true" id="e39fd36a-6d8c-4f36-90b3-3bb900585fb9" name="Changes" comment="Команды теперь представлены в виде enum">
       <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/exceptions/IncorrectNumberOfElements.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/exceptions/NotEqualSizesOfMatrixException.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/matrix/MatrixBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/SizeInputCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/MatrixInputCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/MatrixResultOutputCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/MatrixSizeInputCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/enums/CommandEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/enums/CommandEnum.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/enums/Operations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/enums/Operations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/matrix/MatrixOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/matrix/MatrixOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/Bot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/MatrixData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/MatrixData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/UsersData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/UsersData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/AvailableCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/AvailableCommands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/HelpCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/HelpCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/CommandFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/CommandFormatter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/CommandManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/CommandManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/ChooseOperationsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/ChooseOperationsCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/StartMatrixCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/StartMatrixCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +69,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -115,7 +118,9 @@
       <workItem from="1635227604203" duration="1299000" />
       <workItem from="1635703881163" duration="221000" />
       <workItem from="1635766232661" duration="15301000" />
-      <workItem from="1635836858974" duration="818000" />
+      <workItem from="1635836858974" duration="10223000" />
+      <workItem from="1636183151260" duration="4584000" />
+      <workItem from="1636270824764" duration="6060000" />
     </task>
     <task id="LOCAL-00001" summary="init commit + the basis of the bot has been created">
       <created>1633798496729</created>
@@ -208,7 +213,14 @@
       <option name="project" value="LOCAL" />
       <updated>1635771003748</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Команды теперь представлены в виде enum">
+      <created>1635839166421</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1635839166421</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -239,6 +251,23 @@
     <MESSAGE value="Изменения в командах: подогнаны под измененный ранее интерфейс" />
     <MESSAGE value="Добавлена команда по выбору операции" />
     <MESSAGE value="Добавлены команды help и about" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлены команды help и about" />
+    <MESSAGE value="Команды теперь представлены в виде enum" />
+    <option name="LAST_COMMIT_MESSAGE" value="Команды теперь представлены в виде enum" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/MatrixResultOutputCommand.java</url>
+          <line>21</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/MatrixInputCommand.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

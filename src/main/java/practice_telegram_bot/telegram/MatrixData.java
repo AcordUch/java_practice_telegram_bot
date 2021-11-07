@@ -4,18 +4,19 @@ import practice_telegram_bot.enums.Operations;
 import practice_telegram_bot.matrix.Matrix;
 import practice_telegram_bot.matrix.MatrixBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class MatrixData {
     public final Operations operation;
-    private List<Matrix> matrices;
-//    private MatrixBuilder matrixBuilder;
+    private final List<Matrix> matrices = new ArrayList<>();
+    private final MatrixBuilder matrixBuilder = new MatrixBuilder();
     private int numberOfMatricesToEnter;
 
     public MatrixData(Operations operation, int matricesNumber){
         this.operation = operation;
         numberOfMatricesToEnter = matricesNumber;
-//        matrixBuilder = new MatrixBuilder();
     }
 
     public int matrixCount(){
@@ -30,16 +31,20 @@ public class MatrixData {
         numberOfMatricesToEnter--;
     }
 
-    public Matrix tryGetMatrix(int index){
+    public Optional<Matrix> tryGetMatrix(int index){
         try{
-            return matrices.get(index);
+            return Optional.of(matrices.get(index));
         }
         catch (Exception ex){
-            return null;
+            return Optional.empty();
         }
     }
 
     public void addMatrix(Matrix matrix){
         matrices.add(matrix);
+    }
+
+    public MatrixBuilder getMatrixBuilder(){
+        return matrixBuilder;
     }
 }
