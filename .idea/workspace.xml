@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e39fd36a-6d8c-4f36-90b3-3bb900585fb9" name="Changes" comment="Добавлены команды на ввод матриц">
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/service/CommandEventInitiater.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/service/CommandEventInitiaterClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/service/CommandEventListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/service/InnerUpdate.java" afterDir="false" />
+    <list default="true" id="e39fd36a-6d8c-4f36-90b3-3bb900585fb9" name="Changes" comment="Добавлена возможность вызова команд из команды">
+      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/service/CommandEventInitiaterInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/service/CommandEventInitiater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/service/CommandEventInitiater.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/Bot.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/CommandManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/CommandManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/MatrixInputCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/MatrixInputCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/MatrixResultOutputCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/MatrixResultOutputCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,8 +24,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -113,7 +110,7 @@
       <workItem from="1635766232661" duration="15301000" />
       <workItem from="1635836858974" duration="10223000" />
       <workItem from="1636183151260" duration="4584000" />
-      <workItem from="1636270824764" duration="12352000" />
+      <workItem from="1636270824764" duration="16952000" />
     </task>
     <task id="LOCAL-00001" summary="init commit + the basis of the bot has been created">
       <created>1633798496729</created>
@@ -220,7 +217,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636278099000</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Добавлена возможность вызова команд из команды">
+      <created>1636294872181</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1636294872181</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -253,6 +257,7 @@
     <MESSAGE value="Добавлены команды help и about" />
     <MESSAGE value="Команды теперь представлены в виде enum" />
     <MESSAGE value="Добавлены команды на ввод матриц" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлены команды на ввод матриц" />
+    <MESSAGE value="Добавлена возможность вызова команд из команды" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлена возможность вызова команд из команды" />
   </component>
 </project>

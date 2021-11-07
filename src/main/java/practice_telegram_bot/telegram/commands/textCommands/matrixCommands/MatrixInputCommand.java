@@ -7,12 +7,7 @@ import practice_telegram_bot.service.CommandEventListener;
 import practice_telegram_bot.telegram.UsersData;
 import practice_telegram_bot.telegram.commands.Command;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MatrixInputCommand implements Command, CommandEventInitiater {
-    private final List<CommandEventListener> eventListeners = new ArrayList<>();
-
+public class MatrixInputCommand extends CommandEventInitiater implements Command  {
     private String answer = "";
 
     @Override
@@ -57,11 +52,5 @@ public class MatrixInputCommand implements Command, CommandEventInitiater {
             answer = "Произошла непонятная ошибка, попробуйте ещё раз";
         }
         return this;
-    }
-
-    private void notifyListeners(Long chatId, String message){
-        for (var listener : eventListeners){
-            listener.executeNextCommand(chatId, message);
-        }
     }
 }

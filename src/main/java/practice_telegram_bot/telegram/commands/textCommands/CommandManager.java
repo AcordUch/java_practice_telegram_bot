@@ -14,10 +14,11 @@ import java.util.Map;
 import static java.util.Map.entry;
 
 public class CommandManager {
+    public static final ReturnToMenuCommand returnToMenuCommand = new ReturnToMenuCommand();
     private static final Map<CommandEnum, Command> COMMAND_MAP = Map.ofEntries(
             entry(CommandEnum.MATRIX, new StartMatrixCommand()),
             entry(CommandEnum.GAME, new StartGameCommand()),
-            entry(CommandEnum.RETURN, new ReturnToMenuCommand()),
+            entry(CommandEnum.RETURN, returnToMenuCommand),
             entry(CommandEnum.MATRIX_OPERATIONS, new ChooseOperationsCommand()),
             entry(CommandEnum.MATRIX_SIZE, new MatrixSizeInputCommand()),
             entry(CommandEnum.MATRIX_ROW, new MatrixInputCommand()),
