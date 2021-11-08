@@ -9,3 +9,4 @@
 /src/main/resources/bot_token.txt
 /target/classes/bot_token.txt
 /target/
+/.idea/

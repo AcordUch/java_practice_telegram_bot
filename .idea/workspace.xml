@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e39fd36a-6d8c-4f36-90b3-3bb900585fb9" name="Changes" comment="Добавлен toString у matrix">
+    <list default="true" id="e39fd36a-6d8c-4f36-90b3-3bb900585fb9" name="Changes" comment="Убран лишний import">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/MatrixResultOutputCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/MatrixResultOutputCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +28,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="develop" />
+        <entry key="$PROJECT_DIR$" value="add_new_commands" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -62,7 +62,7 @@
       <recent name="C:\Users\Daniel\Files\Java\java_practice_telegram_bot\src\test\java" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="practice_telegram_bot.Main" />
       <module name="java_practice_telegram_bot" />
@@ -76,8 +76,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TokenParserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="java_practice_telegram_bot" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="practice_telegram_bot.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="practice_telegram_bot" />
+      <option name="MAIN_CLASS_NAME" value="practice_telegram_bot.TokenParserTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.TokenParserTest" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -108,6 +126,7 @@
       <workItem from="1636183151260" duration="4584000" />
       <workItem from="1636270824764" duration="23716000" />
       <workItem from="1636349193683" duration="2127000" />
+      <workItem from="1636353886936" duration="788000" />
     </task>
     <task id="LOCAL-00001" summary="init commit + the basis of the bot has been created">
       <created>1633798496729</created>
