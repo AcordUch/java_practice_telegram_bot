@@ -12,8 +12,8 @@ public class MatrixOperations {
         else {
             Matrix resultMatrix = new Matrix(firstMatrix.getVerticalSize(), secondMatrix.getHorizontalSize());
 
-            for (int i = 0; i < resultMatrix.getHorizontalSize(); i++) {
-                for (int j = 0; j < resultMatrix.getVerticalSize(); j++) {
+            for (int i = 0; i < resultMatrix.getVerticalSize(); i++) {
+                for (int j = 0; j < resultMatrix.getHorizontalSize(); j++) {
                     resultMatrix.setElement(firstMatrix.getElement(i, j) + secondMatrix.getElement(i, j), i, j);
                 }
             }
@@ -31,8 +31,8 @@ public class MatrixOperations {
         else {
             Matrix resultMatrix = new Matrix(firstMatrix.getVerticalSize(), secondMatrix.getHorizontalSize());
 
-            for (int i = 0; i < resultMatrix.getHorizontalSize(); i++) {
-                for (int j = 0; j < resultMatrix.getVerticalSize(); j++) {
+            for (int i = 0; i < resultMatrix.getVerticalSize(); i++) {
+                for (int j = 0; j < resultMatrix.getHorizontalSize(); j++) {
                     resultMatrix.setElement(firstMatrix.getElement(i, j) - secondMatrix.getElement(i, j), i, j);
                 }
             }
@@ -47,11 +47,11 @@ public class MatrixOperations {
             throw new NotEqualSizesOfMatrixException();
         }
         else {
-            Matrix resultMatrix = new Matrix(firstMatrix.getHorizontalSize(), secondMatrix.getVerticalSize());
+            Matrix resultMatrix = new Matrix(firstMatrix.getVerticalSize(), secondMatrix.getHorizontalSize());
             double itemCount = 0.0;
             
-            for (int i = 0; i < resultMatrix.getHorizontalSize(); i++) {
-                for (int j = 0; j < resultMatrix.getVerticalSize(); j++) {
+            for (int i = 0; i < resultMatrix.getVerticalSize(); i++) {
+                for (int j = 0; j < resultMatrix.getHorizontalSize(); j++) {
                     for (int k = 0; k < firstMatrix.getHorizontalSize(); k++) {
                         itemCount += firstMatrix.getElement(i, k) * secondMatrix.getElement(k, j);
                     }
