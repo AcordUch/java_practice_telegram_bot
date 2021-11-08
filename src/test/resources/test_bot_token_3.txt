@@ -1,0 +1,2 @@
+BOT_NAME=something
+BOT_TOKEN=3456dgfh46
