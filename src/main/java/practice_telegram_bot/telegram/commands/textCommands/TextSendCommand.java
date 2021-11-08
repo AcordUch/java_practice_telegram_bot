@@ -1,13 +1,14 @@
 package practice_telegram_bot.telegram.commands.textCommands;
 
-import practice_telegram_bot.enums.StateEnum;
-import practice_telegram_bot.exceptions.NotEqualSizesOfMatrixException;
-import practice_telegram_bot.matrix.MatrixOperations;
-import practice_telegram_bot.telegram.UsersData;
 import practice_telegram_bot.telegram.commands.Command;
 
 public class TextSendCommand implements Command {
+    public static final String TEXTCOMMPREFIX = "@tcmd";
     private String answer = "";
+
+    public static String formText(String text){
+        return TEXTCOMMPREFIX + " " + text;
+    }
 
     @Override
     public String formAnswer() {
@@ -16,7 +17,7 @@ public class TextSendCommand implements Command {
 
     @Override
     public Command execute(Long chatId, String addInfo) {
-        //TODO эта должна быть внутренняя служебная команда для разбиения сообщения на несколько
+        answer = addInfo.split(" ", 2)[1];
         return this;
     }
 }

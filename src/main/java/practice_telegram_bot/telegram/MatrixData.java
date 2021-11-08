@@ -44,6 +44,10 @@ public class MatrixData {
         matrices.add(matrix);
     }
 
+    public List<Matrix> getMatricesList(){
+        return matrices;
+    }
+
     public MatrixBuilder getMatrixBuilder(){
         return matrixBuilder;
     }
