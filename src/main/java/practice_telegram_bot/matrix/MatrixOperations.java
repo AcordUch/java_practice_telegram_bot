@@ -1,6 +1,6 @@
 package practice_telegram_bot.matrix;
 
-class NotEqualSizesOfMatrixException extends Exception {}
+import practice_telegram_bot.exceptions.NotEqualSizesOfMatrixException;
 
 public class MatrixOperations {
     public static Matrix matrixAddition(Matrix firstMatrix, Matrix secondMatrix)

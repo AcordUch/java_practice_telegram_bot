@@ -34,7 +34,7 @@ public class HelpCommand extends ServiceCommand {
 
     private String makeHelpMessage(StateEnum state){
         return ANSWER_1 + "\n" +
-                lookAvailableCommands(state) + "\n" +
+                AvailableCommands.getAvailableCommandsAsString(state) + "\n" +
                 ANSWER_2;
     }
 

@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e39fd36a-6d8c-4f36-90b3-3bb900585fb9" name="Changes" comment="Добавлена команда по выбору операции">
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/AboutCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/HelpCommand.java" afterDir="false" />
+    <list default="true" id="e39fd36a-6d8c-4f36-90b3-3bb900585fb9" name="Changes" comment="Добавлен toString у matrix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/Bot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/StateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/service/StateCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/MatrixResultOutputCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/practice_telegram_bot/telegram/commands/textCommands/matrixCommands/MatrixResultOutputCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +19,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -31,7 +28,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="develop" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -57,7 +54,8 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TelegaBot-develop" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -105,7 +103,11 @@
       <workItem from="1635227348930" duration="38000" />
       <workItem from="1635227604203" duration="1299000" />
       <workItem from="1635703881163" duration="221000" />
-      <workItem from="1635766232661" duration="4436000" />
+      <workItem from="1635766232661" duration="15301000" />
+      <workItem from="1635836858974" duration="10223000" />
+      <workItem from="1636183151260" duration="4584000" />
+      <workItem from="1636270824764" duration="23716000" />
+      <workItem from="1636349193683" duration="2127000" />
     </task>
     <task id="LOCAL-00001" summary="init commit + the basis of the bot has been created">
       <created>1633798496729</created>
@@ -191,7 +193,56 @@
       <option name="project" value="LOCAL" />
       <updated>1635187903931</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Добавлены команды help и about">
+      <created>1635771003748</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1635771003748</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Команды теперь представлены в виде enum">
+      <created>1635839166421</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1635839166421</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Добавлены команды на ввод матриц">
+      <created>1636278099000</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1636278099000</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Добавлена возможность вызова команд из команды">
+      <created>1636294872181</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1636294872181</updated>
+    </task>
+    <task id="LOCAL-00017" summary="CommandEventInitiater теперь абстрактный класс&#10;Автоматическая регистрация пользователей при любом первом сообщении">
+      <created>1636306544852</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1636306544852</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Теперь бот реагирует на &quot;пустые&quot; сообщения">
+      <created>1636309609221</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1636309609221</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Добавлен toString у matrix">
+      <created>1636350259732</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1636350259732</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -221,6 +272,13 @@
     <MESSAGE value="Подготовка к добавлению команд по вводу матриц" />
     <MESSAGE value="Изменения в командах: подогнаны под измененный ранее интерфейс" />
     <MESSAGE value="Добавлена команда по выбору операции" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлена команда по выбору операции" />
+    <MESSAGE value="Добавлены команды help и about" />
+    <MESSAGE value="Команды теперь представлены в виде enum" />
+    <MESSAGE value="Добавлены команды на ввод матриц" />
+    <MESSAGE value="Добавлена возможность вызова команд из команды" />
+    <MESSAGE value="CommandEventInitiater теперь абстрактный класс&#10;Автоматическая регистрация пользователей при любом первом сообщении" />
+    <MESSAGE value="Теперь бот реагирует на &quot;пустые&quot; сообщения" />
+    <MESSAGE value="Добавлен toString у matrix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлен toString у matrix" />
   </component>
 </project>
