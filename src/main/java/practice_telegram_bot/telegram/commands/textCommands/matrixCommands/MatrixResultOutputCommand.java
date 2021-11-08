@@ -6,7 +6,6 @@ import practice_telegram_bot.matrix.MatrixOperations;
 import practice_telegram_bot.telegram.UsersData;
 import practice_telegram_bot.telegram.commands.Command;
 
-import java.util.Map;
 
 public class MatrixResultOutputCommand implements Command {
     private static final String ANSWER = """
