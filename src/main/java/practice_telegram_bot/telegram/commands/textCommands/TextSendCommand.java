@@ -3,7 +3,7 @@ package practice_telegram_bot.telegram.commands.textCommands;
 import practice_telegram_bot.telegram.commands.Command;
 
 public class TextSendCommand implements Command {
-    public static final String TEXTCOMMPREFIX = "@tcmd";
+    public static final String TEXTCOMMPREFIX = "^tcmd";
     private String answer = "";
 
     public static String formText(String text){
