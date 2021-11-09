@@ -52,7 +52,7 @@ public class MatrixOperations {
             
             for (int i = 0; i < resultMatrix.getVerticalSize(); i++) {
                 for (int j = 0; j < resultMatrix.getHorizontalSize(); j++) {
-                    for (int k = 0; k < firstMatrix.getHorizontalSize(); k++) {
+                    for (int k = 0; k < secondMatrix.getVerticalSize(); k++) {
                         itemCount += firstMatrix.getElement(i, k) * secondMatrix.getElement(k, j);
                     }
                     resultMatrix.setElement(itemCount, i, j);
