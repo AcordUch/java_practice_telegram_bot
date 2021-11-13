@@ -8,9 +8,12 @@ import practice_telegram_bot.telegram.commands.Command;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class ChooseOperationsCommand implements Command {
-    private static final List<String> operationsWithTwoMatrix = Arrays.asList("сложение", "вычитание", "умножение");
+    private static final List<Operations> operationsWithTwoMatrix = Arrays.asList(
+            Operations.ADDITION, Operations.SUBTRACTIONS, Operations.MULTIPLICATION
+    );
 
     private static final String ANSWER_SQUARE_MATRIX = """
             Введите размер матрицы в виде одного числа n
@@ -30,9 +33,9 @@ public class ChooseOperationsCommand implements Command {
 
     @Override
     public Command execute(Long chatId, String addInfo) {
-        operation = Operations.fromString(addInfo);
+        operation = Operations.fromString(addInfo.toLowerCase(Locale.ROOT));
         UsersData.setUsersState(chatId, StateEnum.MATRIX_SIZE_INPUT);
-        int matricesNumber = operationsWithTwoMatrix.contains(addInfo) ? 2 : 1;
+        int matricesNumber = operationsWithTwoMatrix.contains(operation) ? 2 : 1;
         UsersData.setUsersMatrixData(chatId, new MatrixData(operation, matricesNumber));
         return this;
     }

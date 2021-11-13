@@ -6,7 +6,7 @@ import practice_telegram_bot.telegram.UsersData;
 import practice_telegram_bot.telegram.commands.Command;
 
 public class StartMatrixCommand implements Command {
-    private static final String ANSWER = """
+    public static final String ANSWER = """
             Доступны следующие операции с матрицами:
                Решить систему методом Гаусса: "Гаусс"
                Нахождение определителя: "определитель"

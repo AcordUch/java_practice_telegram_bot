@@ -74,7 +74,7 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
             answer = ANSWER_ON_NULL_MASSAGE;
         }
         else{
-            answer = commandManager.processCommand(chatId, messageText.toLowerCase(Locale.ROOT));
+            answer = commandManager.processCommand(chatId, messageText);
         }
         if(!answer.isEmpty()){
             sendAnswer(chatId, answer);
@@ -85,7 +85,7 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
     public void processNonCommandUpdate(InnerUpdate update){
         String message = update.getMessage();
         Long chatId = update.getChatId();
-        var answer = commandManager.processCommand(chatId, message.toLowerCase(Locale.ROOT));
+        var answer = commandManager.processCommand(chatId, message);
         if(!answer.isEmpty()){
             sendAnswer(chatId, answer);
         }

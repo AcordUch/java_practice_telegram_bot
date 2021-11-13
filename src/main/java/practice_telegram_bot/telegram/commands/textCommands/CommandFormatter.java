@@ -4,10 +4,7 @@ import practice_telegram_bot.enums.CommandEnum;
 import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.exceptions.TooLongSentenceExceptions;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static java.util.Map.entry;
 
@@ -32,6 +29,9 @@ public class CommandFormatter {
             return optionalCommand;
         }
         var tokens = command.split(" ");
+        if(tokens[0].equals(TextSendCommand.TEXTCOMMPREFIX)){
+            return Optional.of(CommandEnum.TEXT_SEND);
+        }
         if(tokens.length > MAX_COMMAND_LENGTH){
             throw new TooLongSentenceExceptions();
         }
