@@ -2,10 +2,13 @@ package practice_telegram_bot.telegram;
 
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import practice_telegram_bot.GlobalConst;
 import practice_telegram_bot.service.CommandEventListener;
 import practice_telegram_bot.service.InnerUpdate;
 import practice_telegram_bot.telegram.commands.service.AboutCommand;
@@ -14,11 +17,10 @@ import practice_telegram_bot.telegram.commands.textCommands.CommandManager;
 import practice_telegram_bot.telegram.commands.service.StartCommand;
 import practice_telegram_bot.telegram.commands.service.StateCommand;
 
+import java.io.File;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
-import java.util.Locale;
-
 
 public class Bot extends TelegramLongPollingCommandBot implements CommandEventListener {
     private final String BOT_NAME;
@@ -85,6 +87,11 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
     public void processNonCommandUpdate(InnerUpdate update){
         String message = update.getMessage();
         Long chatId = update.getChatId();
+        if(message.equals(GlobalConst.SEND_MATRIX_IMAGE_COMMAND)){
+            sendPicAnswer(chatId);
+            checkOnInnerUpdateAndProcess();
+            return;
+        }
         var answer = commandManager.processCommand(chatId, message);
         if(!answer.isEmpty()){
             sendAnswer(chatId, answer);
@@ -109,9 +116,20 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
         }
     }
 
+    private void sendPicAnswer(Long chatId){
+        SendPhoto answer = new SendPhoto();
+        answer.setPhoto(new InputFile(new File(GlobalConst.WAY_TO_MATRIX_IMAGE)));
+        answer.setChatId(chatId.toString());
+        try {
+            execute(answer);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
-    public void executeNextCommand(Long chatId, String message) {
-        updateToProcess.add(new InnerUpdate(chatId, message));
+    public void executeNextCommand(InnerUpdate innerUpdate) {
+        updateToProcess.add(innerUpdate);
     }
 
     public void checkOnInnerUpdateAndProcess(){

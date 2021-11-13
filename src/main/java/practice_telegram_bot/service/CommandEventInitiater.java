@@ -10,7 +10,7 @@ public abstract class CommandEventInitiater implements CommandEventInitiaterInte
 
     protected void notifyListeners(Long chatId, String message){
         for (var listener : eventListeners){
-            listener.executeNextCommand(chatId, message);
+            listener.executeNextCommand(new InnerUpdate(chatId, message));
         }
     }
 }
