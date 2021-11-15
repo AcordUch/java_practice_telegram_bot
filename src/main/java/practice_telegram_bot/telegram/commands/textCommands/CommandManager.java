@@ -15,11 +15,11 @@ import java.util.Map;
 import static java.util.Map.entry;
 
 public class CommandManager {
-    public static final ReturnToMenuCommand returnToMenuCommand = new ReturnToMenuCommand();
+    public static final ReturnToMenuCommand RETURN_TO_MENU_COMMAND = new ReturnToMenuCommand();
     private static final Map<CommandEnum, Command> COMMAND_MAP = Map.ofEntries(
             entry(CommandEnum.MATRIX, new StartMatrixCommand()),
             entry(CommandEnum.GAME, new StartGameCommand()),
-            entry(CommandEnum.RETURN, returnToMenuCommand),
+            entry(CommandEnum.RETURN, RETURN_TO_MENU_COMMAND),
             entry(CommandEnum.MATRIX_OPERATIONS, new ChooseOperationsCommand()),
             entry(CommandEnum.MATRIX_SIZE, new MatrixSizeInputCommand()),
             entry(CommandEnum.MATRIX_ROW, new MatrixInputCommand()),
@@ -34,8 +34,7 @@ public class CommandManager {
                     input.toLowerCase(Locale.ROOT), UsersData.getUserState(usedId)
             );
             if(command.isPresent()){
-                var temp = COMMAND_MAP.get(command.get());
-                return temp.execute(usedId, input).formAnswer();
+                return COMMAND_MAP.get(command.get()).execute(usedId, input).formAnswer();
             }
             else{
                 return "В нынешнем состоянии команда не доступна";

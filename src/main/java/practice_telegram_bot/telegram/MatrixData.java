@@ -51,4 +51,14 @@ public class MatrixData {
     public MatrixBuilder getMatrixBuilder(){
         return matrixBuilder;
     }
+
+    public String getLastMatrixSizeAsString(){
+        return matrices.isEmpty() ?
+                "" :
+                String.format(
+                        "%s %s",
+                        matrices.get(matrices.size() - 1).getVerticalSize(),
+                        matrices.get(matrices.size() - 1).getHorizontalSize()
+                );
+    }
 }

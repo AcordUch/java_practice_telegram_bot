@@ -6,7 +6,7 @@ import practice_telegram_bot.exceptions.IncorrectNumberOfElements;
 import practice_telegram_bot.matrix.MatrixOperationsController;
 import practice_telegram_bot.service.CommandEventInitiater;
 import practice_telegram_bot.service.CommandEventListener;
-import practice_telegram_bot.telegram.TestImageCreate;
+import practice_telegram_bot.telegram.MatrixImageCreate;
 import practice_telegram_bot.telegram.UsersData;
 import practice_telegram_bot.telegram.commands.Command;
 import practice_telegram_bot.telegram.commands.textCommands.TextSendCommand;
@@ -44,9 +44,10 @@ public class MatrixResultOutputCommand extends CommandEventInitiater implements 
             answer = e.toString();
         }
         UsersData.setUsersState(chatId, StateEnum.MATRIX_OPERATION_SELECT);
-        notifyListeners(chatId, GlobalConst.SEND_MATRIX_IMAGE_COMMAND);
+        notifyListeners(chatId, GlobalConst.SEND_MATRIX_IMAGE_STRING);
         notifyListeners(chatId, TextSendCommand.formText(StartMatrixCommand.ANSWER));
-        TestImageCreate.createImage(answer);
+        new MatrixImageCreate().createImage(answer);
+
         return this;
         //TODO: Добавить возможность ввести матрицы повторно
     }

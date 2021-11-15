@@ -42,7 +42,12 @@ public class MatrixInputCommand extends CommandEventInitiater implements Command
                 }
                 else{
                     UsersData.setUsersState(chatId, StateEnum.MATRIX_SIZE_INPUT);
-                    answer = "Введите размер следующей матрицы";
+                    if(matrixData.operation.sameMatrixSize){
+                        notifyListeners(chatId, matrixData.getLastMatrixSizeAsString());
+                    }
+                    else{
+                        answer = "Введите размер следующей матрицы";
+                    }
                 }
             }
         }

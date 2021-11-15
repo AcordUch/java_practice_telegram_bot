@@ -5,8 +5,9 @@ import java.util.Map;
 import static java.util.Map.entry;
 
 public enum Operations {
-    ADDITION(2), SUBTRACTIONS(2), MULTIPLICATION(2),
-    DETERMINANT(1), GAUSS_SOLUTION(2);
+    ADDITION(2, true), SUBTRACTIONS(2, true),
+    MULTIPLICATION(2, false),
+    DETERMINANT(1, false), GAUSS_SOLUTION(2, false);
     private static final Map<String, Operations> INTERPRETATION_MAP = Map.ofEntries(
             entry("сложение", ADDITION),
             entry("вычитание", SUBTRACTIONS),
@@ -15,10 +16,12 @@ public enum Operations {
             entry("гаусс", GAUSS_SOLUTION)
     );
 
-    public final int numOfArguments;
+    public final int numOfSizeArguments;
+    public final boolean sameMatrixSize;
 
-    Operations(int numArg){
-        numOfArguments = numArg;
+    Operations(int numSizeArg, boolean sameMatrixSize){
+        numOfSizeArguments = numSizeArg;
+        this.sameMatrixSize = sameMatrixSize;
     }
 
     public static Operations fromString(String str){

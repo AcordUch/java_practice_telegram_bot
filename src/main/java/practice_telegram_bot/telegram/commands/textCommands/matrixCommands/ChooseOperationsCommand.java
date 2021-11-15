@@ -28,7 +28,7 @@ public class ChooseOperationsCommand implements Command {
 
     @Override
     public String formAnswer() {
-        return operation.numOfArguments == 1 ? ANSWER_SQUARE_MATRIX : ANSWER_COMMON_MATRIX;
+        return operation.numOfSizeArguments == 1 ? ANSWER_SQUARE_MATRIX : ANSWER_COMMON_MATRIX;
     }
 
     @Override

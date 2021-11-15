@@ -58,7 +58,7 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
             String userName =getUserName(message);
             System.out.printf("Пользователь: %s\nChatID: %s\nСообщение: %s\n", userName, chatId.toString(), message.getText());
             if(!UsersData.containUserState(chatId)){
-                var answer = CommandManager.returnToMenuCommand.execute(chatId, "").formAnswer();
+                var answer = CommandManager.RETURN_TO_MENU_COMMAND.execute(chatId, "").formAnswer();
                 sendAnswer(chatId, answer);
                 return;
             }
@@ -87,8 +87,8 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
     public void processNonCommandUpdate(InnerUpdate update){
         String message = update.getMessage();
         Long chatId = update.getChatId();
-        if(message.equals(GlobalConst.SEND_MATRIX_IMAGE_COMMAND)){
-            sendPicAnswer(chatId);
+        if(message.equals(GlobalConst.SEND_MATRIX_IMAGE_STRING)){
+            sendPicture(chatId, new File(GlobalConst.WAY_TO_MATRIX_IMAGE));
             checkOnInnerUpdateAndProcess();
             return;
         }
@@ -116,9 +116,9 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
         }
     }
 
-    private void sendPicAnswer(Long chatId){
+    private void sendPicture(Long chatId, File picture){
         SendPhoto answer = new SendPhoto();
-        answer.setPhoto(new InputFile(new File(GlobalConst.WAY_TO_MATRIX_IMAGE)));
+        answer.setPhoto(new InputFile(picture));
         answer.setChatId(chatId.toString());
         try {
             execute(answer);
