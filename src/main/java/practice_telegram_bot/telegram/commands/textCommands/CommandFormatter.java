@@ -3,6 +3,7 @@ package practice_telegram_bot.telegram.commands.textCommands;
 import practice_telegram_bot.enums.CommandEnum;
 import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.exceptions.TooLongSentenceExceptions;
+import practice_telegram_bot.telegram.commands.AvailableCommands;
 
 import java.util.*;
 
@@ -23,10 +24,10 @@ public class CommandFormatter {
     );
 
     public static Optional<CommandEnum> formatCommand(String command, StateEnum state) throws TooLongSentenceExceptions {
-        var optionalCommand = STATE_WITH_ARBITRARY_INPUT
-                                                        .getOrDefault(state, Optional.empty());
-        if(optionalCommand.isPresent()){
-            return optionalCommand;
+        var arbitraryInputCommand = STATE_WITH_ARBITRARY_INPUT
+                                                            .getOrDefault(state, Optional.empty());
+        if(arbitraryInputCommand.isPresent()){
+            return arbitraryInputCommand;
         }
         var tokens = command.split(" ");
         if(tokens[0].equals(TextSendCommand.TEXTCOMMPREFIX)){
@@ -37,7 +38,8 @@ public class CommandFormatter {
         }
         for (var token : tokens){
             for(var kvPair : COMMAND_MAP.entrySet()){
-                if(kvPair.getValue().contains(token)){
+                if(kvPair.getValue().contains(token)
+                        && AvailableCommands.checkingForAvailability(state, kvPair.getKey())){
                     return Optional.of(kvPair.getKey());
                 }
             }
