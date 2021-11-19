@@ -11,7 +11,6 @@ import practice_telegram_bot.telegram.UsersData;
 import practice_telegram_bot.telegram.commands.Command;
 import practice_telegram_bot.telegram.commands.textCommands.TextSendCommand;
 
-
 public class MatrixResultOutputCommand extends CommandEventInitiater implements Command{
     private static final String ANSWER = """
             Типо результат. Перенаправление на выбор операции
@@ -36,6 +35,8 @@ public class MatrixResultOutputCommand extends CommandEventInitiater implements 
             var matrix = MatrixOperationsController.makeOperation(userData);
             if(matrix.isPresent()) {
                 answer = matrix.get().toString();
+                new MatrixImageCreate().createImage(matrix.get());
+                notifyListeners(chatId, GlobalConst.SEND_MATRIX_IMAGE_STRING);
             }
             else{
                 answer = "Матрицы не совпадают по размеру\nWIP: или данная операция ещё не реализована";
@@ -44,9 +45,7 @@ public class MatrixResultOutputCommand extends CommandEventInitiater implements 
             answer = e.toString();
         }
         UsersData.setUsersState(chatId, StateEnum.MATRIX_OPERATION_SELECT);
-        notifyListeners(chatId, GlobalConst.SEND_MATRIX_IMAGE_STRING);
         notifyListeners(chatId, TextSendCommand.formText(StartMatrixCommand.ANSWER));
-        new MatrixImageCreate().createImage(answer);
 
         return this;
         //TODO: Добавить возможность ввести матрицы повторно
