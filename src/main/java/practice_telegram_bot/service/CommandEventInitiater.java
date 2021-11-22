@@ -1,5 +1,6 @@
 package practice_telegram_bot.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,12 @@ public abstract class CommandEventInitiater implements CommandEventInitiaterInte
     protected void notifyListeners(Long chatId, String message){
         for (var listener : eventListeners){
             listener.executeNextCommand(new InnerUpdate(chatId, message));
+        }
+    }
+
+    protected void notifyListeners(Long chatId, File picture){
+        for (var listener : eventListeners){
+            listener.executeNextCommand(new InnerUpdate(chatId, picture));
         }
     }
 }

@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 public class MatrixImageCreate {
+    private static MatrixImageCreate instance = null;
     private static final int DEFAULT_WIDTH = 300;
     private static final int DEFAULT_HEIGHT = 450;
     private static final int SHIFT = 16;
@@ -21,7 +22,20 @@ public class MatrixImageCreate {
     private int canvasWidth = DEFAULT_WIDTH;
     private int canvasHeight = DEFAULT_HEIGHT;
 
-    public void createImage(Matrix rawMatrix){
+    public static MatrixImageCreate instance(){
+        if(instance == null){
+            instance = new MatrixImageCreate();
+        }
+        return instance;
+    }
+
+    private MatrixImageCreate(){}
+
+    public File getImage(){
+        return new File(GlobalConst.WAY_TO_MATRIX_IMAGE);
+    }
+
+    public MatrixImageCreate createImage(Matrix rawMatrix){
         var matrix = prepareText(rawMatrix);
         setupCanvasSize(matrix);
         BufferedImage bufferedImage = new BufferedImage(canvasWidth, canvasHeight,
@@ -36,6 +50,7 @@ public class MatrixImageCreate {
             e.printStackTrace();
         }
         System.out.println("Image Created");
+        return this;
     }
 
     private String[] prepareText(Matrix rawMatrix){

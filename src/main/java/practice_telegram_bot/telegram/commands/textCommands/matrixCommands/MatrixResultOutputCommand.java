@@ -35,8 +35,8 @@ public class MatrixResultOutputCommand extends CommandEventInitiater implements 
             var matrix = MatrixOperationsController.makeOperation(userData);
             if(matrix.isPresent()) {
                 answer = matrix.get().toString();
-                new MatrixImageCreate().createImage(matrix.get());
-                notifyListeners(chatId, GlobalConst.SEND_MATRIX_IMAGE_STRING);
+                var picture = MatrixImageCreate.instance().createImage(matrix.get()).getImage();
+                notifyListeners(chatId, picture);
             }
             else{
                 answer = "Матрицы не совпадают по размеру\nWIP: или данная операция ещё не реализована";

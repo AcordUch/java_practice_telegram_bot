@@ -8,7 +8,6 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import practice_telegram_bot.GlobalConst;
 import practice_telegram_bot.service.CommandEventListener;
 import practice_telegram_bot.service.InnerUpdate;
 import practice_telegram_bot.telegram.commands.service.AboutCommand;
@@ -74,8 +73,7 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
         var answer = "";
         if(messageText == null || messageText.isEmpty()) {
             answer = ANSWER_ON_NULL_MASSAGE;
-        }
-        else{
+        } else{
             answer = commandManager.processCommand(chatId, messageText);
         }
         if(!answer.isEmpty()){
@@ -85,16 +83,16 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
     }
 
     public void processNonCommandUpdate(InnerUpdate update){
-        String message = update.getMessage();
         Long chatId = update.getChatId();
-        if(message.equals(GlobalConst.SEND_MATRIX_IMAGE_STRING)){
-            sendPicture(chatId, new File(GlobalConst.WAY_TO_MATRIX_IMAGE));
-            checkOnInnerUpdateAndProcess();
-            return;
-        }
-        var answer = commandManager.processCommand(chatId, message);
-        if(!answer.isEmpty()){
-            sendAnswer(chatId, answer);
+        var message = update.tryGetMessage();
+        var picture = update.tryGetPicture();
+        if(message.presented){
+            var answer = commandManager.processCommand(chatId, message.content);
+            if(!answer.isEmpty()){
+                sendAnswer(chatId, answer);
+            }
+        } else if (picture.presented){
+            sendPicture(chatId, picture.content);
         }
         checkOnInnerUpdateAndProcess();
     }
