@@ -85,10 +85,6 @@ public class MatrixImageCreator {
         return cellSize;
     }
 
-    private int len(double e){
-        return String.valueOf(e).length();
-    }
-
     private String buildString(char c, int n) {
         char[] arr = new char[n];
         Arrays.fill(arr, c);
