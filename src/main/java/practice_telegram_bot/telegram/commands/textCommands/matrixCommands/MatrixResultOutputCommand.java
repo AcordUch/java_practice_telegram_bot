@@ -1,12 +1,11 @@
 package practice_telegram_bot.telegram.commands.textCommands.matrixCommands;
 
-import practice_telegram_bot.GlobalConst;
 import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.exceptions.IncorrectNumberOfElements;
 import practice_telegram_bot.matrix.MatrixOperationsController;
 import practice_telegram_bot.service.CommandEventInitiater;
 import practice_telegram_bot.service.CommandEventListener;
-import practice_telegram_bot.telegram.MatrixImageCreate;
+import practice_telegram_bot.telegram.MatrixImageCreator;
 import practice_telegram_bot.telegram.UsersData;
 import practice_telegram_bot.telegram.commands.Command;
 import practice_telegram_bot.telegram.commands.textCommands.TextSendCommand;
@@ -35,7 +34,7 @@ public class MatrixResultOutputCommand extends CommandEventInitiater implements 
             var matrix = MatrixOperationsController.makeOperation(userData);
             if(matrix.isPresent()) {
                 answer = matrix.get().toString();
-                var picture = MatrixImageCreate.instance().createImage(matrix.get()).getImage();
+                var picture = MatrixImageCreator.instance().createImage(matrix.get()).getImage();
                 notifyListeners(chatId, picture);
             }
             else{

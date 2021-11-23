@@ -12,8 +12,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class MatrixImageCreate {
-    private static MatrixImageCreate instance = null;
+public class MatrixImageCreator {
+    private static MatrixImageCreator instance = null;
     private static final int DEFAULT_WIDTH = 300;
     private static final int DEFAULT_HEIGHT = 450;
     private static final int SHIFT = 16;
@@ -22,20 +22,20 @@ public class MatrixImageCreate {
     private int canvasWidth = DEFAULT_WIDTH;
     private int canvasHeight = DEFAULT_HEIGHT;
 
-    public static MatrixImageCreate instance(){
+    public static MatrixImageCreator instance(){
         if(instance == null){
-            instance = new MatrixImageCreate();
+            instance = new MatrixImageCreator();
         }
         return instance;
     }
 
-    private MatrixImageCreate(){}
+    private MatrixImageCreator(){}
 
     public File getImage(){
         return new File(GlobalConst.WAY_TO_MATRIX_IMAGE);
     }
 
-    public MatrixImageCreate createImage(Matrix rawMatrix){
+    public MatrixImageCreator createImage(Matrix rawMatrix){
         var matrix = prepareText(rawMatrix);
         setupCanvasSize(matrix);
         BufferedImage bufferedImage = new BufferedImage(canvasWidth, canvasHeight,
@@ -60,9 +60,9 @@ public class MatrixImageCreate {
         var rowBuilder = new StringBuilder(rowLength);
         for(int row = 0; row < rawMatrix.getVerticalSize(); row++){
             for(int column = 0; column < rawMatrix.getHorizontalSize(); column++){
-                var element = rawMatrix.getElement(row, column);
+                var element = String.format("%,.3f", rawMatrix.getElement(row, column));
                 rowBuilder
-                        .append(buildString(' ', cellSize[column] - len(element)))
+                        .append(buildString(' ', cellSize[column] - element.length()))
                         .append(element)
                         .append(' ');
             }
@@ -78,7 +78,7 @@ public class MatrixImageCreate {
             for(int column = 0; column < rawMatrix.getHorizontalSize(); column++){
                 cellSize[column] = Math.max(
                         cellSize[column],
-                        String.valueOf(rawMatrix.getElement(row, column)).length()
+                        String.format("%,.3f", rawMatrix.getElement(row, column)).length()
                 );
             }
         }
