@@ -11,7 +11,7 @@ import static java.util.Map.entry;
 import static practice_telegram_bot.enums.StateEnum.*;
 
 public class AvailableCommands {
-    public static final String RETURN_COMMAND = "меню";
+    public static final String RETURN_TO_MENU_COMMAND = "меню";
 
     private static final Map<StateEnum, List<CommandEnum>> availableCommands = Map.ofEntries(
             entry(START, List.of(CommandEnum.GAME, CommandEnum.MATRIX)),
@@ -29,7 +29,7 @@ public class AvailableCommands {
         }
         catch(Exception ex){
             System.out.println("Ошибка в getAvailableCommands: значение ключа не найдено");
-            return new ArrayList<CommandEnum>();
+            return new ArrayList<>();
         }
     }
 

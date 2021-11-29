@@ -37,20 +37,36 @@ public class MatrixImageCreator {
 
     public MatrixImageCreator createImage(Matrix rawMatrix){
         var matrix = prepareText(rawMatrix);
+
         setupCanvasSize(matrix);
-        BufferedImage bufferedImage = new BufferedImage(canvasWidth, canvasHeight,
-                BufferedImage.TYPE_INT_RGB);
+
+        BufferedImage bufferedImage = new BufferedImage(
+                canvasWidth,
+                canvasHeight,
+                BufferedImage.TYPE_INT_RGB
+        );
         Graphics graphics = bufferedImage.getGraphics();
+
         prepareTheCanvas(graphics);
         typeMatrix(graphics, matrix);
+
         try {
-            ImageIO.write(bufferedImage, "jpg", new File(
-                    GlobalConst.WAY_TO_MATRIX_IMAGE));
+            ImageIO.write(
+                    bufferedImage,
+                    "jpg",
+                    new File(GlobalConst.WAY_TO_MATRIX_IMAGE)
+            );
+            System.out.println("Image Created");
         } catch (IOException e) {
+            System.out.println("Error in image creation");
             e.printStackTrace();
         }
-        System.out.println("Image Created");
         return this;
+    }
+
+    private void setupCanvasSize(String[] key){
+        canvasWidth = SHIFT + key[0].length() * SHIFT;
+        canvasHeight = (int)(HEIGHT_SHIFT + key.length * HEIGHT_SHIFT);
     }
 
     private String[] prepareText(Matrix rawMatrix){
@@ -58,6 +74,7 @@ public class MatrixImageCreator {
         var result = new String[rawMatrix.getVerticalSize()];
         var rowLength = Arrays.stream(cellSize).sum();
         var rowBuilder = new StringBuilder(rowLength);
+
         for(int row = 0; row < rawMatrix.getVerticalSize(); row++){
             for(int column = 0; column < rawMatrix.getHorizontalSize(); column++){
                 var element = String.format("%,.3f", rawMatrix.getElement(row, column));
@@ -74,6 +91,7 @@ public class MatrixImageCreator {
 
     private int[] determineSizeOfMatrixCells(Matrix rawMatrix){
         var cellSize = new int[rawMatrix.getHorizontalSize()];
+
         for(int row = 0; row < rawMatrix.getVerticalSize(); row++){
             for(int column = 0; column < rawMatrix.getHorizontalSize(); column++){
                 cellSize[column] = Math.max(
@@ -89,11 +107,6 @@ public class MatrixImageCreator {
         char[] arr = new char[n];
         Arrays.fill(arr, c);
         return new String(arr);
-    }
-
-    private void setupCanvasSize(String[] key){
-        canvasWidth = SHIFT + key[0].length() * SHIFT;
-        canvasHeight = (int)(HEIGHT_SHIFT + key.length * HEIGHT_SHIFT);
     }
 
     private void prepareTheCanvas(Graphics graphics){

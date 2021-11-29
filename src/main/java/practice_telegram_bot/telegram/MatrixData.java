@@ -52,7 +52,7 @@ public class MatrixData {
         return matrixBuilder;
     }
 
-    public String getLastMatrixSizeAsString(){
+    public String lastMatrixSizeToString(){
         return matrices.isEmpty() ?
                 "" :
                 String.format(

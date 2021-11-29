@@ -33,6 +33,10 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
         BOT_NAME = botName;
         BOT_TOKEN = botToken;
         commandManager.addListenerForCommands(this);
+        registerServiceCommand();
+    }
+
+    private void registerServiceCommand(){
         register(new StartCommand("start", "Начало общения"));
         register(new StateCommand("state", "Показывает текущее положение"));
         register(new AboutCommand("about", "Показывает информацию о создателях бота"));
@@ -55,6 +59,7 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
             Message message = update.getMessage();
             Long chatId = message.getChatId();
             String userName =getUserName(message);
+
             System.out.printf("Пользователь: %s\nChatID: %s\nСообщение: %s\n", userName, chatId.toString(), message.getText());
             if(!UsersData.containUserState(chatId)){
                 var answer = CommandManager.RETURN_TO_MENU_COMMAND.execute(chatId, "").formAnswer();
@@ -69,13 +74,15 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
     public void processNonCommandUpdate(Update update) {
         Message message = update.getMessage();
         Long chatId = message.getChatId();
-        var messageText = message.getText();
-        var answer = "";
+        String messageText = message.getText();
+        String answer;
+
         if(messageText == null || messageText.isEmpty()) {
             answer = ANSWER_ON_NULL_MASSAGE;
         } else{
             answer = commandManager.processCommand(chatId, messageText);
         }
+
         if(!answer.isEmpty()){
             sendAnswer(chatId, answer);
         }
@@ -86,6 +93,7 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
         Long chatId = update.getChatId();
         var message = update.tryGetMessage();
         var picture = update.tryGetPicture();
+
         if(message.presented){
             var answer = commandManager.processCommand(chatId, message.content);
             if(!answer.isEmpty()){
@@ -126,9 +134,9 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
     }
 
     @Override
-    public void executeNextCommand(InnerUpdate innerUpdate) {
+    public void addUpdate(InnerUpdate innerUpdate) {
         updateToProcess.add(innerUpdate);
-    }
+    } //old name: executeNextCommand
 
     public void checkOnInnerUpdateAndProcess(){
         if(!updateToProcess.isEmpty()){

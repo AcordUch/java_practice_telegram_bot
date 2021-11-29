@@ -26,7 +26,7 @@ public class CommandManager {
             entry(CommandEnum.MATRIX_RESULT, new MatrixResultOutputCommand()),
             entry(CommandEnum.TEXT_SEND, new TextSendCommand())
     );
-    //TODO: Добавить возможность во время ввода матрицы возвратиться к выбору операции
+
     public String processCommand(Long usedId, String input) {
         try
         {

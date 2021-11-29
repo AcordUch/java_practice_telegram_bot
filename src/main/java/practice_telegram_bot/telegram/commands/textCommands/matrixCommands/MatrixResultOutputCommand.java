@@ -30,6 +30,7 @@ public class MatrixResultOutputCommand extends CommandEventInitiater implements 
     @Override
     public Command execute(Long chatId, String addInfo) {
         var userData = UsersData.getUserMatrixData(chatId);
+
         try {
             var matrix = MatrixOperationsController.makeOperation(userData);
             if(matrix.isPresent()) {
@@ -45,8 +46,6 @@ public class MatrixResultOutputCommand extends CommandEventInitiater implements 
         }
         UsersData.setUsersState(chatId, StateEnum.MATRIX_OPERATION_SELECT);
         notifyListeners(chatId, TextSendCommand.formText(StartMatrixCommand.ANSWER));
-
         return this;
-        //TODO: Добавить возможность ввести матрицы повторно
     }
 }

@@ -8,6 +8,7 @@ public enum Operations {
     ADDITION(2, true), SUBTRACTIONS(2, true),
     MULTIPLICATION(2, false),
     DETERMINANT(1, false), GAUSS_SOLUTION(2, false);
+
     private static final Map<String, Operations> INTERPRETATION_MAP = Map.ofEntries(
             entry("сложение", ADDITION),
             entry("вычитание", SUBTRACTIONS),

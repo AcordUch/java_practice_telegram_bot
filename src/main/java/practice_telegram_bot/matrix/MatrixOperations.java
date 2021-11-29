@@ -6,10 +6,9 @@ public class MatrixOperations {
     public static Matrix matrixAddition(Matrix firstMatrix, Matrix secondMatrix)
             throws NotEqualSizesOfMatrixException {
         if (firstMatrix.getHorizontalSize() != secondMatrix.getHorizontalSize() ||
-            firstMatrix.getVerticalSize() != secondMatrix.getVerticalSize()){
-            throw new NotEqualSizesOfMatrixException();
-        }
-        else {
+            firstMatrix.getVerticalSize() != secondMatrix.getVerticalSize()) {
+                throw new NotEqualSizesOfMatrixException();
+        } else {
             Matrix resultMatrix = new Matrix(firstMatrix.getVerticalSize(), secondMatrix.getHorizontalSize());
 
             for (int i = 0; i < resultMatrix.getVerticalSize(); i++) {
@@ -25,10 +24,9 @@ public class MatrixOperations {
     public static Matrix matrixSubtraction(Matrix firstMatrix, Matrix secondMatrix)
             throws NotEqualSizesOfMatrixException {
         if (firstMatrix.getHorizontalSize() != secondMatrix.getHorizontalSize() ||
-                firstMatrix.getVerticalSize() != secondMatrix.getVerticalSize()){
-            throw new NotEqualSizesOfMatrixException();
-        }
-        else {
+            firstMatrix.getVerticalSize() != secondMatrix.getVerticalSize()) {
+                throw new NotEqualSizesOfMatrixException();
+        } else {
             Matrix resultMatrix = new Matrix(firstMatrix.getVerticalSize(), secondMatrix.getHorizontalSize());
 
             for (int i = 0; i < resultMatrix.getVerticalSize(); i++) {
@@ -45,8 +43,7 @@ public class MatrixOperations {
             throws NotEqualSizesOfMatrixException {
         if (firstMatrix.getHorizontalSize() != secondMatrix.getVerticalSize()){
             throw new NotEqualSizesOfMatrixException();
-        }
-        else {
+        } else {
             Matrix resultMatrix = new Matrix(firstMatrix.getVerticalSize(), secondMatrix.getHorizontalSize());
             double itemCount = 0.0;
             

@@ -9,6 +9,7 @@ import java.io.*;
 public class TokenParser {
     public static Map<String, String> GetEnv(){
         var res = new HashMap<String, String>();
+
         try(BufferedReader reader = Files.newBufferedReader(Path.of("src//main//resources//bot_token.txt"))){
             for (int i = 0; i < 2; i++) {
                 var line = reader.readLine().split("=");
