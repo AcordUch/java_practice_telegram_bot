@@ -1,6 +1,7 @@
 package practice_telegram_bot.matrix;
 
 import practice_telegram_bot.exceptions.NotEqualSizesOfMatrixException;
+import practice_telegram_bot.exceptions.NotSquareMatrixException;
 
 public class MatrixOperations {
     public static Matrix matrixAddition(Matrix firstMatrix, Matrix secondMatrix)
@@ -61,6 +62,51 @@ public class MatrixOperations {
             }
 
             return resultMatrix;
+        }
+    }
+
+    public static Matrix countDeterminant(Matrix matrix)
+            throws NotSquareMatrixException {
+        if (matrix.getHorizontalSize() != matrix.getVerticalSize()){
+            throw new NotSquareMatrixException();
+        }
+        else {
+            var matrixL = new Matrix(matrix.getVerticalSize(), matrix.getHorizontalSize());
+            var matrixU = new Matrix(matrix.getVerticalSize(), matrix.getHorizontalSize());
+            var tempParam = 0.0;
+
+            for (int i = 0; i < matrix.getVerticalSize(); i++)
+                for (int j = 0; j < matrix.getVerticalSize(); j++) {
+                    matrixL.setElement(0, i, j);
+                    matrixU.setElement(0, i, j);
+                    matrixL.setElement(1, i, i);
+                }
+
+            for (int i = 0; i < matrix.getVerticalSize(); i++)
+                for (int j = 0; j < matrix.getVerticalSize(); j++) {
+                    if (i <= j) {
+                        for (int k = 0; k < i - 1; k++)
+                            tempParam += matrixL.getElement(i, k) * matrixU.getElement(k, j);
+                        matrixU.setElement(matrix.getElement(i, j) - tempParam, i, j);
+                    } else {
+                        for (int k = 0; k < j - 1; k++)
+                            tempParam += matrixL.getElement(i, k) * matrixU.getElement(k, j);
+                        matrixL.setElement((matrix.getElement(i, j) - tempParam) / matrixU.getElement(j, j), i, j);
+                    }
+                    tempParam = 0.0;
+                }
+
+            double determinantL = 0.0;
+            double determinantU = 0.0;
+
+            for (int i = 0; i < matrix.getVerticalSize(); i++) {
+                determinantL *= matrixL.getElement(i, i);
+                determinantU *= matrixU.getElement(i, i);
+            }
+
+            var result = new Matrix(1);
+            result.setElement(determinantL * determinantU, 1, 1);
+            return result;
         }
     }
 }
