@@ -39,6 +39,7 @@ public class MatrixBuilder {
         if (elements.length != matrix.getHorizontalSize()){
             throw new IncorrectNumberOfElements();
         }
+
         for(var column = 0; column < elements.length; column++){
             matrix.setElement(Double.parseDouble(elements[column]), row, column);
         }

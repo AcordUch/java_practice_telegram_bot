@@ -13,6 +13,7 @@ public class StartMatrixCommand implements Command {
                Сложение и вычитание матриц: "сложение" или "вычитание"
                Умножение матриц: "умножение"
             """;
+
     @Override
     public String formAnswer() {
         return ANSWER;

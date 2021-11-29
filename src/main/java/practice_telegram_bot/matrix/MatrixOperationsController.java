@@ -15,6 +15,7 @@ public class MatrixOperationsController {
             entry(Operations.SUBTRACTIONS, new Subtraction()),
             entry(Operations.MULTIPLICATION, new Multiplication())
     );
+
     public static Optional<Matrix> makeOperation(MatrixData matrixData) throws IncorrectNumberOfElements {
         if(!OPERATIONS_MAP.containsKey(matrixData.operation)){
             return Optional.empty();

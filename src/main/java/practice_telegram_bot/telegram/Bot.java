@@ -2,6 +2,8 @@ package practice_telegram_bot.telegram;
 
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
@@ -14,11 +16,10 @@ import practice_telegram_bot.telegram.commands.textCommands.CommandManager;
 import practice_telegram_bot.telegram.commands.service.StartCommand;
 import practice_telegram_bot.telegram.commands.service.StateCommand;
 
+import java.io.File;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
-import java.util.Locale;
-
 
 public class Bot extends TelegramLongPollingCommandBot implements CommandEventListener {
     private final String BOT_NAME;
@@ -32,6 +33,10 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
         BOT_NAME = botName;
         BOT_TOKEN = botToken;
         commandManager.addListenerForCommands(this);
+        registerServiceCommand();
+    }
+
+    private void registerServiceCommand(){
         register(new StartCommand("start", "Начало общения"));
         register(new StateCommand("state", "Показывает текущее положение"));
         register(new AboutCommand("about", "Показывает информацию о создателях бота"));
@@ -54,9 +59,10 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
             Message message = update.getMessage();
             Long chatId = message.getChatId();
             String userName =getUserName(message);
+
             System.out.printf("Пользователь: %s\nChatID: %s\nСообщение: %s\n", userName, chatId.toString(), message.getText());
             if(!UsersData.containUserState(chatId)){
-                var answer = CommandManager.returnToMenuCommand.execute(chatId, "").formAnswer();
+                var answer = CommandManager.RETURN_TO_MENU_COMMAND.execute(chatId, "").formAnswer();
                 sendAnswer(chatId, answer);
                 return;
             }
@@ -68,14 +74,15 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
     public void processNonCommandUpdate(Update update) {
         Message message = update.getMessage();
         Long chatId = message.getChatId();
-        var messageText = message.getText();
-        var answer = "";
+        String messageText = message.getText();
+        String answer;
+
         if(messageText == null || messageText.isEmpty()) {
             answer = ANSWER_ON_NULL_MASSAGE;
-        }
-        else{
+        } else{
             answer = commandManager.processCommand(chatId, messageText);
         }
+
         if(!answer.isEmpty()){
             sendAnswer(chatId, answer);
         }
@@ -83,11 +90,17 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
     }
 
     public void processNonCommandUpdate(InnerUpdate update){
-        String message = update.getMessage();
         Long chatId = update.getChatId();
-        var answer = commandManager.processCommand(chatId, message);
-        if(!answer.isEmpty()){
-            sendAnswer(chatId, answer);
+        var message = update.tryGetMessage();
+        var picture = update.tryGetPicture();
+
+        if(message.presented){
+            var answer = commandManager.processCommand(chatId, message.content);
+            if(!answer.isEmpty()){
+                sendAnswer(chatId, answer);
+            }
+        } else if (picture.presented){
+            sendPicture(chatId, picture.content);
         }
         checkOnInnerUpdateAndProcess();
     }
@@ -109,10 +122,21 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
         }
     }
 
-    @Override
-    public void executeNextCommand(Long chatId, String message) {
-        updateToProcess.add(new InnerUpdate(chatId, message));
+    private void sendPicture(Long chatId, File picture){
+        SendPhoto answer = new SendPhoto();
+        answer.setPhoto(new InputFile(picture));
+        answer.setChatId(chatId.toString());
+        try {
+            execute(answer);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
     }
+
+    @Override
+    public void addUpdate(InnerUpdate innerUpdate) {
+        updateToProcess.add(innerUpdate);
+    } //old name: executeNextCommand
 
     public void checkOnInnerUpdateAndProcess(){
         if(!updateToProcess.isEmpty()){
