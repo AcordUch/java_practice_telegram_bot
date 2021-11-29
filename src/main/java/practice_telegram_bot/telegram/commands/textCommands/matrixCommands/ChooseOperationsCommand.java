@@ -28,14 +28,15 @@ public class ChooseOperationsCommand implements Command {
 
     @Override
     public String formAnswer() {
-        return operation.numOfArguments == 1 ? ANSWER_SQUARE_MATRIX : ANSWER_COMMON_MATRIX;
+        return operation.numOfSizeArguments == 1 ? ANSWER_SQUARE_MATRIX : ANSWER_COMMON_MATRIX;
     }
 
     @Override
     public Command execute(Long chatId, String addInfo) {
         operation = Operations.fromString(addInfo.toLowerCase(Locale.ROOT));
-        UsersData.setUsersState(chatId, StateEnum.MATRIX_SIZE_INPUT);
         int matricesNumber = operationsWithTwoMatrix.contains(operation) ? 2 : 1;
+
+        UsersData.setUsersState(chatId, StateEnum.MATRIX_SIZE_INPUT);
         UsersData.setUsersMatrixData(chatId, new MatrixData(operation, matricesNumber));
         return this;
     }

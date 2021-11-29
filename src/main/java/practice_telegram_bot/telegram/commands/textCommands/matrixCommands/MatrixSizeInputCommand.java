@@ -1,6 +1,5 @@
 package practice_telegram_bot.telegram.commands.textCommands.matrixCommands;
 
-import practice_telegram_bot.enums.Operations;
 import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.exceptions.IncorrectNumberOfElements;
 import practice_telegram_bot.telegram.UsersData;
@@ -26,7 +25,8 @@ public class MatrixSizeInputCommand implements Command {
         var matrixData = UsersData.getUserMatrixData(chatId);
         var input = addInfo.split(" ");
         answer = ANSWER_SQUARE_MATRIX;
-        if(input.length != matrixData.operation.numOfArguments){
+
+        if(input.length != matrixData.operation.numOfSizeArguments){
             answer = "Вы ввели неправильное количество элементов, попробуйте ещё раз";
             return this;
         }
@@ -35,8 +35,7 @@ public class MatrixSizeInputCommand implements Command {
             UsersData.setUsersState(chatId, StateEnum.MATRIX_INPUT);
         } catch (IncorrectNumberOfElements e) {
             answer = "Произошла непонятная ошибка, попробуйте ещё раз";
-        }
-        catch (NumberFormatException e){
+        } catch (NumberFormatException e){
             answer = "Вы ввели некорректное значение, попробуйте ещё раз";
         }
         return this;

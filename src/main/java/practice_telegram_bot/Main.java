@@ -15,6 +15,7 @@ public class Main {
         if(!getenv.containsKey("BOT_NAME")){
             getenv = TokenParser.GetEnv();
         }
+
         try{
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
             botsApi.registerBot(new Bot(getenv.get("BOT_NAME"), getenv.get("BOT_TOKEN")));

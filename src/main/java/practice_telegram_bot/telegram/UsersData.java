@@ -31,11 +31,11 @@ public class UsersData {
     }
 
     public static MatrixData getUserMatrixData(Long userId){
-        var res = usersMatrixData.get(userId);
-        if(res == null){
+        var result = usersMatrixData.get(userId);
+        if(result == null){
             System.out.printf("method getUserMatrix; usedId %s не найдено", userId);
         }
-        return res;
+        return result;
     }
 
     public static void setUsersMatrixData(Long userId, MatrixData matrixData){

@@ -15,6 +15,7 @@ public class Addition implements Operation{
             case 0:
                 throw new IncorrectNumberOfElements("По какой-то причине было передано 0 матриц"); 
         }
+
         var accumulator = Optional.of(matrices.get(0));
         for(int i = 1; i < matrices.size(); i++){
             try {
