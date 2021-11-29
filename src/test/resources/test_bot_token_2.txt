@@ -1,0 +1,2 @@
+BOT_NAME=project_bot
+BOT_TOKEN=3984567.2346

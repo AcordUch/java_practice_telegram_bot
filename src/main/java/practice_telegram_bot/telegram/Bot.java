@@ -1,20 +1,41 @@
 package practice_telegram_bot.telegram;
 
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import practice_telegram_bot.service.CommandEventListener;
+import practice_telegram_bot.service.InnerUpdate;
+import practice_telegram_bot.telegram.commands.service.AboutCommand;
+import practice_telegram_bot.telegram.commands.service.HelpCommand;
+import practice_telegram_bot.telegram.commands.textCommands.CommandManager;
+import practice_telegram_bot.telegram.commands.service.StartCommand;
+import practice_telegram_bot.telegram.commands.service.StateCommand;
 
-public class Bot extends TelegramLongPollingBot {
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.List;
+import java.util.Locale;
+
+
+public class Bot extends TelegramLongPollingCommandBot implements CommandEventListener {
     private final String BOT_NAME;
     private final String BOT_TOKEN;
+    private final String ANSWER_ON_NULL_MASSAGE = "Ваше сообщение не распознано, попробуйте ещё раз";
+    private final CommandManager commandManager = new CommandManager();
+    private final Deque<InnerUpdate> updateToProcess = new ArrayDeque<>();
 
     public Bot(String botName, String botToken)
     {
         BOT_NAME = botName;
         BOT_TOKEN = botToken;
+        commandManager.addListenerForCommands(this);
+        register(new StartCommand("start", "Начало общения"));
+        register(new StateCommand("state", "Показывает текущее положение"));
+        register(new AboutCommand("about", "Показывает информацию о создателях бота"));
+        register(new HelpCommand("help", "Показывает информацию о боте и доступные команды"));
     }
     @Override
     public String getBotUsername() {
@@ -27,13 +48,48 @@ public class Bot extends TelegramLongPollingBot {
     }
 
     @Override
-    public void onUpdateReceived(Update update) {
-        System.out.println("new Update Received");
+    public void onUpdatesReceived(List<Update> updates) {
+        System.out.println("\nnew Update Received");
+        for (var update : updates) {
+            Message message = update.getMessage();
+            Long chatId = message.getChatId();
+            String userName =getUserName(message);
+            System.out.printf("Пользователь: %s\nChatID: %s\nСообщение: %s\n", userName, chatId.toString(), message.getText());
+            if(!UsersData.containUserState(chatId)){
+                var answer = CommandManager.returnToMenuCommand.execute(chatId, "").formAnswer();
+                sendAnswer(chatId, answer);
+                return;
+            }
+        }
+        super.onUpdatesReceived(updates);
+    }
+
+    @Override
+    public void processNonCommandUpdate(Update update) {
         Message message = update.getMessage();
-        Long chatID = message.getChatId();
-        String userName =getUserName(message);
-        System.out.printf("Пользователь: %s\nChatID: %s\nСообщение: %s\n", userName, chatID.toString(), message.getText());
-        sendAnswer(chatID, String.format("Вы только что мне сказали: %s", message.getText()));
+        Long chatId = message.getChatId();
+        var messageText = message.getText();
+        var answer = "";
+        if(messageText == null || messageText.isEmpty()) {
+            answer = ANSWER_ON_NULL_MASSAGE;
+        }
+        else{
+            answer = commandManager.processCommand(chatId, messageText);
+        }
+        if(!answer.isEmpty()){
+            sendAnswer(chatId, answer);
+        }
+        checkOnInnerUpdateAndProcess();
+    }
+
+    public void processNonCommandUpdate(InnerUpdate update){
+        String message = update.getMessage();
+        Long chatId = update.getChatId();
+        var answer = commandManager.processCommand(chatId, message);
+        if(!answer.isEmpty()){
+            sendAnswer(chatId, answer);
+        }
+        checkOnInnerUpdateAndProcess();
     }
 
     private String getUserName(Message msg){
@@ -50,6 +106,17 @@ public class Bot extends TelegramLongPollingBot {
             execute(answer);
         } catch (TelegramApiException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void executeNextCommand(Long chatId, String message) {
+        updateToProcess.add(new InnerUpdate(chatId, message));
+    }
+
+    public void checkOnInnerUpdateAndProcess(){
+        if(!updateToProcess.isEmpty()){
+            processNonCommandUpdate(updateToProcess.pop());
         }
     }
 }
