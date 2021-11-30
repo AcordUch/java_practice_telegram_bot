@@ -1,11 +1,8 @@
 package practice_telegram_bot.matrix;
 
-import practice_telegram_bot.exceptions.IncorrectNumberOfElements;
 import practice_telegram_bot.exceptions.NoSolutionException;
 import practice_telegram_bot.exceptions.IndexOutOfRangeException;
-
-import java.util.List;
-import java.util.Optional;
+import practice_telegram_bot.service.TryWrapper;
 
 public class GaussianAlgorithmOperation {
     public static Matrix solve(Matrix initialMatrix) throws NoSolutionException, IndexOutOfRangeException {
@@ -29,9 +26,10 @@ public class GaussianAlgorithmOperation {
 
         for (int mColumn = 0; mColumn < matrix.getHorizontalSize(); mColumn++)
         {
-            var activeRow = tryGetNotUsedRow(matrix, mColumn, wasRowBeenUsed).getSecond();
+            var tryResult = tryGetNotUsedRow(matrix, mColumn, wasRowBeenUsed);
+            var activeRow = tryResult.content;
 
-            if(tryGetNotUsedRow(matrix, mColumn, wasRowBeenUsed).getFirst())
+            if(!tryGetNotUsedRow(matrix, mColumn, wasRowBeenUsed).presented)
                 continue;
 
             for (int row = 0; row < matrix.getVerticalSize(); row++) {
@@ -88,26 +86,27 @@ public class GaussianAlgorithmOperation {
         return result;
     }
 
-    private static Result tryGetNotUsedRow(Matrix matrix, int column, boolean[] wasRowBeenUsed)
+    private static TryWrapper<Integer> tryGetNotUsedRow(Matrix matrix, int column, boolean[] wasRowBeenUsed)
     {
         int row;
         for (int mRow = 0; mRow < wasRowBeenUsed.length; mRow++) {
             if (matrix.getElement(mRow, column) != 0 && !wasRowBeenUsed[mRow]) {
                 row = mRow;
                 wasRowBeenUsed[mRow] = true;
-                return new Result(false, row);
+                return new TryWrapper<>(true, row);
             }
         }
 
-        row = -1;
-        return new Result(true, row);
+        return new TryWrapper<>(false, null);
     }
 
     private static int getNotUsedRow(Matrix matrix, int column, boolean[] wasRowBeenUsed)
             throws IndexOutOfRangeException {
-        var row = tryGetNotUsedRow(matrix, column, wasRowBeenUsed).getSecond();
+        var getResult = tryGetNotUsedRow(matrix, column, wasRowBeenUsed);
 
-        if (row != -1) return row;
+        if (getResult.presented)
+            return getResult.content;
+
         for (int mRow = 0; mRow < wasRowBeenUsed.length; mRow++) {
             if (!wasRowBeenUsed[mRow]) {
                 wasRowBeenUsed[mRow] = true;
@@ -117,23 +116,5 @@ public class GaussianAlgorithmOperation {
 
         throw new IndexOutOfRangeException("Ошибка внутри метода GetNotUsedRow." +
                 " Не использованная строка не найдета");
-    }
-}
-
-final class Result {
-    private final boolean first;
-    private final int second;
-
-    public Result(boolean first, int second) {
-        this.first = first;
-        this.second = second;
-    }
-
-    public boolean getFirst() {
-        return first;
-    }
-
-    public int getSecond() {
-        return second;
     }
 }

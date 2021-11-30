@@ -8,13 +8,6 @@ import practice_telegram_bot.exceptions.NoSolutionException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GaussianAlgorithmTest {
-//    private GaussianAlgorithmOperation solver;
-//
-//    @BeforeEach
-//    void setUp() {
-//        solver = new GaussianAlgorithmOperation();
-//    }
-
     @Test
     void GaussianAlgorithm2x2() throws IndexOutOfRangeException, NoSolutionException {
         var matrix = new Matrix(2, 2);
