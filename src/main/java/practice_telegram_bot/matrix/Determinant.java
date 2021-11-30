@@ -9,9 +9,10 @@ import java.util.Optional;
 public class Determinant implements Operation {
     @Override
     public Optional<Matrix> apply(List<Matrix> matrices) throws IncorrectNumberOfElements {
-        if (matrices.size() == 0) {
-            throw new IncorrectNumberOfElements("По какой-то причине было передано 0 матриц");
+        if (matrices.size() != 1) {
+            throw new IncorrectNumberOfElements("По какой-то причине была передана не одна матрица");
         }
+
         try {
             return Optional.of(MatrixOperations.countDeterminant(matrices.get(0)));
         } catch (NotSquareMatrixException e) {

@@ -8,12 +8,12 @@ import practice_telegram_bot.exceptions.NoSolutionException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GaussianAlgorithmTest {
-    private GaussianAlgorithm solver;
-
-    @BeforeEach
-    void setUp() {
-        solver = new GaussianAlgorithm();
-    }
+//    private GaussianAlgorithmOperation solver;
+//
+//    @BeforeEach
+//    void setUp() {
+//        solver = new GaussianAlgorithmOperation();
+//    }
 
     @Test
     void GaussianAlgorithm2x2() throws IndexOutOfRangeException, NoSolutionException {
@@ -34,7 +34,7 @@ class GaussianAlgorithmTest {
         var expectedMatrix = """
                 1.0
                 """;
-        var resultMatrix = solver.solve(matrix).toString();
+        var resultMatrix = GaussianAlgorithmOperation.solve(matrix).toString();
 
         assertEquals(expectedMatrix, resultMatrix);
     }
@@ -58,7 +58,7 @@ class GaussianAlgorithmTest {
         var expectedMatrix = """
                 2.0
                 """;
-        var resultMatrix = solver.solve(matrix).toString();
+        var resultMatrix = GaussianAlgorithmOperation.solve(matrix).toString();
 
         assertEquals(expectedMatrix, resultMatrix);
     }
@@ -82,7 +82,7 @@ class GaussianAlgorithmTest {
         var expectedMatrix = """
                 0.5
                 """;
-        var resultMatrix = solver.solve(matrix).toString();
+        var resultMatrix = GaussianAlgorithmOperation.solve(matrix).toString();
 
         assertEquals(expectedMatrix, resultMatrix);
     }
@@ -107,7 +107,7 @@ class GaussianAlgorithmTest {
                 0.0
                 0.0
                 """;
-        var resultMatrix = solver.solve(matrix).toString();
+        var resultMatrix = GaussianAlgorithmOperation.solve(matrix).toString();
 
         assertEquals(expectedMatrix, resultMatrix);
     }
@@ -133,7 +133,7 @@ class GaussianAlgorithmTest {
                 0.0
                 6.0
                 """;
-        var resultMatrix = solver.solve(matrix).toString();
+        var resultMatrix = GaussianAlgorithmOperation.solve(matrix).toString();
 
         assertEquals(expectedMatrix, resultMatrix);
     }
@@ -159,7 +159,7 @@ class GaussianAlgorithmTest {
                 0.0
                 1.8
                 """;
-        var resultMatrix = solver.solve(matrix).toString();
+        var resultMatrix = GaussianAlgorithmOperation.solve(matrix).toString();
 
         assertEquals(expectedMatrix, resultMatrix);
     }
@@ -186,7 +186,7 @@ class GaussianAlgorithmTest {
                 0.0
                 0.0
                 """;
-        var resultMatrix = solver.solve(matrix).toString();
+        var resultMatrix = GaussianAlgorithmOperation.solve(matrix).toString();
 
         assertEquals(expectedMatrix, resultMatrix);
     }
@@ -213,7 +213,7 @@ class GaussianAlgorithmTest {
                 0.0
                 0.0
                 """;
-        var resultMatrix = solver.solve(matrix).toString();
+        var resultMatrix = GaussianAlgorithmOperation.solve(matrix).toString();
 
         assertEquals(expectedMatrix, resultMatrix);
     }
@@ -242,7 +242,7 @@ class GaussianAlgorithmTest {
                 0.0
                 0.0
                 """;
-        var resultMatrix = solver.solve(matrix).toString();
+        var resultMatrix = GaussianAlgorithmOperation.solve(matrix).toString();
 
         assertEquals(expectedMatrix, resultMatrix);
     }
@@ -272,7 +272,7 @@ class GaussianAlgorithmTest {
                 0.0
                 -98.0
                 """;
-        var resultMatrix = solver.solve(matrix).toString();
+        var resultMatrix = GaussianAlgorithmOperation.solve(matrix).toString();
 
         assertEquals(expectedMatrix, resultMatrix);
     }
