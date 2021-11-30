@@ -2,6 +2,7 @@ package practice_telegram_bot.matrix;
 
 import org.junit.jupiter.api.Test;
 import practice_telegram_bot.exceptions.NotEqualSizesOfMatrixException;
+import practice_telegram_bot.exceptions.NotSquareMatrixException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,7 +35,7 @@ class MatrixOperationsTest {
         var firstMatrix = new Matrix(5, 6);
         var secondMatrix = new Matrix(3, 8);
 
-        assertThrows(NotEqualSizesOfMatrixException.class, ()->
+        assertThrows(NotEqualSizesOfMatrixException.class, () ->
                 MatrixOperations.matrixAddition(firstMatrix, secondMatrix));
     }
 
@@ -93,7 +94,88 @@ class MatrixOperationsTest {
         var firstMatrix = new Matrix(4, 3);
         var secondMatrix = new Matrix(2, 9);
 
-        assertThrows(NotEqualSizesOfMatrixException.class, ()->
+        assertThrows(NotEqualSizesOfMatrixException.class, () ->
                 MatrixOperations.matrixMultiply(firstMatrix, secondMatrix));
+    }
+
+    @Test
+    void matrixDeterminantTest1() throws NotSquareMatrixException {
+        var matrix = new Matrix(4, 4);
+
+        var initialMatrix = """
+                7.0 8.0 1.0 4.0
+                7.0 5.0 1.0 2.0
+                2.0 7.0 6.0 4.0
+                8.0 2.0 4.0 5.0
+                """;
+
+        var parseRow = initialMatrix.split("\n");
+
+        for (int i = 0; i < matrix.getVerticalSize(); i++)
+            for (int j = 0; j < matrix.getHorizontalSize(); j++) {
+                matrix.setElement(Double.parseDouble(parseRow[i].split(" ")[j]), i, j);
+            }
+
+        var expectedMatrix = """
+                -640.0
+                """;
+        var resultMatrix = MatrixOperations.countDeterminant(matrix).toString();
+
+        assertEquals(expectedMatrix, resultMatrix);
+    }
+
+    @Test
+    void matrixDeterminantTest2() throws NotSquareMatrixException {
+        var matrix = new Matrix(1, 1);
+
+        var initialMatrix = """
+                1
+                """;
+
+        var parseRow = initialMatrix.split("\n");
+
+        for (int i = 0; i < matrix.getVerticalSize(); i++)
+            for (int j = 0; j < matrix.getHorizontalSize(); j++) {
+                matrix.setElement(Double.parseDouble(parseRow[i].split(" ")[j]), i, j);
+            }
+
+        var expectedMatrix = """
+                1.0
+                """;
+        var resultMatrix = MatrixOperations.countDeterminant(matrix).toString();
+
+        assertEquals(expectedMatrix, resultMatrix);
+    }
+
+    @Test
+    void matrixZeroDeterminantTest() throws NotSquareMatrixException {
+        var matrix = new Matrix(2, 2);
+
+        var initialMatrix = """
+                0.0 0.0
+                0.0 0.0
+                """;
+
+        var parseRow = initialMatrix.split("\n");
+
+        for (int i = 0; i < matrix.getVerticalSize(); i++)
+            for (int j = 0; j < matrix.getHorizontalSize(); j++) {
+                matrix.setElement(Double.parseDouble(parseRow[i].split(" ")[j]), i, j);
+            }
+
+        var expectedMatrix = """
+                0.0
+                """;
+        var resultMatrix = MatrixOperations.countDeterminant(matrix).toString();
+
+        assertEquals(expectedMatrix, resultMatrix);
+    }
+
+    @Test
+    void matrixDeterminantTestNotSquareMatrix() {
+        var matrix = new Matrix(5, 4);
+
+        assertThrows(NotSquareMatrixException.class, () ->
+                MatrixOperations.countDeterminant(matrix));
     }
 }
