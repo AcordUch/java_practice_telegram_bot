@@ -13,7 +13,9 @@ public class MatrixOperationsController {
     private static final Map<Operations, Operation> OPERATIONS_MAP = Map.ofEntries(
             entry(Operations.ADDITION, new Addition()),
             entry(Operations.SUBTRACTIONS, new Subtraction()),
-            entry(Operations.MULTIPLICATION, new Multiplication())
+            entry(Operations.MULTIPLICATION, new Multiplication()),
+            entry(Operations.DETERMINANT, new Determinant()),
+            entry(Operations.GAUSS_SOLUTION, new GaussianAlgorithm())
     );
     public static Optional<Matrix> makeOperation(MatrixData matrixData) throws IncorrectNumberOfElements {
         if(!OPERATIONS_MAP.containsKey(matrixData.operation)){
