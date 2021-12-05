@@ -21,7 +21,7 @@ public class StartCommand extends ServiceCommand{
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
         Long chatId = chat.getId();
-        UsersData.setUsersState(chatId, StateEnum.START);
+        UsersData.instance().setUsersState(chatId, StateEnum.START);
         sendAnswer(absSender, chat.getId(), ANSWER);
     }
 

@@ -31,7 +31,7 @@ public class CommandManager {
         try
         {
             var command = CommandFormatter.formatCommand(
-                    input.toLowerCase(Locale.ROOT), UsersData.getUserState(usedId)
+                    input.toLowerCase(Locale.ROOT), UsersData.instance().getUserState(usedId)
             );
             if(command.isPresent()){
                 return COMMAND_MAP.get(command.get()).execute(usedId, input).formAnswer();

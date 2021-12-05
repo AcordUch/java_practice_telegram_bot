@@ -23,12 +23,8 @@ public class MatrixData {
         return matrices.size();
     }
 
-    public int numberOfMatricesToEnter(){
-        return numberOfMatricesToEnter;
-    }
-
-    public void reduceNumberOfMatricesToEnter(){
-        numberOfMatricesToEnter--;
+    public boolean matrixInputCompleted(){
+        return numberOfMatricesToEnter < 1;
     }
 
     public Optional<Matrix> tryGetMatrix(int index){
@@ -42,6 +38,14 @@ public class MatrixData {
 
     public void addMatrix(Matrix matrix){
         matrices.add(matrix);
+        numberOfMatricesToEnter--;
+    }
+
+    /**
+     * Берет матрицу из MatrixBuilder и добавляет её в список матриц
+     */
+    public void buildMatrix(){
+        addMatrix(matrixBuilder.buildMatrix());
     }
 
     public List<Matrix> getMatricesList(){

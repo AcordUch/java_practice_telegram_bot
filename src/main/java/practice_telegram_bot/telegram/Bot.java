@@ -61,7 +61,7 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
             String userName =getUserName(message);
 
             System.out.printf("Пользователь: %s\nChatID: %s\nСообщение: %s\n", userName, chatId.toString(), message.getText());
-            if(!UsersData.containUserState(chatId)){
+            if(!UsersData.instance().containUserState(chatId)){
                 var answer = CommandManager.RETURN_TO_MENU_COMMAND.execute(chatId, "").formAnswer();
                 sendAnswer(chatId, answer);
                 return;

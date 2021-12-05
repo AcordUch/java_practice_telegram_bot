@@ -14,10 +14,14 @@ public class StateCommand extends ServiceCommand {
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
         Long chatId = chat.getId();
-        var state = UsersData.getUserState(chatId);
-        sendAnswer(absSender, chatId,
-                String.format("Текущее состояние: %s\nДоступные команды: \n%s",
+        var state = UsersData.instance().getUserState(chatId);
+        sendAnswer(
+                absSender, chatId,
+                String.format(
+                        "Текущее состояние: %s\nДоступные команды: \n%s",
                         state,
-                        AvailableCommands.getAvailableCommandsAsString(state)));
+                        AvailableCommands.getAvailableCommandsAsString(state)
+                )
+        );
     }
 }
