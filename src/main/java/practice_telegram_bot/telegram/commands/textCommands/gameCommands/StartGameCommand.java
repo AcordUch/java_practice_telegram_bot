@@ -15,7 +15,7 @@ public class StartGameCommand implements Command {
 
     @Override
     public Command execute(Long chatId, String addInfo) {
-        UsersData.setUsersState(chatId, StateEnum.GAME_START);
+        UsersData.instance().setUsersState(chatId, StateEnum.GAME_START);
         return this;
     }
 }

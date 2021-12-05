@@ -36,8 +36,8 @@ public class ChooseOperationsCommand implements Command {
         operation = Operations.fromString(addInfo.toLowerCase(Locale.ROOT));
         int matricesNumber = operationsWithTwoMatrix.contains(operation) ? 2 : 1;
 
-        UsersData.setUsersState(chatId, StateEnum.MATRIX_SIZE_INPUT);
-        UsersData.setUsersMatrixData(chatId, new MatrixData(operation, matricesNumber));
+        UsersData.instance().setUsersState(chatId, StateEnum.MATRIX_SIZE_INPUT);
+        UsersData.instance().setUsersMatrixData(chatId, new MatrixData(operation, matricesNumber));
         return this;
     }
 }

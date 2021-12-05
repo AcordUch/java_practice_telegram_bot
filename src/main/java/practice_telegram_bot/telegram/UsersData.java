@@ -7,10 +7,25 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UsersData {
-    private static final Map<Long, StateEnum> usersState = new HashMap<>();
-    private static final Map<Long, MatrixData> usersMatrixData = new HashMap<>();
+    private final Map<Long, StateEnum> usersState = new HashMap<>();
+    private final Map<Long, MatrixData> usersMatrixData = new HashMap<>();
 
-    public static StateEnum getUserState(Long chatId){
+    private static UsersData instance = null;
+
+    private UsersData(){}
+
+    public static UsersData instance(){
+        if(instance == null){
+            instance = new UsersData();
+        }
+        return instance;
+    }
+
+    public static void clearInstance(){
+        instance = null;
+    }
+
+    public StateEnum getUserState(Long chatId){
         var res = usersState.get(chatId);
         if(res == null){
             System.out.printf("method getUserState; usedId %s не найдено", chatId);
@@ -18,19 +33,19 @@ public class UsersData {
         return res;
     }
 
-    public static void setUsersState(Long chatId, StateEnum state){
+    public void setUsersState(Long chatId, StateEnum state){
         usersState.put(chatId, state);
     }
 
-    public static boolean containUserState(Long chatId){
+    public boolean containUserState(Long chatId){
         return usersState.containsKey(chatId);
     }
 
-    public static boolean containUserMatrix(Long chatId){
+    public boolean containUserMatrix(Long chatId){
         return usersMatrixData.containsKey(chatId);
     }
 
-    public static MatrixData getUserMatrixData(Long userId){
+    public MatrixData getUserMatrixData(Long userId){
         var result = usersMatrixData.get(userId);
         if(result == null){
             System.out.printf("method getUserMatrix; usedId %s не найдено", userId);
@@ -38,11 +53,11 @@ public class UsersData {
         return result;
     }
 
-    public static void setUsersMatrixData(Long userId, MatrixData matrixData){
+    public void setUsersMatrixData(Long userId, MatrixData matrixData){
         usersMatrixData.put(userId, matrixData);
     }
 
-    public static void clearUsersMatrixData(Long userId){
+    public void clearUsersMatrixData(Long userId){
         usersMatrixData.remove(userId);
     }
 }

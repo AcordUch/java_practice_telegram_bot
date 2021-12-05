@@ -28,7 +28,7 @@ public class HelpCommand extends ServiceCommand {
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
         Long chatId = chat.getId();
-        var state = UsersData.getUserState(chatId);
+        var state = UsersData.instance().getUserState(chatId);
         sendAnswer(absSender, chatId, makeHelpMessage(state));
     }
 

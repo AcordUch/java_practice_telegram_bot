@@ -21,8 +21,8 @@ public class StartMatrixCommand implements Command {
 
     @Override
     public Command execute(Long chatId, String addInfo) {
-        UsersData.setUsersState(chatId, StateEnum.MATRIX_OPERATION_SELECT);
-        UsersData.clearUsersMatrixData(chatId);
+        UsersData.instance().setUsersState(chatId, StateEnum.MATRIX_OPERATION_SELECT);
+        UsersData.instance().clearUsersMatrixData(chatId);
         return this;
     }
 }

@@ -23,7 +23,7 @@ public class MatrixInputCommand extends CommandEventInitiater implements Command
     @Override
     public Command execute(Long chatId, String addInfo){
         var lines = addInfo.split("\n");
-        var matrixData = UsersData.getUserMatrixData(chatId);
+        var matrixData = UsersData.instance().getUserMatrixData(chatId);
         var builder = matrixData.getMatrixBuilder();
 
         for(var line : lines){
@@ -36,15 +36,14 @@ public class MatrixInputCommand extends CommandEventInitiater implements Command
                 builder.addRow(line);
                 answer = "";
                 if(builder.checkForFilling()){
-                    matrixData.addMatrix(builder.buildMatrix());
-                    matrixData.reduceNumberOfMatricesToEnter();
+                    matrixData.buildMatrix();
 
-                    if(matrixData.numberOfMatricesToEnter() < 1) {
-                        UsersData.setUsersState(chatId, StateEnum.MATRIX_RESULT_OUTPUT);
+                    if(matrixData.matrixInputCompleted()) {
+                        UsersData.instance().setUsersState(chatId, StateEnum.MATRIX_RESULT_OUTPUT);
                         notifyListeners(chatId, "результат");
                         answer = "Ввод матрицы завершен";
                     } else {
-                        UsersData.setUsersState(chatId, StateEnum.MATRIX_SIZE_INPUT);
+                        UsersData.instance().setUsersState(chatId, StateEnum.MATRIX_SIZE_INPUT);
                         if(matrixData.operation.sameMatrixSize) {
                             notifyListeners(chatId, matrixData.lastMatrixSizeToString());
                         } else {

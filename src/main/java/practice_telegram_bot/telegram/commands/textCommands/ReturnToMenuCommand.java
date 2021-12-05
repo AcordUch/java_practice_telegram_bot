@@ -13,7 +13,7 @@ public class ReturnToMenuCommand implements Command {
 
     @Override
     public Command execute(Long chatId, String addInfo) {
-        UsersData.setUsersState(chatId, StateEnum.START);
+        UsersData.instance().setUsersState(chatId, StateEnum.START);
         return this;
     }
 }

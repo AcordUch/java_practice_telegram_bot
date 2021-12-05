@@ -29,7 +29,7 @@ public class MatrixResultOutputCommand extends CommandEventInitiater implements 
 
     @Override
     public Command execute(Long chatId, String addInfo) {
-        var userData = UsersData.getUserMatrixData(chatId);
+        var userData = UsersData.instance().getUserMatrixData(chatId);
 
         try {
             var matrix = MatrixOperationsController.makeOperation(userData);
@@ -44,7 +44,8 @@ public class MatrixResultOutputCommand extends CommandEventInitiater implements 
         } catch (IncorrectNumberOfElements e) {
             answer = e.toString();
         }
-        UsersData.setUsersState(chatId, StateEnum.MATRIX_OPERATION_SELECT);
+        UsersData.instance().clearUsersMatrixData(chatId);
+        UsersData.instance().setUsersState(chatId, StateEnum.MATRIX_OPERATION_SELECT);
         notifyListeners(chatId, TextSendCommand.formText(StartMatrixCommand.ANSWER));
         return this;
     }

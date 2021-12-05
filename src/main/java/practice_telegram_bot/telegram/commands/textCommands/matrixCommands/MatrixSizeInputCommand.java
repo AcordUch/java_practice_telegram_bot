@@ -22,7 +22,7 @@ public class MatrixSizeInputCommand implements Command {
 
     @Override
     public Command execute(Long chatId, String addInfo) {
-        var matrixData = UsersData.getUserMatrixData(chatId);
+        var matrixData = UsersData.instance().getUserMatrixData(chatId);
         var input = addInfo.split(" ");
         answer = ANSWER_SQUARE_MATRIX;
 
@@ -32,7 +32,7 @@ public class MatrixSizeInputCommand implements Command {
         }
         try {
             matrixData.getMatrixBuilder().createNewMatrix(input);
-            UsersData.setUsersState(chatId, StateEnum.MATRIX_INPUT);
+            UsersData.instance().setUsersState(chatId, StateEnum.MATRIX_INPUT);
         } catch (IncorrectNumberOfElements e) {
             answer = "Произошла непонятная ошибка, попробуйте ещё раз";
         } catch (NumberFormatException e){
