@@ -3,6 +3,7 @@ package practice_telegram_bot.telegram.commands.service;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
+import practice_telegram_bot.database.StateManagerAOD;
 import practice_telegram_bot.database.UserDataAOD;
 import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.telegram.UsersData;
@@ -23,7 +24,8 @@ public class StartCommand extends ServiceCommand{
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
         Long chatId = chat.getId();
         UsersData.instance().setUsersState(chatId, StateEnum.START);
-        UserDataAOD.save(new practice_telegram_bot.database.User(chatId));
+        StateManagerAOD.delete(chatId);
+        StateManagerAOD.save(new practice_telegram_bot.database.User(chatId));
         sendAnswer(absSender, chat.getId(), ANSWER);
     }
 

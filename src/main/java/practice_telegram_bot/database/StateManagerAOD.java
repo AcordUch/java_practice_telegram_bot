@@ -35,4 +35,15 @@ public class StateManagerAOD {
         tx1.commit();
         session.close();
     }
+
+    public static void delete(Long id){
+        User user = findById(id);
+        if(user != null){
+            Session session = HibernateSessionFactoryUtil2.getSessionFactory().openSession();
+            Transaction tx1 = session.beginTransaction();
+            session.delete(user);
+            tx1.commit();
+            session.close();
+        }
+    }
 }

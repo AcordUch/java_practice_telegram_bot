@@ -3,6 +3,7 @@ package practice_telegram_bot.telegram.commands.service;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
+import practice_telegram_bot.database.StateManagerAOD;
 import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.telegram.commands.AvailableCommands;
 import practice_telegram_bot.telegram.UsersData;
@@ -28,7 +29,7 @@ public class HelpCommand extends ServiceCommand {
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
         Long chatId = chat.getId();
-        var state = UsersData.instance().getUserState(chatId);
+        var state = StateManagerAOD.findById(chatId).getState();
         sendAnswer(absSender, chatId, makeHelpMessage(state));
     }
 
