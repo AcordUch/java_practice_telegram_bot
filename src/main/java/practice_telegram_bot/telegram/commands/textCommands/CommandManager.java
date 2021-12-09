@@ -1,5 +1,8 @@
 package practice_telegram_bot.telegram.commands.textCommands;
 
+import practice_telegram_bot.database.StateManagerAOD;
+import practice_telegram_bot.database.User;
+import practice_telegram_bot.database.UserDataAOD;
 import practice_telegram_bot.enums.CommandEnum;
 import practice_telegram_bot.exceptions.TooLongSentenceExceptions;
 import practice_telegram_bot.service.CommandEventInitiater;
@@ -28,10 +31,16 @@ public class CommandManager {
     );
 
     public String processCommand(Long usedId, String input) {
+        User userData = StateManagerAOD.findById(usedId);
+        if (userData == null) {
+            userData = new User(usedId);
+            StateManagerAOD.save(userData);
+        }
+
         try
         {
             var command = CommandFormatter.formatCommand(
-                    input.toLowerCase(Locale.ROOT), UsersData.instance().getUserState(usedId)
+                    input.toLowerCase(Locale.ROOT), userData.getState()
             );
             if(command.isPresent()){
                 return COMMAND_MAP.get(command.get()).execute(usedId, input).formAnswer();

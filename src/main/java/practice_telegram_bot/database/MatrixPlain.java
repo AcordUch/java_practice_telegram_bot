@@ -1,13 +1,16 @@
 package practice_telegram_bot.database;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Embeddable
+@Entity
 public class MatrixPlain {
+    @Id
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     @ElementCollection
     private List<Double> matrix;
 
@@ -18,6 +21,14 @@ public class MatrixPlain {
     private int columnLength;
 
     public MatrixPlain(){}
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public List<Double> getMatrix() {
         return matrix;

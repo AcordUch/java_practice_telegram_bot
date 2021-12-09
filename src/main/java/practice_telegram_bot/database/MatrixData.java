@@ -19,10 +19,11 @@ public class MatrixData {
     @Enumerated(EnumType.STRING)
     private Operations operation;
 
-    @ElementCollection
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "matrices")
     private List<MatrixPlain> matrices;
 
-    @Embedded
+    @OneToOne(targetEntity = MatrixBuilderData.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private MatrixBuilderData matrixBuilder;
 
     private int matricesNumberToEnter;

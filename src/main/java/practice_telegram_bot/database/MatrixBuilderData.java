@@ -2,18 +2,29 @@ package practice_telegram_bot.database;
 
 import practice_telegram_bot.matrix.Matrix;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
-@Embeddable
+@Entity
 public class MatrixBuilderData {
-    @Column(name = "matrix")
+    @Id
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @OneToOne(targetEntity = MatrixPlain.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private MatrixPlain matrix;
     @Column(name = "rowToInput")
     private int rowToInput;
 
     public MatrixBuilderData() {
         rowToInput = 0;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public MatrixPlain getMatrix() {
