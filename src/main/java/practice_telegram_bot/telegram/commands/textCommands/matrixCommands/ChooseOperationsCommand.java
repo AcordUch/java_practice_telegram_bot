@@ -2,7 +2,7 @@ package practice_telegram_bot.telegram.commands.textCommands.matrixCommands;
 
 import practice_telegram_bot.enums.Operations;
 import practice_telegram_bot.enums.StateEnum;
-import practice_telegram_bot.telegram.MatrixData;
+import practice_telegram_bot.telegram.MatrixDataLegacy;
 import practice_telegram_bot.telegram.UsersData;
 import practice_telegram_bot.telegram.commands.Command;
 
@@ -37,7 +37,7 @@ public class ChooseOperationsCommand implements Command {
         int matricesNumber = operationsWithTwoMatrix.contains(operation) ? 2 : 1;
 
         UsersData.instance().setUsersState(chatId, StateEnum.MATRIX_SIZE_INPUT);
-        UsersData.instance().setUsersMatrixData(chatId, new MatrixData(operation, matricesNumber));
+        UsersData.instance().setUsersMatrixData(chatId, new MatrixDataLegacy(operation, matricesNumber));
         return this;
     }
 }

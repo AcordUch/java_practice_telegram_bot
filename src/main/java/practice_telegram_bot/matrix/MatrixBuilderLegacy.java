@@ -2,24 +2,24 @@ package practice_telegram_bot.matrix;
 
 import practice_telegram_bot.exceptions.IncorrectNumberOfElements;
 
-public class MatrixBuilder {
+public class MatrixBuilderLegacy {
     private Matrix matrix;
     private int rowToInput = 0;
 
-    public MatrixBuilder(){}
+    public MatrixBuilderLegacy(){}
 
-    public MatrixBuilder(String matrixSize, String matrix) throws IncorrectNumberOfElements {
+    public MatrixBuilderLegacy(String matrixSize, String matrix) throws IncorrectNumberOfElements {
         this.createNewMatrix(matrixSize);
         for (var row : matrix.split("\n")){
             this.addRow(row);
         }
     }
 
-    public MatrixBuilder createNewMatrix(String input) throws IncorrectNumberOfElements {
+    public MatrixBuilderLegacy createNewMatrix(String input) throws IncorrectNumberOfElements {
         return createNewMatrix(input.split(" "));
     }
 
-    public MatrixBuilder createNewMatrix(String[] input) throws IncorrectNumberOfElements, NumberFormatException {
+    public MatrixBuilderLegacy createNewMatrix(String[] input) throws IncorrectNumberOfElements, NumberFormatException {
         return switch (input.length) {
             case (1) -> createNewMatrix(Integer.parseInt(input[0]));
             case (2) -> createNewMatrix(Integer.parseInt(input[0]), Integer.parseInt(input[1]));
@@ -27,11 +27,11 @@ public class MatrixBuilder {
         };
     }
 
-    public MatrixBuilder createNewMatrix(int size){
+    public MatrixBuilderLegacy createNewMatrix(int size){
         return createNewMatrix(size, size);
     }
 
-    public MatrixBuilder createNewMatrix(int row, int column){
+    public MatrixBuilderLegacy createNewMatrix(int row, int column){
         matrix = new Matrix(row, column);
         rowToInput = 0;
         return this;
@@ -41,13 +41,13 @@ public class MatrixBuilder {
         return matrix.getHorizontalSize();
     }
 
-    public MatrixBuilder addRow(String strRow) throws IncorrectNumberOfElements {
+    public MatrixBuilderLegacy addRow(String strRow) throws IncorrectNumberOfElements {
         addRow(rowToInput, strRow);
         rowToInput++;
         return this;
     }
 
-    public MatrixBuilder addRow(int row, String strRow) throws IncorrectNumberOfElements {
+    public MatrixBuilderLegacy addRow(int row, String strRow) throws IncorrectNumberOfElements {
         if(checkForFilling())
             return this;
 

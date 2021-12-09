@@ -2,19 +2,19 @@ package practice_telegram_bot.telegram;
 
 import practice_telegram_bot.enums.Operations;
 import practice_telegram_bot.matrix.Matrix;
-import practice_telegram_bot.matrix.MatrixBuilder;
+import practice_telegram_bot.matrix.MatrixBuilderLegacy;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class MatrixData {
+public class MatrixDataLegacy {
     public final Operations operation;
     private final List<Matrix> matrices = new ArrayList<>();
-    private final MatrixBuilder matrixBuilder = new MatrixBuilder();
+    private final MatrixBuilderLegacy matrixBuilder = new MatrixBuilderLegacy();
     private int numberOfMatricesToEnter;
 
-    public MatrixData(Operations operation, int matricesNumber){
+    public MatrixDataLegacy(Operations operation, int matricesNumber){
         this.operation = operation;
         numberOfMatricesToEnter = matricesNumber;
     }
@@ -52,7 +52,7 @@ public class MatrixData {
         return matrices;
     }
 
-    public MatrixBuilder getMatrixBuilder(){
+    public MatrixBuilderLegacy getMatrixBuilder(){
         return matrixBuilder;
     }
 

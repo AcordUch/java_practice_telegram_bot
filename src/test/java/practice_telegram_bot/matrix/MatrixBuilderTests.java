@@ -8,11 +8,11 @@ import practice_telegram_bot.exceptions.IncorrectNumberOfElements;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MatrixBuilderTests {
-    private MatrixBuilder builder;
+    private MatrixBuilderLegacy builder;
 
     @Before
     public void setUp(){
-        builder = new MatrixBuilder();
+        builder = new MatrixBuilderLegacy();
     }
 
     @After
@@ -76,7 +76,7 @@ public class MatrixBuilderTests {
     @Test
     public void creatMatrixFromTemplate() throws IncorrectNumberOfElements {
         var expected = "2.0 2.1 2.2 2.3\n1.0 1.1 1.2 1.3\n0.0 0.1 0.2 0.3\n4.0 4.1 4.2 4.3\n";
-        builder = new MatrixBuilder(
+        builder = new MatrixBuilderLegacy(
                 "4 4",
                 "2.0 2.1 2.2 2.3\n1.0 1.1 1.2 1.3\n0.0 0.1 0.2 0.3\n4.0 4.1 4.2 4.3\n"
                 );
@@ -87,7 +87,7 @@ public class MatrixBuilderTests {
     @Test
     public void incompleteCreationFromTemplate() throws IncorrectNumberOfElements {
         var expected = "2.0 2.1 2.2 2.3\n1.0 1.1 1.2 1.3\n0.0 0.1 0.2 0.3\n0.0 0.0 0.0 0.0\n";
-        builder = new MatrixBuilder(
+        builder = new MatrixBuilderLegacy(
                 "4 4",
                 "2.0 2.1 2.2 2.3\n1.0 1.1 1.2 1.3\n0.0 0.1 0.2 0.3\n"
         );
@@ -98,7 +98,7 @@ public class MatrixBuilderTests {
     @Test
     public void overflowingCreationFromTemplate() throws IncorrectNumberOfElements {
         var expected = "2.0 2.1 2.2 2.3\n1.0 1.1 1.2 1.3\n0.0 0.1 0.2 0.3\n";
-        builder = new MatrixBuilder(
+        builder = new MatrixBuilderLegacy(
                 "3 4",
                 "2.0 2.1 2.2 2.3\n1.0 1.1 1.2 1.3\n0.0 0.1 0.2 0.3\n4.0 4.1 4.2 4.3\n5.0 5.0 5.0 5.0\n"
         );
