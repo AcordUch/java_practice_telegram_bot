@@ -1,7 +1,5 @@
 package practice_telegram_bot.database;
 
-import practice_telegram_bot.matrix.Matrix;
-
 import javax.persistence.*;
 
 @Entity
@@ -10,13 +8,21 @@ public class MatrixBuilderData {
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne(targetEntity = MatrixPlain.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private MatrixPlain matrix;
+
+    @OneToOne(targetEntity = PlainMatrix.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinColumn(name = "matrixBuilder_id")
+    private PlainMatrix matrix;
+
     @Column(name = "rowToInput")
     private int rowToInput;
 
     public MatrixBuilderData() {
         rowToInput = 0;
+    }
+
+    public MatrixBuilderData(PlainMatrix matrix, int rowToInput){
+        this.matrix = matrix;
+        this.rowToInput = rowToInput;
     }
 
     public Long getId() {
@@ -27,11 +33,11 @@ public class MatrixBuilderData {
         this.id = id;
     }
 
-    public MatrixPlain getMatrix() {
+    public PlainMatrix getMatrix() {
         return matrix;
     }
 
-    public void setMatrix(MatrixPlain matrix) {
+    public void setMatrix(PlainMatrix matrix) {
         this.matrix = matrix;
     }
 

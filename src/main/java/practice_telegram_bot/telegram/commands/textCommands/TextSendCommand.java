@@ -1,5 +1,6 @@
 package practice_telegram_bot.telegram.commands.textCommands;
 
+import practice_telegram_bot.database.User;
 import practice_telegram_bot.telegram.commands.Command;
 
 public class TextSendCommand implements Command {
@@ -16,7 +17,7 @@ public class TextSendCommand implements Command {
     }
 
     @Override
-    public Command execute(Long chatId, String addInfo) {
+    public Command execute(Long chatId, String addInfo, User userData) {
         answer = addInfo.split(" ", 2)[1];
         return this;
     }

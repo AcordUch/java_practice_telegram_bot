@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class UsersData {
     private final Map<Long, StateEnum> usersState = new HashMap<>();
-    private final Map<Long, MatrixDataLegacy> usersMatrixData = new HashMap<>();
+    private final Map<Long, MatrixData> usersMatrixData = new HashMap<>();
 
     private static UsersData instance = null;
 
@@ -44,7 +44,7 @@ public class UsersData {
         return usersMatrixData.containsKey(chatId);
     }
 
-    public MatrixDataLegacy getUserMatrixData(Long userId){
+    public MatrixData getUserMatrixData(Long userId){
         var result = usersMatrixData.get(userId);
         if(result == null){
             System.out.printf("method getUserMatrix; usedId %s не найдено", userId);
@@ -52,7 +52,7 @@ public class UsersData {
         return result;
     }
 
-    public void setUsersMatrixData(Long userId, MatrixDataLegacy matrixData){
+    public void setUsersMatrixData(Long userId, MatrixData matrixData){
         usersMatrixData.put(userId, matrixData);
     }
 

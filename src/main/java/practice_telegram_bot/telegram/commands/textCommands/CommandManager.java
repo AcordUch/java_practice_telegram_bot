@@ -36,6 +36,9 @@ public class CommandManager {
             userData = new User(usedId);
             StateManagerAOD.save(userData);
         }
+        if(userData.getMatrixData() != null){
+            userData.setPrev_id(userData.getMatrixData().getId());
+        }
 
         try
         {
@@ -43,7 +46,7 @@ public class CommandManager {
                     input.toLowerCase(Locale.ROOT), userData.getState()
             );
             if(command.isPresent()){
-                return COMMAND_MAP.get(command.get()).execute(usedId, input).formAnswer();
+                return COMMAND_MAP.get(command.get()).execute(usedId, input, userData).formAnswer();
             }
             else{
                 return "В нынешнем состоянии команда не доступна";
@@ -51,6 +54,9 @@ public class CommandManager {
         }
         catch (TooLongSentenceExceptions ex) {
             return "Вы ввели слишком длинное предложение, попробуйте сформулировать что вы хотите покороче";
+        }
+        finally {
+            StateManagerAOD.update(userData);
         }
     }
 

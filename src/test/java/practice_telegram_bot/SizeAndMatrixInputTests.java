@@ -34,8 +34,8 @@ public class SizeAndMatrixInputTests {
         usersData.setUsersState(firstId, StateEnum.MATRIX_OPERATION_SELECT);
         usersData.setUsersState(firstId, StateEnum.MATRIX_OPERATION_SELECT);
 
-        COMMAND_MAP.get(MATRIX_OPERATIONS).execute(firstId, "сложение");
-        COMMAND_MAP.get(MATRIX_OPERATIONS).execute(secondId, "сложение");
+        COMMAND_MAP.get(MATRIX_OPERATIONS).execute(firstId, "сложение", null);
+        COMMAND_MAP.get(MATRIX_OPERATIONS).execute(secondId, "сложение", null);
     }
 
     @After
@@ -46,9 +46,9 @@ public class SizeAndMatrixInputTests {
     @Test
     public void input2_2Matrix(){
         var expected = "1.0 1.0\n0.0 0.0\n";
-        COMMAND_MAP.get(MATRIX_SIZE).execute(firstId, "2 2");
-        COMMAND_MAP.get(MATRIX_ROW).execute(firstId, "1.0 1.0");
-        COMMAND_MAP.get(MATRIX_ROW).execute(firstId, "0.0 0.0");
+        COMMAND_MAP.get(MATRIX_SIZE).execute(firstId, "2 2", null);
+        COMMAND_MAP.get(MATRIX_ROW).execute(firstId, "1.0 1.0", null);
+        COMMAND_MAP.get(MATRIX_ROW).execute(firstId, "0.0 0.0", null);
 
         buildMatrix(firstId);
         assertEquals(
@@ -61,13 +61,13 @@ public class SizeAndMatrixInputTests {
     public void parallelInputTwo2_2Matrix(){
         var expected1 = "1.1 1.2\n0.1 0.2\n";
         var expected2 = "3.0 3.1 3.1\n1.0 1.1 1.1\n0.0 0.1 0.1\n";
-        COMMAND_MAP.get(MATRIX_SIZE).execute(firstId, "2 2");
-        COMMAND_MAP.get(MATRIX_ROW).execute(firstId, "1.1 1.2");
-        COMMAND_MAP.get(MATRIX_SIZE).execute(secondId, "3 3");
-        COMMAND_MAP.get(MATRIX_ROW).execute(secondId, "3.0 3.1 3.1");
-        COMMAND_MAP.get(MATRIX_ROW).execute(firstId, "0.1 0.2");
-        COMMAND_MAP.get(MATRIX_ROW).execute(secondId, "1.0 1.1 1.1");
-        COMMAND_MAP.get(MATRIX_ROW).execute(secondId, "0.0 0.1 0.1");
+        COMMAND_MAP.get(MATRIX_SIZE).execute(firstId, "2 2", null);
+        COMMAND_MAP.get(MATRIX_ROW).execute(firstId, "1.1 1.2", null);
+        COMMAND_MAP.get(MATRIX_SIZE).execute(secondId, "3 3", null);
+        COMMAND_MAP.get(MATRIX_ROW).execute(secondId, "3.0 3.1 3.1", null);
+        COMMAND_MAP.get(MATRIX_ROW).execute(firstId, "0.1 0.2", null);
+        COMMAND_MAP.get(MATRIX_ROW).execute(secondId, "1.0 1.1 1.1", null);
+        COMMAND_MAP.get(MATRIX_ROW).execute(secondId, "0.0 0.1 0.1", null);
 
         buildMatrix(firstId);
         buildMatrix(secondId);
@@ -84,10 +84,11 @@ public class SizeAndMatrixInputTests {
     @Test
     public void input4_4MatrixInOneLine(){
         var expected = "2.0 2.1 2.2 2.3\n1.0 1.1 1.2 1.3\n0.0 0.1 0.2 0.3\n4.0 4.1 4.2 4.3\n";
-        COMMAND_MAP.get(MATRIX_SIZE).execute(firstId, "4 4");
+        COMMAND_MAP.get(MATRIX_SIZE).execute(firstId, "4 4", null);
         COMMAND_MAP.get(MATRIX_ROW).execute(
                 firstId,
                 "2.0 2.1 2.2 2.3\n1.0 1.1 1.2 1.3\n0.0 0.1 0.2 0.3\n4.0 4.1 4.2 4.3\n"
+                , null
         );
 
         buildMatrix(firstId);
@@ -100,12 +101,14 @@ public class SizeAndMatrixInputTests {
     @Test
     public void input4_4MatrixInMultiInput(){
         var expected = "2.0 2.1 2.2 2.3\n1.0 1.1 1.2 1.3\n0.0 0.1 0.2 0.3\n4.0 4.1 4.2 4.3\n";
-        COMMAND_MAP.get(MATRIX_SIZE).execute(firstId, "4 4");
+        COMMAND_MAP.get(MATRIX_SIZE).execute(firstId, "4 4", null);
         COMMAND_MAP.get(MATRIX_ROW).execute(
                 firstId,
                 "2.0 2.1 2.2 2.3\n1.0 1.1 1.2 1.3\n0.0 0.1 0.2 0.3\n4.0 4.1 4.2 4.3\n"
+                , null
         );
-        COMMAND_MAP.get(MATRIX_ROW).execute(firstId, "0.0 0.1 0.2 0.3\n4.0 4.1 4.2 4.3\n");
+        COMMAND_MAP.get(MATRIX_ROW).execute(firstId, "0.0 0.1 0.2 0.3\n4.0 4.1 4.2 4.3\n"
+                , null);
 
         buildMatrix(firstId);
         assertEquals(
@@ -117,13 +120,14 @@ public class SizeAndMatrixInputTests {
     @Test
     public void input4_4MatrixInMultiInput2(){
         var expected = "2.0 2.1 2.2 2.3\n1.0 1.1 1.2 1.3\n0.0 0.1 0.2 0.3\n4.0 4.1 4.2 4.3\n";
-        COMMAND_MAP.get(MATRIX_SIZE).execute(firstId, "4 4");
+        COMMAND_MAP.get(MATRIX_SIZE).execute(firstId, "4 4", null);
         COMMAND_MAP.get(MATRIX_ROW).execute(
                 firstId,
                 "2.0 2.1 2.2 2.3\n1.0 1.1 1.2 1.3\n0.0 0.1 0.2 0.3\n4.0 4.1 4.2 4.3\n"
+                , null
         );
-        COMMAND_MAP.get(MATRIX_ROW).execute(firstId, "0.0 0.1 0.2 0.3\n");
-        COMMAND_MAP.get(MATRIX_ROW).execute(firstId, "4.0 4.1 4.2 4.3\n");
+        COMMAND_MAP.get(MATRIX_ROW).execute(firstId, "0.0 0.1 0.2 0.3\n", null);
+        COMMAND_MAP.get(MATRIX_ROW).execute(firstId, "4.0 4.1 4.2 4.3\n", null);
 
         buildMatrix(firstId);
         assertEquals(

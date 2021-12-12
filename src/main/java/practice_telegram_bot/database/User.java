@@ -1,21 +1,34 @@
 package practice_telegram_bot.database;
 
+import org.hibernate.annotations.SelectBeforeUpdate;
 import practice_telegram_bot.enums.StateEnum;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "usersData")
+@SelectBeforeUpdate
 public class User {
     @Id
-    @Column(name = "id")
+    @Column(name = "user_id")
     private Long id;
 
     @Enumerated(EnumType.STRING)
     private StateEnum state;
 
-    @OneToOne(targetEntity = MatrixData.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private MatrixData matrixData;
+    @OneToOne(targetEntity = MatrixDataDB.class, cascade = CascadeType.ALL)
+    private MatrixDataDB matrixData;
+
+    @Column
+    private Long prev_id;
+
+    public Long getPrev_id() {
+        return prev_id;
+    }
+
+    public void setPrev_id(Long prev_id) {
+        this.prev_id = prev_id;
+    }
 
     public User(){}
 
@@ -41,11 +54,11 @@ public class User {
         this.state = state;
     }
 
-    public MatrixData getMatrixData() {
+    public MatrixDataDB getMatrixData() {
         return matrixData;
     }
 
-    public void setMatrixData(MatrixData matrixData) {
+    public void setMatrixData(MatrixDataDB matrixData) {
         this.matrixData = matrixData;
     }
 }

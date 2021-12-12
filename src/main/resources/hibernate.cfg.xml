@@ -14,8 +14,8 @@
         <property name="show_sql">false</property>
 
         <mapping class="practice_telegram_bot.database.User"/>
-        <mapping class="practice_telegram_bot.database.MatrixData"/>
-        <mapping class="practice_telegram_bot.database.MatrixPlain"/>
+        <mapping class="practice_telegram_bot.database.MatrixDataDB"/>
+        <mapping class="practice_telegram_bot.database.PlainMatrix"/>
         <mapping class="practice_telegram_bot.database.MatrixBuilderData"/>
         <mapping class="practice_telegram_bot.database.MatrixDb"/>
     </session-factory>

@@ -1,6 +1,6 @@
 package practice_telegram_bot.telegram.commands.textCommands.matrixCommands;
 
-import org.telegram.telegrambots.meta.api.objects.User;
+import practice_telegram_bot.database.User;
 import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.telegram.UsersData;
 import practice_telegram_bot.telegram.commands.Command;
@@ -20,9 +20,11 @@ public class StartMatrixCommand implements Command {
     }
 
     @Override
-    public Command execute(Long chatId, String addInfo) {
-        UsersData.instance().setUsersState(chatId, StateEnum.MATRIX_OPERATION_SELECT);
-        UsersData.instance().clearUsersMatrixData(chatId);
+    public Command execute(Long chatId, String addInfo, User userData) {
+//        UsersData.instance().setUsersState(chatId, StateEnum.MATRIX_OPERATION_SELECT);
+//        UsersData.instance().clearUsersMatrixData(chatId);
+        userData.setState(StateEnum.MATRIX_OPERATION_SELECT);
+//        userData.setMatrixData(null);
         return this;
     }
 }

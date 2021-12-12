@@ -1,8 +1,6 @@
 package practice_telegram_bot.database;
 
 import practice_telegram_bot.enums.Operations;
-import practice_telegram_bot.matrix.Matrix;
-import practice_telegram_bot.matrix.MatrixBuilderLegacy;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,27 +8,27 @@ import java.util.List;
 
 @Entity
 @Table(name = "matricesData")
-public class MatrixData {
+public class MatrixDataDB {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "matricesData_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Enumerated(EnumType.STRING)
     private Operations operation;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "matrices")
-    private List<MatrixPlain> matrices;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OrderColumn
+    private List<PlainMatrix> matrices;
 
     @OneToOne(targetEntity = MatrixBuilderData.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private MatrixBuilderData matrixBuilder;
 
     private int matricesNumberToEnter;
 
-    public MatrixData(){}
+    public MatrixDataDB(){}
 
-    public MatrixData(Operations operation, int matricesNumber){
+    public MatrixDataDB(Operations operation, int matricesNumber){
         this.operation = operation;
         this.matricesNumberToEnter = matricesNumber;
         matrices = new ArrayList<>();
@@ -53,11 +51,11 @@ public class MatrixData {
         this.operation = operation;
     }
 
-    public List<MatrixPlain> getMatrices() {
+    public List<PlainMatrix> getMatrices() {
         return matrices;
     }
 
-    public void setMatrices(List<MatrixPlain> matrices) {
+    public void setMatrices(List<PlainMatrix> matrices) {
         this.matrices = matrices;
     }
 

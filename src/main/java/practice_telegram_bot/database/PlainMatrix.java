@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class MatrixPlain {
+public class PlainMatrix {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<Double> matrix;
 
     @Column(name = "rowLength")
@@ -20,7 +20,11 @@ public class MatrixPlain {
     @Column(name = "columnLength")
     private int columnLength;
 
-    public MatrixPlain(){}
+    public PlainMatrix(){}
+
+    public PlainMatrix(double[][] matrix){
+        setArMatrix(matrix);
+    }
 
     public Long getId() {
         return id;

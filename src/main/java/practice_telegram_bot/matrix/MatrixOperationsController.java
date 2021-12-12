@@ -2,7 +2,7 @@ package practice_telegram_bot.matrix;
 
 import practice_telegram_bot.enums.Operations;
 import practice_telegram_bot.exceptions.IncorrectNumberOfElements;
-import practice_telegram_bot.telegram.MatrixDataLegacy;
+import practice_telegram_bot.telegram.MatrixData;
 
 import java.util.Map;
 import java.util.Optional;
@@ -18,7 +18,7 @@ public class MatrixOperationsController {
             entry(Operations.GAUSS_SOLUTION, new GaussianAlgorithm())
     );
 
-    public static Optional<Matrix> makeOperation(MatrixDataLegacy matrixData) throws IncorrectNumberOfElements {
+    public static Optional<Matrix> makeOperation(MatrixData matrixData) throws IncorrectNumberOfElements {
         if(!OPERATIONS_MAP.containsKey(matrixData.operation)){
             return Optional.empty();
         }

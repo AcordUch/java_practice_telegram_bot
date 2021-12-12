@@ -16,8 +16,8 @@ public class HibernateSessionFactoryUtil2 {
                         new Configuration().configure();
 
                 configuration.addAnnotatedClass(User.class);
-                configuration.addAnnotatedClass(MatrixData.class);
-                configuration.addAnnotatedClass(MatrixPlain.class);
+                configuration.addAnnotatedClass(MatrixDataDB.class);
+                configuration.addAnnotatedClass(PlainMatrix.class);
                 configuration.addAnnotatedClass(MatrixBuilderData.class);
                 configuration.addAnnotatedClass(MatrixDb.class);
 

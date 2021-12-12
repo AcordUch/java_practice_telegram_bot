@@ -1,5 +1,6 @@
 package practice_telegram_bot.matrix;
 
+import practice_telegram_bot.database.PlainMatrix;
 import practice_telegram_bot.exceptions.IncorrectNumberOfElements;
 
 import java.util.Arrays;
@@ -58,6 +59,19 @@ public class Matrix {
             }
         }
     }
+
+//    public double[][] getMatrix() {
+//        return matrix;
+//    }
+
+    public PlainMatrix packForDB(){
+        return new PlainMatrix(matrix);
+    }
+
+    /*public PlainMatrix packForDB(PlainMatrix plainMatrix){
+        plainMatrix.setArMatrix(matrix);
+        return plainMatrix;
+    }*/
 
     @Override
     public String toString() {

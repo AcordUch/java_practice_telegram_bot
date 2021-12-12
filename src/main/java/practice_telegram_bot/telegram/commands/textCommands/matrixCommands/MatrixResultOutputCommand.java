@@ -1,10 +1,12 @@
 package practice_telegram_bot.telegram.commands.textCommands.matrixCommands;
 
+import practice_telegram_bot.database.User;
 import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.exceptions.IncorrectNumberOfElements;
 import practice_telegram_bot.matrix.MatrixOperationsController;
 import practice_telegram_bot.service.CommandEventInitiater;
 import practice_telegram_bot.service.CommandEventListener;
+import practice_telegram_bot.telegram.MatrixData;
 import practice_telegram_bot.telegram.MatrixImageCreator;
 import practice_telegram_bot.telegram.UsersData;
 import practice_telegram_bot.telegram.commands.Command;
@@ -28,11 +30,12 @@ public class MatrixResultOutputCommand extends CommandEventInitiater implements 
     }
 
     @Override
-    public Command execute(Long chatId, String addInfo) {
-        var userData = UsersData.instance().getUserMatrixData(chatId);
+    public Command execute(Long chatId, String addInfo, User userData) {
+//        var matrixData = UsersData.instance().getUserMatrixData(chatId);
+        var matrixData = MatrixData.restoreFromDB(userData.getMatrixData());
 
         try {
-            var matrix = MatrixOperationsController.makeOperation(userData);
+            var matrix = MatrixOperationsController.makeOperation(matrixData);
             if(matrix.isPresent()) {
                 answer = matrix.get().toString();
                 var picture = MatrixImageCreator.instance().createImage(matrix.get()).getImage();
@@ -44,8 +47,9 @@ public class MatrixResultOutputCommand extends CommandEventInitiater implements 
         } catch (IncorrectNumberOfElements e) {
             answer = e.toString();
         }
-        UsersData.instance().clearUsersMatrixData(chatId);
+//        UsersData.instance().clearUsersMatrixData(chatId);
         UsersData.instance().setUsersState(chatId, StateEnum.MATRIX_OPERATION_SELECT);
+        userData.setState(StateEnum.MATRIX_OPERATION_SELECT);
         notifyListeners(chatId, TextSendCommand.formText(StartMatrixCommand.ANSWER));
         return this;
     }
