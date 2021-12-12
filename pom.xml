@@ -41,6 +41,7 @@
         </dependency>
 
         <!--Database-->
+            <!--MongoDB-->
         <dependency>
             <groupId>org.hibernate.ogm</groupId>
             <artifactId>hibernate-ogm-core</artifactId>
@@ -57,36 +58,7 @@
             <version>4.4.0</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.jboss.narayana.jta</groupId>
-            <artifactId>narayana-jta</artifactId>
-            <version>5.9.2.Final</version>
-        </dependency>
-
-        <!--cassandra-->
-        <dependency>
-            <groupId> org.apache.cassandra</groupId>
-            <artifactId>cassandra-all</artifactId>
-            <version>0.8.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!--Postgresql jdbc-->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.3.1</version>
-        </dependency>
-
-        <!--Hibernate-->
+            <!--PostgreSQL-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
@@ -97,7 +69,11 @@
             <artifactId>hibernate-commons-annotations</artifactId>
             <version>5.1.2.Final</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.3.1</version>
+        </dependency>
     </dependencies>
 
 
