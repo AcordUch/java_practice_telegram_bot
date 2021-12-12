@@ -5,42 +5,62 @@ import org.hibernate.Transaction;
 import practice_telegram_bot.database.MatrixDataDB;
 import practice_telegram_bot.database.UserDB;
 
-public class PostgreSqlDao {
-    public static <T> T findById(Class<T> clazz, Long id) {
+public class PostgreSqlDao implements IDAO {
+    private Session session;
+    private Transaction tx1;
+
+    private void openSession(){
+        session = PostgreSqlSessionFactory.instance().openSession();
+        tx1 = session.beginTransaction();
+    }
+
+    private void closeSession(){
+        tx1.commit();
+        session.close();
+        tx1 = null;
+        session = null;
+    }
+
+    @Override
+    public <T> T findById(Class<T> clazz, Long id) {
         Session session = PostgreSqlSessionFactory.instance().openSession();
         var item = session.get(clazz, id);
         session.close();
         return item;
     }
 
-    public static <T> boolean existInDatabase(Class<T> clazz, Long id){
+    @Override
+    public <T> boolean existInDatabase(Class<T> clazz, Long id){
         return findById(clazz, id) != null;
     }
 
-    public static <T> boolean absentInDatabase(Class<T> clazz, Long id) {
+    @Override
+    public <T> boolean absentInDatabase(Class<T> clazz, Long id) {
         return !existInDatabase(clazz, id);
     }
 
-    public static <T> void save(T object) {
+    @Override
+    public <T> void save(T object) {
         try{
-            Session session = PostgreSqlSessionFactory.instance().openSession();
-            Transaction tx1 = session.beginTransaction();
+            openSession();
+
             session.saveOrUpdate(object);
-            tx1.commit();
-            session.close();
+
+            closeSession();
         } catch (Exception e){
             System.out.println("Error!\n");
             e.printStackTrace();
         }
     }
 
-    public static <T> void update(T object) {
+    @Override
+    public <T> void update(T object) {
         try{
-            Session session = PostgreSqlSessionFactory.instance().openSession();
-            Transaction tx1 = session.beginTransaction();
+            openSession();
+
             session.merge(object);
-            tx1.commit();
-            session.close();
+
+            closeSession();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -50,7 +70,7 @@ public class PostgreSqlDao {
         }
     }
 
-    private static void onUserSave(UserDB userDB){
+    private void onUserSave(UserDB userDB){
         if(userDB.getPrev_id() != null &&
                 (userDB.getMatrixData() == null || !userDB.getPrev_id().equals(userDB.getMatrixData().getId()))
         ){
@@ -58,14 +78,15 @@ public class PostgreSqlDao {
         }
     }
 
-    public static <T> void delete(Class<T> clazz, Long id){
+    @Override
+    public <T> void delete(Class<T> clazz, Long id){
         var object = findById(clazz, id);
         if(object != null){
-            Session session = PostgreSqlSessionFactory.instance().openSession();
-            Transaction tx1 = session.beginTransaction();
+            openSession();
+
             session.delete(object);
-            tx1.commit();
-            session.close();
+
+            closeSession();
         }
     }
 }

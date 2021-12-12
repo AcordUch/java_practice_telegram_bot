@@ -1,6 +1,6 @@
 package practice_telegram_bot.telegram.commands.textCommands;
 
-import practice_telegram_bot.database.dao.PostgreSqlDao;
+import practice_telegram_bot.database.dao.DAO;
 import practice_telegram_bot.database.UserDB;
 import practice_telegram_bot.enums.CommandEnum;
 import practice_telegram_bot.exceptions.TooLongSentenceExceptions;
@@ -44,15 +44,15 @@ public class CommandManager {
         } catch (TooLongSentenceExceptions ex) {
             return "Вы ввели слишком длинное предложение, попробуйте сформулировать что вы хотите покороче";
         } finally {
-            PostgreSqlDao.update(userDBData);
+            DAO.instance().update(userDBData);
         }
     }
 
     private UserDB findUserData(Long userId){
-        UserDB userDBData = PostgreSqlDao.findById(UserDB.class, userId);
+        UserDB userDBData = DAO.instance().findById(UserDB.class, userId);
         if (userDBData == null) {
             userDBData = new UserDB(userId);
-            PostgreSqlDao.save(userDBData);
+            DAO.instance().save(userDBData);
         }
         if(userDBData.getMatrixData() != null){
             userDBData.setPrev_id(userDBData.getMatrixData().getId());

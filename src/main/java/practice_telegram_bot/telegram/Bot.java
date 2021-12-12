@@ -7,7 +7,7 @@ import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import practice_telegram_bot.database.dao.PostgreSqlDao;
+import practice_telegram_bot.database.dao.DAO;
 import practice_telegram_bot.database.UserDB;
 import practice_telegram_bot.service.CommandEventListener;
 import practice_telegram_bot.service.InnerUpdate;
@@ -66,8 +66,8 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
                     "Пользователь: %s\nChatID: %s\nСообщение: %s\n",
                     userName.formFullName(), chatId.toString(), message.getText()
             );
-            if(PostgreSqlDao.absentInDatabase(UserDB.class, chatId)){
-                PostgreSqlDao.save(new UserDB(chatId, userName.formFullName("\n")));
+            if(DAO.instance().absentInDatabase(UserDB.class, chatId)){
+                DAO.instance().save(new UserDB(chatId, userName.formFullName("\n")));
                 sendAnswer(chatId, StartCommand.GetAnswer());
                 updates.remove(update);
             }
@@ -135,7 +135,7 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
     @Override
     public void addUpdate(InnerUpdate innerUpdate) {
         updateToProcess.add(innerUpdate);
-    } //old name: executeNextCommand
+    }
 
     public void checkOnInnerUpdateAndProcess(){
         if(!updateToProcess.isEmpty()){

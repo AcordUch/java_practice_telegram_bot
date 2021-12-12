@@ -3,6 +3,7 @@ package practice_telegram_bot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
+import practice_telegram_bot.database.dao.DAO;
 import practice_telegram_bot.database.dao.PostgreSqlSessionFactory;
 import practice_telegram_bot.telegram.*;
 
@@ -32,6 +33,7 @@ public class Main {
     private static void connectToDB(){
         try {
             PostgreSqlSessionFactory.instance();
+            DAO.configureForPostgreSql();
         } catch (Exception e){
             e.printStackTrace();
         }

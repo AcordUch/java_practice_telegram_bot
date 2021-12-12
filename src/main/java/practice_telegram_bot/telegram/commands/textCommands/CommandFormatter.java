@@ -1,6 +1,5 @@
 package practice_telegram_bot.telegram.commands.textCommands;
 
-import practice_telegram_bot.GlobalConst;
 import practice_telegram_bot.enums.CommandEnum;
 import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.exceptions.TooLongSentenceExceptions;
