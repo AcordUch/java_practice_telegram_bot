@@ -1,6 +1,6 @@
 package practice_telegram_bot.telegram.commands.textCommands.matrixCommands;
 
-import practice_telegram_bot.database.User;
+import practice_telegram_bot.database.UserDB;
 import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.exceptions.IncorrectNumberOfElements;
 import practice_telegram_bot.matrix.MatrixOperationsController;
@@ -8,7 +8,6 @@ import practice_telegram_bot.service.CommandEventInitiater;
 import practice_telegram_bot.service.CommandEventListener;
 import practice_telegram_bot.telegram.MatrixData;
 import practice_telegram_bot.telegram.MatrixImageCreator;
-import practice_telegram_bot.telegram.UsersData;
 import practice_telegram_bot.telegram.commands.Command;
 import practice_telegram_bot.telegram.commands.textCommands.TextSendCommand;
 
@@ -30,9 +29,8 @@ public class MatrixResultOutputCommand extends CommandEventInitiater implements 
     }
 
     @Override
-    public Command execute(Long chatId, String addInfo, User userData) {
-//        var matrixData = UsersData.instance().getUserMatrixData(chatId);
-        var matrixData = MatrixData.restoreFromDB(userData.getMatrixData());
+    public Command execute(Long chatId, String addInfo, UserDB userDBData) {
+        var matrixData = MatrixData.restoreFromDB(userDBData.getMatrixData());
 
         try {
             var matrix = MatrixOperationsController.makeOperation(matrixData);
@@ -40,16 +38,15 @@ public class MatrixResultOutputCommand extends CommandEventInitiater implements 
                 answer = matrix.get().toString();
                 var picture = MatrixImageCreator.instance().createImage(matrix.get()).getImage();
                 notifyListeners(chatId, picture);
-            }
-            else{
+            } else {
                 answer = "Матрицы не совпадают по размеру\nWIP: или данная операция ещё не реализована";
             }
         } catch (IncorrectNumberOfElements e) {
             answer = e.toString();
         }
-//        UsersData.instance().clearUsersMatrixData(chatId);
-        UsersData.instance().setUsersState(chatId, StateEnum.MATRIX_OPERATION_SELECT);
-        userData.setState(StateEnum.MATRIX_OPERATION_SELECT);
+//        PostgreSqlDao.delete(MatrixDataDB.class, userData.getMatrixData().getId());
+        userDBData.setMatrixData(null);
+        userDBData.setState(StateEnum.MATRIX_OPERATION_SELECT);
         notifyListeners(chatId, TextSendCommand.formText(StartMatrixCommand.ANSWER));
         return this;
     }

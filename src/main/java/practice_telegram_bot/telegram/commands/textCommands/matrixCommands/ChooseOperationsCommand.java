@@ -1,7 +1,7 @@
 package practice_telegram_bot.telegram.commands.textCommands.matrixCommands;
 
 import practice_telegram_bot.database.MatrixDataDB;
-import practice_telegram_bot.database.User;
+import practice_telegram_bot.database.UserDB;
 import practice_telegram_bot.enums.Operations;
 import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.telegram.commands.Command;
@@ -32,15 +32,12 @@ public class ChooseOperationsCommand implements Command {
     }
 
     @Override
-    public Command execute(Long chatId, String addInfo, User userData) {
+    public Command execute(Long chatId, String addInfo, UserDB userDBData) {
         operation = Operations.fromString(addInfo.toLowerCase(Locale.ROOT));
         int matricesNumber = operationsWithTwoMatrix.contains(operation) ? 2 : 1;
 
-//        UsersData.instance().setUsersState(chatId, StateEnum.MATRIX_SIZE_INPUT);
-//        UsersData.instance().setUsersMatrixData(chatId, new MatrixDataLegacy(operation, matricesNumber));
-        userData.setState(StateEnum.MATRIX_SIZE_INPUT);
-        var temp = new MatrixDataDB(operation, matricesNumber);
-        userData.setMatrixData(temp);
+        userDBData.setState(StateEnum.MATRIX_SIZE_INPUT);
+        userDBData.setMatrixData(new MatrixDataDB(operation, matricesNumber));
         return this;
     }
 }

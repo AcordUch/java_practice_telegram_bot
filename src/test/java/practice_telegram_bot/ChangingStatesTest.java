@@ -3,7 +3,7 @@ package practice_telegram_bot;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import practice_telegram_bot.database.User;
+import practice_telegram_bot.database.UserDB;
 import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.telegram.UsersData;
 import practice_telegram_bot.telegram.commands.textCommands.ReturnToMenuCommand;
@@ -15,7 +15,7 @@ import practice_telegram_bot.telegram.commands.textCommands.matrixCommands.Start
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ChangingStatesTest {
-    private static final User plug = null;
+    private static final UserDB plug = null;
     private static final Long firstId = 1L;
     private static final Long secondId = 2L;
     private UsersData usersData;

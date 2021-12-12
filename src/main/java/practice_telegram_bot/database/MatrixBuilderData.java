@@ -10,7 +10,6 @@ public class MatrixBuilderData {
     private Long id;
 
     @OneToOne(targetEntity = PlainMatrix.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JoinColumn(name = "matrixBuilder_id")
     private PlainMatrix matrix;
 
     @Column(name = "rowToInput")

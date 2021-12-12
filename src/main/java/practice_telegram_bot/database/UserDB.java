@@ -8,10 +8,13 @@ import javax.persistence.*;
 @Entity
 @Table(name = "usersData")
 @SelectBeforeUpdate
-public class User {
+public class UserDB {
     @Id
     @Column(name = "user_id")
     private Long id;
+
+    @Column
+    private String userName;
 
     @Enumerated(EnumType.STRING)
     private StateEnum state;
@@ -22,18 +25,15 @@ public class User {
     @Column
     private Long prev_id;
 
-    public Long getPrev_id() {
-        return prev_id;
+    public UserDB(){}
+
+    public UserDB(Long id){
+        this(id, "unnamed");
     }
 
-    public void setPrev_id(Long prev_id) {
-        this.prev_id = prev_id;
-    }
-
-    public User(){}
-
-    public User(Long id){
+    public UserDB(Long id, String userName){
         this.id = id;
+        this.userName = userName;
         state = StateEnum.START;
         matrixData = null;
     }
@@ -44,6 +44,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public StateEnum getState() {
@@ -60,5 +68,13 @@ public class User {
 
     public void setMatrixData(MatrixDataDB matrixData) {
         this.matrixData = matrixData;
+    }
+
+    public Long getPrev_id() {
+        return prev_id;
+    }
+
+    public void setPrev_id(Long prev_id) {
+        this.prev_id = prev_id;
     }
 }

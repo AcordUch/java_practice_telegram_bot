@@ -1,25 +1,28 @@
-package practice_telegram_bot.database;
+package practice_telegram_bot.database.dao;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import practice_telegram_bot.database.MatrixBuilderData;
+import practice_telegram_bot.database.MatrixDataDB;
+import practice_telegram_bot.database.PlainMatrix;
+import practice_telegram_bot.database.UserDB;
 
-public class HibernateSessionFactoryUtil2 {
+public class PostgreSqlSessionFactory {
     private static SessionFactory sessionFactory;
 
-    private HibernateSessionFactoryUtil2() {}
+    private PostgreSqlSessionFactory() {}
 
-    public static SessionFactory getSessionFactory() {
+    public static SessionFactory instance() {
         if (sessionFactory == null) {
             try {
                 Configuration configuration =
                         new Configuration().configure();
 
-                configuration.addAnnotatedClass(User.class);
+                configuration.addAnnotatedClass(UserDB.class);
                 configuration.addAnnotatedClass(MatrixDataDB.class);
                 configuration.addAnnotatedClass(PlainMatrix.class);
                 configuration.addAnnotatedClass(MatrixBuilderData.class);
-                configuration.addAnnotatedClass(MatrixDb.class);
 
                 StandardServiceRegistryBuilder builder =
                         new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());

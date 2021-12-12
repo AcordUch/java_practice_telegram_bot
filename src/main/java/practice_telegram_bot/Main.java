@@ -3,8 +3,7 @@ package practice_telegram_bot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-import practice_telegram_bot.database.HibernateSessionFactoryUtil;
-import practice_telegram_bot.database.HibernateSessionFactoryUtil2;
+import practice_telegram_bot.database.dao.PostgreSqlSessionFactory;
 import practice_telegram_bot.telegram.*;
 
 
@@ -32,7 +31,7 @@ public class Main {
 
     private static void connectToDB(){
         try {
-            HibernateSessionFactoryUtil2.getSessionFactory();
+            PostgreSqlSessionFactory.instance();
         } catch (Exception e){
             e.printStackTrace();
         }

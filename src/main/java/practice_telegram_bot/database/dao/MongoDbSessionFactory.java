@@ -1,24 +1,17 @@
-package practice_telegram_bot.database;
-
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
+package practice_telegram_bot.database.dao;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceUnit;
 
-public class HibernateSessionFactoryUtil {
-//    @PersistenceUnit(unitName = "userPU")
+public class MongoDbSessionFactory {
     private static EntityManagerFactory entityManagerFactory;
 
-    private HibernateSessionFactoryUtil() {}
+    private MongoDbSessionFactory() {}
 
-    public static EntityManagerFactory getSessionFactory() {
+    public static EntityManagerFactory instance() {
         if (entityManagerFactory == null) {
             try {
                 entityManagerFactory = Persistence.createEntityManagerFactory( "userPU" );
-
             } catch (Exception e) {
                 System.out.println("Исключение!" + e);
             }

@@ -1,9 +1,7 @@
 package practice_telegram_bot.telegram.commands.textCommands.gameCommands;
 
-import practice_telegram_bot.database.StateManagerAOD;
-import practice_telegram_bot.database.User;
+import practice_telegram_bot.database.UserDB;
 import practice_telegram_bot.enums.StateEnum;
-import practice_telegram_bot.telegram.UsersData;
 import practice_telegram_bot.telegram.commands.Command;
 
 public class StartGameCommand implements Command {
@@ -16,9 +14,9 @@ public class StartGameCommand implements Command {
     }
 
     @Override
-    public Command execute(Long chatId, String addInfo, User userData) {
+    public Command execute(Long chatId, String addInfo, UserDB userDBData) {
 //        UsersData.instance().setUsersState(chatId, StateEnum.GAME_START);
-        userData.setState(StateEnum.GAME_START);
+        userDBData.setState(StateEnum.GAME_START);
         return this;
     }
 }

@@ -1,13 +1,11 @@
 package practice_telegram_bot.telegram.commands.textCommands;
 
-import practice_telegram_bot.database.StateManagerAOD;
-import practice_telegram_bot.database.User;
-import practice_telegram_bot.database.UserDataAOD;
+import practice_telegram_bot.database.dao.PostgreSqlDao;
+import practice_telegram_bot.database.UserDB;
 import practice_telegram_bot.enums.CommandEnum;
 import practice_telegram_bot.exceptions.TooLongSentenceExceptions;
 import practice_telegram_bot.service.CommandEventInitiater;
 import practice_telegram_bot.service.CommandEventListener;
-import practice_telegram_bot.telegram.UsersData;
 import practice_telegram_bot.telegram.commands.Command;
 import practice_telegram_bot.telegram.commands.textCommands.gameCommands.StartGameCommand;
 import practice_telegram_bot.telegram.commands.textCommands.matrixCommands.*;
@@ -30,34 +28,36 @@ public class CommandManager {
             entry(CommandEnum.TEXT_SEND, new TextSendCommand())
     );
 
-    public String processCommand(Long usedId, String input) {
-        User userData = StateManagerAOD.findById(usedId);
-        if (userData == null) {
-            userData = new User(usedId);
-            StateManagerAOD.save(userData);
-        }
-        if(userData.getMatrixData() != null){
-            userData.setPrev_id(userData.getMatrixData().getId());
-        }
+    public String processCommand(Long userId, String input) {
+        UserDB userDBData = findUserData(userId);
 
         try
         {
             var command = CommandFormatter.formatCommand(
-                    input.toLowerCase(Locale.ROOT), userData.getState()
+                    input.toLowerCase(Locale.ROOT), userDBData.getState()
             );
             if(command.isPresent()){
-                return COMMAND_MAP.get(command.get()).execute(usedId, input, userData).formAnswer();
-            }
-            else{
+                return COMMAND_MAP.get(command.get()).execute(userId, input, userDBData).formAnswer();
+            } else {
                 return "В нынешнем состоянии команда не доступна";
             }
-        }
-        catch (TooLongSentenceExceptions ex) {
+        } catch (TooLongSentenceExceptions ex) {
             return "Вы ввели слишком длинное предложение, попробуйте сформулировать что вы хотите покороче";
+        } finally {
+            PostgreSqlDao.update(userDBData);
         }
-        finally {
-            StateManagerAOD.update(userData);
+    }
+
+    private UserDB findUserData(Long userId){
+        UserDB userDBData = PostgreSqlDao.findById(UserDB.class, userId);
+        if (userDBData == null) {
+            userDBData = new UserDB(userId);
+            PostgreSqlDao.save(userDBData);
         }
+        if(userDBData.getMatrixData() != null){
+            userDBData.setPrev_id(userDBData.getMatrixData().getId());
+        }
+        return userDBData;
     }
 
     public void addListenerForCommands(CommandEventListener listener){
