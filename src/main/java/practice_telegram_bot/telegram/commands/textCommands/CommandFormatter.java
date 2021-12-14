@@ -30,7 +30,7 @@ public class CommandFormatter {
         var arbitraryInputCommand = STATE_WITH_ARBITRARY_INPUT
                                                             .getOrDefault(state, Optional.empty());
         if(arbitraryInputCommand.isPresent()){
-            if(COMMAND_MAP.get(CommandEnum.RETURN).contains(command)){ //command.equals(GlobalConst.RETURN_COMMAND)
+            if(COMMAND_MAP.get(CommandEnum.RETURN).contains(command)){
                 return Optional.of(CommandEnum.RETURN);
             }
             return arbitraryInputCommand;
