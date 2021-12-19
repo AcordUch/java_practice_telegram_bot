@@ -6,10 +6,12 @@ import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import practice_telegram_bot.database.dao.DAO;
+import practice_telegram_bot.database.UserDB;
 import practice_telegram_bot.service.CommandEventListener;
 import practice_telegram_bot.service.InnerUpdate;
+import practice_telegram_bot.service.UserNameFormatter;
 import practice_telegram_bot.telegram.commands.service.AboutCommand;
 import practice_telegram_bot.telegram.commands.service.HelpCommand;
 import practice_telegram_bot.telegram.commands.textCommands.CommandManager;
@@ -58,13 +60,16 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
         for (var update : updates) {
             Message message = update.getMessage();
             Long chatId = message.getChatId();
-            String userName =getUserName(message);
+            var userName = new UserNameFormatter(message.getFrom());
 
-            System.out.printf("Пользователь: %s\nChatID: %s\nСообщение: %s\n", userName, chatId.toString(), message.getText());
-            if(!UsersData.containUserState(chatId)){
-                var answer = CommandManager.RETURN_TO_MENU_COMMAND.execute(chatId, "").formAnswer();
-                sendAnswer(chatId, answer);
-                return;
+            System.out.printf(
+                    "Пользователь: %s\nChatID: %s\nСообщение: %s\n",
+                    userName.formFullName(), chatId.toString(), message.getText()
+            );
+            if(DAO.instance().absentInDatabase(UserDB.class, chatId)){
+                DAO.instance().save(new UserDB(chatId, userName.formFullName("\n")));
+                sendAnswer(chatId, StartCommand.GetAnswer());
+                updates.remove(update);
             }
         }
         super.onUpdatesReceived(updates);
@@ -105,12 +110,6 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
         checkOnInnerUpdateAndProcess();
     }
 
-    private String getUserName(Message msg){
-        User user = msg.getFrom();
-        String userName = user.getUserName();
-        return (userName != null) ? userName : String.format("%s %s", user.getLastName(), user.getFirstName());
-    }
-
     private void sendAnswer(Long chatId, String text){
         SendMessage answer = new SendMessage();
         answer.setText(text);
@@ -136,7 +135,7 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
     @Override
     public void addUpdate(InnerUpdate innerUpdate) {
         updateToProcess.add(innerUpdate);
-    } //old name: executeNextCommand
+    }
 
     public void checkOnInnerUpdateAndProcess(){
         if(!updateToProcess.isEmpty()){

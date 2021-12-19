@@ -1,10 +1,40 @@
 package practice_telegram_bot.matrix;
 
+import practice_telegram_bot.database.MatrixBuilderData;
 import practice_telegram_bot.exceptions.IncorrectNumberOfElements;
 
 public class MatrixBuilder {
     private Matrix matrix;
     private int rowToInput = 0;
+
+    public MatrixBuilder(){}
+
+    public MatrixBuilder(String matrixSize, String matrix) throws IncorrectNumberOfElements {
+        this.createNewMatrix(matrixSize);
+        for (var row : matrix.split("\n")){
+            this.addRow(row);
+        }
+    }
+
+    public static MatrixBuilder restoreFromDB(MatrixBuilderData matrixBuilderData){
+        return new MatrixBuilder().setUp(matrixBuilderData);
+    }
+
+    public MatrixBuilder setUp(MatrixBuilderData matrixBuilderData){
+        rowToInput = matrixBuilderData.getRowToInput();
+        if(matrixBuilderData.getMatrix() != null){
+            matrix = new Matrix(matrixBuilderData.getMatrix().getArMatrix());
+        }
+        return this;
+    }
+
+    public MatrixBuilderData packForDB(){
+        return new MatrixBuilderData(matrix.packForDB(), rowToInput);
+    }
+
+    public MatrixBuilder createNewMatrix(String input) throws IncorrectNumberOfElements {
+        return createNewMatrix(input.split(" "));
+    }
 
     public MatrixBuilder createNewMatrix(String[] input) throws IncorrectNumberOfElements, NumberFormatException {
         return switch (input.length) {
@@ -35,6 +65,9 @@ public class MatrixBuilder {
     }
 
     public MatrixBuilder addRow(int row, String strRow) throws IncorrectNumberOfElements {
+        if(checkForFilling())
+            return this;
+
         var elements = strRow.split(" ");
         if (elements.length != matrix.getHorizontalSize()){
             throw new IncorrectNumberOfElements();

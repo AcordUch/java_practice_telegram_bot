@@ -1,6 +1,5 @@
 package practice_telegram_bot.telegram.commands.textCommands;
 
-import practice_telegram_bot.GlobalConst;
 import practice_telegram_bot.enums.CommandEnum;
 import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.exceptions.TooLongSentenceExceptions;
@@ -31,7 +30,7 @@ public class CommandFormatter {
         var arbitraryInputCommand = STATE_WITH_ARBITRARY_INPUT
                                                             .getOrDefault(state, Optional.empty());
         if(arbitraryInputCommand.isPresent()){
-            if(COMMAND_MAP.get(CommandEnum.RETURN).contains(command)){ //command.equals(GlobalConst.RETURN_COMMAND)
+            if(COMMAND_MAP.get(CommandEnum.RETURN).contains(command)){
                 return Optional.of(CommandEnum.RETURN);
             }
             return arbitraryInputCommand;

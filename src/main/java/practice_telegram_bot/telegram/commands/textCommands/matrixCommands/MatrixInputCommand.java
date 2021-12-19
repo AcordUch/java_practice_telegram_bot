@@ -1,10 +1,11 @@
 package practice_telegram_bot.telegram.commands.textCommands.matrixCommands;
 
+import practice_telegram_bot.database.UserDB;
 import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.exceptions.IncorrectNumberOfElements;
 import practice_telegram_bot.service.CommandEventInitiater;
 import practice_telegram_bot.service.CommandEventListener;
-import practice_telegram_bot.telegram.UsersData;
+import practice_telegram_bot.telegram.MatrixData;
 import practice_telegram_bot.telegram.commands.Command;
 
 public class MatrixInputCommand extends CommandEventInitiater implements Command  {
@@ -21,10 +22,10 @@ public class MatrixInputCommand extends CommandEventInitiater implements Command
     }
 
     @Override
-    public Command execute(Long chatId, String addInfo){
-        var lines = addInfo.split("\n");
-        var matrixData = UsersData.getUserMatrixData(chatId);
+    public Command execute(Long chatId, String addInfo, UserDB userDBData){
+        var matrixData = MatrixData.restoreFromDB(userDBData.getMatrixData());
         var builder = matrixData.getMatrixBuilder();
+        var lines = addInfo.split("\n");
 
         for(var line : lines){
             if(line.split(" ").length != builder.getMatrixHorizontalSize()){
@@ -36,15 +37,14 @@ public class MatrixInputCommand extends CommandEventInitiater implements Command
                 builder.addRow(line);
                 answer = "";
                 if(builder.checkForFilling()){
-                    matrixData.addMatrix(builder.buildMatrix());
-                    matrixData.reduceNumberOfMatricesToEnter();
+                    matrixData.buildMatrix();
 
-                    if(matrixData.numberOfMatricesToEnter() < 1) {
-                        UsersData.setUsersState(chatId, StateEnum.MATRIX_RESULT_OUTPUT);
+                    if(matrixData.matrixInputCompleted()) {
+                        userDBData.setState(StateEnum.MATRIX_RESULT_OUTPUT);
                         notifyListeners(chatId, "результат");
                         answer = "Ввод матрицы завершен";
                     } else {
-                        UsersData.setUsersState(chatId, StateEnum.MATRIX_SIZE_INPUT);
+                        userDBData.setState(StateEnum.MATRIX_SIZE_INPUT);
                         if(matrixData.operation.sameMatrixSize) {
                             notifyListeners(chatId, matrixData.lastMatrixSizeToString());
                         } else {
@@ -54,10 +54,14 @@ public class MatrixInputCommand extends CommandEventInitiater implements Command
                 }
             } catch (NumberFormatException e){
                 answer = "Вы ввели некорректное значение, попробуйте ещё раз";
+                return this;
             } catch (IncorrectNumberOfElements e) {
                 answer = "Произошла непонятная ошибка, попробуйте ещё раз";
+                return this;
             }
         }
+
+        userDBData.setMatrixData(matrixData.packForDB());
         return this;
     }
 }
