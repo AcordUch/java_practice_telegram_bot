@@ -1,5 +1,6 @@
 package practice_telegram_bot.matrix;
 
+import practice_telegram_bot.database.MatrixBuilderData;
 import practice_telegram_bot.exceptions.IncorrectNumberOfElements;
 
 public class MatrixBuilder {
@@ -13,6 +14,22 @@ public class MatrixBuilder {
         for (var row : matrix.split("\n")){
             this.addRow(row);
         }
+    }
+
+    public static MatrixBuilder restoreFromDB(MatrixBuilderData matrixBuilderData){
+        return new MatrixBuilder().setUp(matrixBuilderData);
+    }
+
+    public MatrixBuilder setUp(MatrixBuilderData matrixBuilderData){
+        rowToInput = matrixBuilderData.getRowToInput();
+        if(matrixBuilderData.getMatrix() != null){
+            matrix = new Matrix(matrixBuilderData.getMatrix().getArMatrix());
+        }
+        return this;
+    }
+
+    public MatrixBuilderData packForDB(){
+        return new MatrixBuilderData(matrix.packForDB(), rowToInput);
     }
 
     public MatrixBuilder createNewMatrix(String input) throws IncorrectNumberOfElements {

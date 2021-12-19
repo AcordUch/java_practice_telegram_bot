@@ -1,5 +1,6 @@
 package practice_telegram_bot.matrix;
 
+import practice_telegram_bot.database.PlainMatrix;
 import practice_telegram_bot.exceptions.IncorrectNumberOfElements;
 
 import java.util.Arrays;
@@ -11,6 +12,7 @@ public class Matrix {
     public Matrix(int size){
         this(size, size);
     }
+
     public Matrix(int rows, int columns){
         matrix = new double[rows][columns];
     }
@@ -56,6 +58,10 @@ public class Matrix {
                 e.printStackTrace();
             }
         }
+    }
+
+    public PlainMatrix packForDB(){
+        return new PlainMatrix(matrix);
     }
 
     @Override

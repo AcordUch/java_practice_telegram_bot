@@ -2,9 +2,12 @@ package practice_telegram_bot;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import practice_telegram_bot.database.UserDB;
+import practice_telegram_bot.database.dao.DAO;
+import practice_telegram_bot.database.dao.PostgreSqlSessionFactory;
 import practice_telegram_bot.enums.StateEnum;
-import practice_telegram_bot.telegram.UsersData;
 import practice_telegram_bot.telegram.commands.textCommands.ReturnToMenuCommand;
 import practice_telegram_bot.telegram.commands.textCommands.matrixCommands.ChooseOperationsCommand;
 import practice_telegram_bot.telegram.commands.textCommands.matrixCommands.MatrixInputCommand;
@@ -14,61 +17,97 @@ import practice_telegram_bot.telegram.commands.textCommands.matrixCommands.Start
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ChangingStatesTest {
+    private static final UserDB plug = null;
     private static final Long firstId = 1L;
     private static final Long secondId = 2L;
-    private UsersData usersData;
+    private UserDB userData1;
+    private UserDB userData2;
+
+    @BeforeClass
+    public static void setUpClass(){
+        PostgreSqlSessionFactory.instance();
+        DAO.configureForPostgreSql();
+    }
 
     @Before
     public void setUp(){
-        usersData = UsersData.instance();
-        usersData.setUsersState(firstId, StateEnum.START);
-        usersData.setUsersState(secondId, StateEnum.START);
+        userData1 = new UserDB(firstId, "first user from test");
+        userData2 = new UserDB(secondId, "second user from test");
+
+        DAO.instance().save(userData1);
+        DAO.instance().save(userData2);
     }
 
     @After
     public void afterTest(){
-        UsersData.clearInstance();
     }
 
     @Test
     public void switchingStatesBase(){
-        new StartMatrixCommand().execute(firstId, "");
-        assertEquals(usersData.getUserState(firstId), StateEnum.MATRIX_OPERATION_SELECT);
+        new StartMatrixCommand().execute(firstId, "", userData1);
+        assertEquals(userData1.getState(), StateEnum.MATRIX_OPERATION_SELECT);
     }
 
     @Test
     public void switchingStates(){
-        new StartMatrixCommand().execute(firstId, "");
-        new ChooseOperationsCommand().execute(firstId, "сложение");
-        assertEquals(usersData.getUserState(firstId), StateEnum.MATRIX_SIZE_INPUT);
+        new StartMatrixCommand().execute(firstId, "", userData1);
+        new ChooseOperationsCommand().execute(firstId, "сложение", userData1);
+        assertEquals(userData1.getState(), StateEnum.MATRIX_SIZE_INPUT);
 
-        new MatrixSizeInputCommand().execute(firstId, "2 2");
-        assertEquals(usersData.getUserState(firstId), StateEnum.MATRIX_INPUT);
+        new MatrixSizeInputCommand().execute(firstId, "2 2", userData1);
+        assertEquals(userData1.getState(), StateEnum.MATRIX_INPUT);
 
-        new MatrixInputCommand().execute(firstId, "0 0");
-        assertEquals(usersData.getUserState(firstId), StateEnum.MATRIX_INPUT);
+        new MatrixInputCommand().execute(firstId, "0 0", userData1);
+        assertEquals(userData1.getState(), StateEnum.MATRIX_INPUT);
+    }
+
+    @Test
+    public void switchingStatesWithDB(){
+        new StartMatrixCommand().execute(firstId, "", userData1);
+        update(userData1);
+        new ChooseOperationsCommand().execute(firstId, "сложение", userData1);
+        update(userData1);
+        new MatrixSizeInputCommand().execute(firstId, "2 2", userData1);
+        update(userData1);
+        new MatrixInputCommand().execute(firstId, "0 0", userData1);
+        update(userData1);
+
+        assertEquals(load(firstId).getState(), StateEnum.MATRIX_INPUT);
     }
 
     @Test
     public void switchingStatesReturn(){
-        new StartMatrixCommand().execute(firstId, "");
-        new ChooseOperationsCommand().execute(firstId, "сложение");
-        new MatrixSizeInputCommand().execute(firstId, "2 2");
-        new MatrixInputCommand().execute(firstId, "0 0");
-        new ReturnToMenuCommand().execute(firstId, "");
+        new StartMatrixCommand().execute(firstId, "", userData1);
+        new ChooseOperationsCommand().execute(firstId, "сложение", userData1);
+        new MatrixSizeInputCommand().execute(firstId, "2 2", userData1);
+        new MatrixInputCommand().execute(firstId, "0 0", userData1);
+        new ReturnToMenuCommand().execute(firstId, "", userData1);
 
-        assertEquals(usersData.getUserState(firstId), StateEnum.START);
+        assertEquals(userData1.getState(), StateEnum.START);
     }
 
     @Test
-    public void switchingStatesTwoUsers(){
-        new StartMatrixCommand().execute(firstId, "");
-        new StartMatrixCommand().execute(secondId, "");
-        new ChooseOperationsCommand().execute(secondId, "вычитание");
-        new ChooseOperationsCommand().execute(firstId, "сложение");
-        new MatrixSizeInputCommand().execute(firstId, "2 2");
+    public void switchingStatesTwoUsersWithDB(){
+        new StartMatrixCommand().execute(firstId, "", userData1);
+        update(userData1);
+        new StartMatrixCommand().execute(secondId, "", userData2);
+        update(userData2);
+        new ChooseOperationsCommand().execute(secondId, "вычитание", userData2);
+        update(userData2);
+        new ChooseOperationsCommand().execute(firstId, "сложение", userData1);
+        update(userData1);
+        new MatrixSizeInputCommand().execute(firstId, "2 2", userData1);
+        update(userData1);
 
-        assertEquals(usersData.getUserState(firstId), StateEnum.MATRIX_INPUT);
-        assertEquals(usersData.getUserState(secondId), StateEnum.MATRIX_SIZE_INPUT);
+        assertEquals(load(firstId).getState(), StateEnum.MATRIX_INPUT);
+        assertEquals(load(secondId).getState(), StateEnum.MATRIX_SIZE_INPUT);
+    }
+
+    private void update(UserDB userDB){
+        DAO.instance().update(userDB);
+    }
+
+    private UserDB load(Long id){
+        return DAO.instance().findById(UserDB.class, id);
     }
 }

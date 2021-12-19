@@ -3,6 +3,8 @@ package practice_telegram_bot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
+import practice_telegram_bot.database.dao.DAO;
+import practice_telegram_bot.database.dao.PostgreSqlSessionFactory;
 import practice_telegram_bot.telegram.*;
 
 
@@ -16,10 +18,23 @@ public class Main {
             getenv = TokenParser.GetEnv();
         }
 
+        connectToDB();
+
         try{
             TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
             botsApi.registerBot(new Bot(getenv.get("BOT_NAME"), getenv.get("BOT_TOKEN")));
         } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Done!");
+    }
+
+    private static void connectToDB(){
+        try {
+            PostgreSqlSessionFactory.instance();
+            DAO.configureForPostgreSql();
+        } catch (Exception e){
             e.printStackTrace();
         }
     }

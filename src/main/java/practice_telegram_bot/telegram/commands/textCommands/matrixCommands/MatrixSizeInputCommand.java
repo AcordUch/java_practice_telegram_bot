@@ -1,8 +1,9 @@
 package practice_telegram_bot.telegram.commands.textCommands.matrixCommands;
 
+import practice_telegram_bot.database.UserDB;
 import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.exceptions.IncorrectNumberOfElements;
-import practice_telegram_bot.telegram.UsersData;
+import practice_telegram_bot.telegram.MatrixData;
 import practice_telegram_bot.telegram.commands.Command;
 
 
@@ -21,18 +22,20 @@ public class MatrixSizeInputCommand implements Command {
     }
 
     @Override
-    public Command execute(Long chatId, String addInfo) {
-        var matrixData = UsersData.instance().getUserMatrixData(chatId);
+    public Command execute(Long chatId, String addInfo, UserDB userDBData) {
         var input = addInfo.split(" ");
         answer = ANSWER_SQUARE_MATRIX;
 
-        if(input.length != matrixData.operation.numOfSizeArguments){
+        if(input.length != userDBData.getMatrixData().getOperation().numOfSizeArguments){
             answer = "Вы ввели неправильное количество элементов, попробуйте ещё раз";
             return this;
         }
         try {
+            var matrixData = MatrixData.restoreFromDB(userDBData.getMatrixData());
             matrixData.getMatrixBuilder().createNewMatrix(input);
-            UsersData.instance().setUsersState(chatId, StateEnum.MATRIX_INPUT);
+
+            userDBData.setMatrixData(matrixData.packForDB());
+            userDBData.setState(StateEnum.MATRIX_INPUT);
         } catch (IncorrectNumberOfElements e) {
             answer = "Произошла непонятная ошибка, попробуйте ещё раз";
         } catch (NumberFormatException e){
