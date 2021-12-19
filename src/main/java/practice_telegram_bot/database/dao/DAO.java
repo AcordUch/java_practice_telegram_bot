@@ -13,10 +13,17 @@ public class DAO {
     }
 
     public static void configureForPostgreSql(){
+        PostgreSqlSessionFactory.instance();
         instance = new PostgreSqlDao();
     }
 
     public static void configureForMongoDb(){
+        MongoDbSessionFactory.instance();
         instance = new MongoDbDao();
+    }
+
+    public static void configureForRAM(){
+        UsersData.instance();
+        instance = new RAMDao();
     }
 }
