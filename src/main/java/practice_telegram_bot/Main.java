@@ -32,8 +32,9 @@ public class Main {
 
     private static void connectToDB(){
         try {
-            PostgreSqlSessionFactory.instance();
             DAO.configureForPostgreSql();
+            // При отсутствии какой-либо базы данных на компьютере, заменить верхнюю строчку на эту
+//            DAO.configureForRAM();
         } catch (Exception e){
             e.printStackTrace();
         }
