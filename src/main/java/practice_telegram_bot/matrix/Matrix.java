@@ -60,18 +60,9 @@ public class Matrix {
         }
     }
 
-//    public double[][] getMatrix() {
-//        return matrix;
-//    }
-
     public PlainMatrix packForDB(){
         return new PlainMatrix(matrix);
     }
-
-    /*public PlainMatrix packForDB(PlainMatrix plainMatrix){
-        plainMatrix.setArMatrix(matrix);
-        return plainMatrix;
-    }*/
 
     @Override
     public String toString() {

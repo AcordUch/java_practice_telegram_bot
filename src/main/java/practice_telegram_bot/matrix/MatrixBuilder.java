@@ -32,16 +32,6 @@ public class MatrixBuilder {
         return new MatrixBuilderData(matrix.packForDB(), rowToInput);
     }
 
-    /*public MatrixBuilderData packForDB(MatrixBuilderData matrixBuilderData){
-        matrixBuilderData.setRowToInput(rowToInput);
-        if(matrixBuilderData.getMatrix() != null) {
-            matrixBuilderData.setMatrix(matrix.packForDB(matrixBuilderData.getMatrix()));
-        } else{
-            matrixBuilderData.setMatrix(matrix.packForDB());
-        }
-        return matrixBuilderData;
-    }*/
-
     public MatrixBuilder createNewMatrix(String input) throws IncorrectNumberOfElements {
         return createNewMatrix(input.split(" "));
     }

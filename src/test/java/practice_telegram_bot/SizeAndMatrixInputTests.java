@@ -29,7 +29,6 @@ public class SizeAndMatrixInputTests {
 
     private static final Long firstId = 1L;
     private static final Long secondId = 2L;
-//    private UsersData usersData;
     private UserDB userData1;
     private UserDB userData2;
 

@@ -53,18 +53,6 @@ public class MatrixData {
         return matrixDataDB;
     }
 
-    /*public MatrixDataDB packForDB(MatrixDataDB matrixDataDB){
-        matrixDataDB.setOperation(operation);
-        matrixDataDB.setMatricesNumberToEnter(numberOfMatricesToEnter);
-        matrixDataDB.setMatrices(
-                matrices.stream()
-                        .map(Matrix::packForDB)
-                        .toList()
-        );
-        matrixDataDB.setMatrixBuilder(matrixBuilder.packForDB(matrixDataDB.getMatrixBuilder()));
-        return matrixDataDB;
-    }*/
-
     public int matrixCount(){
         return matrices.size();
     }
