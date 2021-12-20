@@ -20,23 +20,13 @@ public class Keyboard {
     public static InlineKeyboardMarkup createMarkUp(List<String> buttonNames, int rowCount){
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
         var keyboardRow = new ArrayList<InlineKeyboardButton>();
-        var cnt = 0;
-        for (var buttonName: buttonNames) {
-            if(cnt >= rowCount){
+        for(var cnt = 0; cnt < buttonNames.size(); cnt++){
+            if(cnt != 0 && cnt % rowCount == 0){
                 keyboard.add(new ArrayList<>(keyboardRow));
                 keyboardRow.clear();
-                cnt = 0;
             }
-            keyboardRow.add((createButton(buttonName)));
-            cnt++;
+            keyboardRow.add((createButton(buttonNames.get(cnt))));
         }
-//        for(var cnt = 0; cnt < buttonNames.size(); cnt++){
-//            if(cnt != 0 && cnt % rowCount == 0){
-//                keyboard.add(new ArrayList<>(keyboardRow));
-//                keyboardRow.clear();
-//            }
-//            keyboardRow.add((createButton(buttonNames.get(cnt))));
-//        }
         if(!keyboardRow.isEmpty()){
             keyboard.add(keyboardRow);
         }
