@@ -6,17 +6,28 @@ public class InnerUpdate {
     private final Long chatId;
     private final String message;
     private final File picture;
+    public final boolean setMarkup;
 
     public InnerUpdate(Long chatId, String message){
-        this.chatId = chatId;
-        this.message = message;
-        this.picture = null;
+        this(chatId, message, false);
     }
 
     public InnerUpdate(Long chatId, File picture){
+        this(chatId, picture, false);
+    }
+
+    public InnerUpdate(Long chatId, String message, boolean setMarkup){
+        this.chatId = chatId;
+        this.message = message;
+        this.picture = null;
+        this.setMarkup = setMarkup;
+    }
+
+    public InnerUpdate(Long chatId, File picture, boolean setMarkup){
         this.chatId = chatId;
         this.picture = picture;
         this.message = null;
+        this.setMarkup = setMarkup;
     }
 
     public Long getChatId() {

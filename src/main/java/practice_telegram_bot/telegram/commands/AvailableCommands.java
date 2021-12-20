@@ -24,7 +24,7 @@ public class AvailableCommands {
             entry(MATRIX_RESULT_OUTPUT, List.of(CommandEnum.RETURN, CommandEnum.MATRIX_RESULT))
     );
 
-    public static List<CommandEnum> getAvailableCommands(StateEnum state){
+    public static List<CommandEnum> get(StateEnum state){
         try {
             return availableCommands.get(state);
         }
@@ -34,15 +34,23 @@ public class AvailableCommands {
         }
     }
 
-    public static String getAvailableCommandsAsString(StateEnum state){
+    public static String getInString(StateEnum state){
         var res = new StringBuilder();
-        for(var command : getAvailableCommands(state)){
+        for(var command : get(state)){
             res.append(String.join("\n", command.getCommands())).append("\n");
         }
         return res.toString();
     }
 
-    public static boolean checkingForAvailability(StateEnum state, CommandEnum command){
-        return getAvailableCommands(state).contains(command);
+    public static List<String> getInStringList(StateEnum state){
+        var res = new ArrayList<String>();
+        for(var command : get(state)){
+            res.addAll(command.getCommands());
+        }
+        return res;
+    }
+
+    public static boolean isAvailable(StateEnum state, CommandEnum command){
+        return get(state).contains(command);
     }
 }

@@ -47,7 +47,7 @@ public class CommandFormatter {
         for (var token : tokens){
             for(var kvPair : COMMAND_MAP.entrySet()){
                 if(kvPair.getValue().contains(token) &&
-                        AvailableCommands.checkingForAvailability(state, kvPair.getKey())){
+                        AvailableCommands.isAvailable(state, kvPair.getKey())){
                     return Optional.of(kvPair.getKey());
                 }
             }

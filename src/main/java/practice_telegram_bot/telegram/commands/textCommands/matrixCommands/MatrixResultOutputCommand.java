@@ -44,10 +44,10 @@ public class MatrixResultOutputCommand extends CommandEventInitiater implements 
         } catch (IncorrectNumberOfElements e) {
             answer = e.toString();
         }
-//        PostgreSqlDao.delete(MatrixDataDB.class, userData.getMatrixData().getId());
+
         userDBData.setMatrixData(null);
         userDBData.setState(StateEnum.MATRIX_OPERATION_SELECT);
-        notifyListeners(chatId, TextSendCommand.formText(StartMatrixCommand.ANSWER));
+        notifyListeners(chatId, TextSendCommand.formText(StartMatrixCommand.ANSWER), true);
         return this;
     }
 }

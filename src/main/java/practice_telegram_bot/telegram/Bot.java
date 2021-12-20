@@ -11,7 +11,9 @@ import practice_telegram_bot.database.dao.DAO;
 import practice_telegram_bot.database.UserDB;
 import practice_telegram_bot.service.CommandEventListener;
 import practice_telegram_bot.service.InnerUpdate;
+import practice_telegram_bot.service.Keyboard;
 import practice_telegram_bot.service.UserNameFormatter;
+import practice_telegram_bot.telegram.commands.AvailableCommands;
 import practice_telegram_bot.telegram.commands.service.AboutCommand;
 import practice_telegram_bot.telegram.commands.service.HelpCommand;
 import practice_telegram_bot.telegram.commands.textCommands.CommandManager;
@@ -58,7 +60,12 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
     public void onUpdatesReceived(List<Update> updates) {
         System.out.println("\nnew Update Received");
         for (var update : updates) {
-            Message message = update.getMessage();
+            Message message;
+            if(update.hasCallbackQuery()){
+                message = update.getCallbackQuery().getMessage();
+            }else{
+                message = update.getMessage();
+            }
             Long chatId = message.getChatId();
             var userName = new UserNameFormatter(message.getFrom());
 
@@ -66,6 +73,7 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
                     "Пользователь: %s\nChatID: %s\nСообщение: %s\n",
                     userName.formFullName(), chatId.toString(), message.getText()
             );
+
             if(DAO.instance().absentInDatabase(UserDB.class, chatId)){
                 DAO.instance().save(new UserDB(chatId, userName.formFullName("\n")));
                 sendAnswer(chatId, StartCommand.GetAnswer());
@@ -77,10 +85,19 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
 
     @Override
     public void processNonCommandUpdate(Update update) {
-        Message message = update.getMessage();
-        Long chatId = message.getChatId();
-        String messageText = message.getText();
+        Message message;
+        String messageText;
         String answer;
+
+        if(update.hasCallbackQuery()){
+            message = update.getCallbackQuery().getMessage();
+            messageText = update.getCallbackQuery().getData();
+        }else{
+            message = update.getMessage();
+            messageText = message.getText();
+        }
+        Long chatId = message.getChatId();
+
 
         if(messageText == null || messageText.isEmpty()) {
             answer = ANSWER_ON_NULL_MASSAGE;
@@ -102,7 +119,7 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
         if(message.presented){
             var answer = commandManager.processCommand(chatId, message.content);
             if(!answer.isEmpty()){
-                sendAnswer(chatId, answer);
+                sendAnswer(chatId, answer, update.setMarkup);
             }
         } else if (picture.presented){
             sendPicture(chatId, picture.content);
@@ -111,9 +128,18 @@ public class Bot extends TelegramLongPollingCommandBot implements CommandEventLi
     }
 
     private void sendAnswer(Long chatId, String text){
+        sendAnswer(chatId, text, true);
+    }
+
+    private void sendAnswer(Long chatId, String text, boolean applyMarkUp){
         SendMessage answer = new SendMessage();
         answer.setText(text);
         answer.setChatId(chatId.toString());
+        if(applyMarkUp){
+            answer.setReplyMarkup(Keyboard.createMarkUp(
+                    AvailableCommands.getInStringList(DAO.instance().findById(UserDB.class, chatId).getState())
+            ));
+        }
         try{
             execute(answer);
         } catch (TelegramApiException e) {
