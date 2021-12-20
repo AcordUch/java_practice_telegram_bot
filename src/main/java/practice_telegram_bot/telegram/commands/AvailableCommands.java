@@ -18,6 +18,7 @@ public class AvailableCommands {
             entry(MATRIX_OPERATION_SELECT,
                     List.of(CommandEnum.RETURN, CommandEnum.MATRIX_OPERATIONS)),
             entry(GAME_START, List.of(CommandEnum.RETURN)),
+            entry(MATRIX_NUMBER_INPUT, List.of(CommandEnum.RETURN, CommandEnum.MATRIX_SIZE)),
             entry(MATRIX_SIZE_INPUT, List.of(CommandEnum.RETURN, CommandEnum.MATRIX_SIZE)),
             entry(MATRIX_INPUT, List.of(CommandEnum.RETURN, CommandEnum.MATRIX_ROW)),
             entry(MATRIX_RESULT_OUTPUT, List.of(CommandEnum.RETURN, CommandEnum.MATRIX_RESULT))
