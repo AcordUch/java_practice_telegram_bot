@@ -21,7 +21,7 @@ public class StateCommand extends ServiceCommand {
                 String.format(
                         "Текущее состояние: %s\nДоступные команды: \n%s",
                         state,
-                        AvailableCommands.getAvailableCommandsAsString(state)
+                        AvailableCommands.getInString(state)
                 )
         );
     }

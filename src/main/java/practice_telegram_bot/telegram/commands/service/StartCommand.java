@@ -5,6 +5,7 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import practice_telegram_bot.database.dao.DAO;
 import practice_telegram_bot.database.UserDB;
+import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.service.UserNameFormatter;
 
 public class StartCommand extends ServiceCommand{
@@ -24,7 +25,7 @@ public class StartCommand extends ServiceCommand{
         Long chatId = chat.getId();
         DAO.instance().delete(UserDB.class, chatId);
         DAO.instance().save(new UserDB(chatId, new UserNameFormatter(user).formFullName("\n")));
-        sendAnswer(absSender, chat.getId(), ANSWER);
+        sendMarkupAnswer(absSender, chat.getId(), ANSWER, StateEnum.START);
     }
 
     public static String GetAnswer(){

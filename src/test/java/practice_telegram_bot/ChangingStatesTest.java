@@ -9,10 +9,7 @@ import practice_telegram_bot.database.dao.DAO;
 import practice_telegram_bot.database.dao.PostgreSqlSessionFactory;
 import practice_telegram_bot.enums.StateEnum;
 import practice_telegram_bot.telegram.commands.textCommands.ReturnToMenuCommand;
-import practice_telegram_bot.telegram.commands.textCommands.matrixCommands.ChooseOperationsCommand;
-import practice_telegram_bot.telegram.commands.textCommands.matrixCommands.MatrixInputCommand;
-import practice_telegram_bot.telegram.commands.textCommands.matrixCommands.MatrixSizeInputCommand;
-import practice_telegram_bot.telegram.commands.textCommands.matrixCommands.StartMatrixCommand;
+import practice_telegram_bot.telegram.commands.textCommands.matrixCommands.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -52,6 +49,9 @@ public class ChangingStatesTest {
     public void switchingStates(){
         new StartMatrixCommand().execute(firstId, "", userData1);
         new ChooseOperationsCommand().execute(firstId, "сложение", userData1);
+        assertEquals(userData1.getState(), StateEnum.MATRIX_NUMBER_INPUT);
+
+        new MatrixNumberInputCommand().execute(firstId, "2", userData1);
         assertEquals(userData1.getState(), StateEnum.MATRIX_SIZE_INPUT);
 
         new MatrixSizeInputCommand().execute(firstId, "2 2", userData1);
@@ -96,11 +96,13 @@ public class ChangingStatesTest {
         update(userData2);
         new ChooseOperationsCommand().execute(firstId, "сложение", userData1);
         update(userData1);
+        new MatrixNumberInputCommand().execute(firstId, "2", userData1);
+        update(userData1);
         new MatrixSizeInputCommand().execute(firstId, "2 2", userData1);
         update(userData1);
 
         assertEquals(load(firstId).getState(), StateEnum.MATRIX_INPUT);
-        assertEquals(load(secondId).getState(), StateEnum.MATRIX_SIZE_INPUT);
+        assertEquals(load(secondId).getState(), StateEnum.MATRIX_NUMBER_INPUT);
     }
 
     private void update(UserDB userDB){

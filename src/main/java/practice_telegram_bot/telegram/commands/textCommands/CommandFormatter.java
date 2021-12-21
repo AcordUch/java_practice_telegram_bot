@@ -16,7 +16,8 @@ public class CommandFormatter {
     private static final int MAX_COMMAND_LENGTH = 20;
     private static final Map<StateEnum, Optional<CommandEnum>> STATE_WITH_ARBITRARY_INPUT = Map.ofEntries(
             entry(StateEnum.MATRIX_SIZE_INPUT, Optional.of(CommandEnum.MATRIX_SIZE)),
-            entry(StateEnum.MATRIX_INPUT, Optional.of(CommandEnum.MATRIX_ROW))
+            entry(StateEnum.MATRIX_INPUT, Optional.of(CommandEnum.MATRIX_ROW)),
+            entry(StateEnum.MATRIX_NUMBER_INPUT, Optional.of(CommandEnum.MATRIX_NUMBER_INPUT))
     );
     private static final Map<CommandEnum, List<String>> COMMAND_MAP = Map.ofEntries(
             entry(CommandEnum.MATRIX, Arrays.asList("матрица", "матрицы", "матрицу")),
@@ -46,7 +47,7 @@ public class CommandFormatter {
         for (var token : tokens){
             for(var kvPair : COMMAND_MAP.entrySet()){
                 if(kvPair.getValue().contains(token) &&
-                        AvailableCommands.checkingForAvailability(state, kvPair.getKey())){
+                        AvailableCommands.isAvailable(state, kvPair.getKey())){
                     return Optional.of(kvPair.getKey());
                 }
             }

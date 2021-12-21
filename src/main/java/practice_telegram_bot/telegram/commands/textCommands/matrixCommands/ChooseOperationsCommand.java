@@ -24,19 +24,30 @@ public class ChooseOperationsCommand implements Command {
             Пример: 5 6
             """;
 
-    private Operations operation;
+    private String answer;
 
     @Override
     public String formAnswer() {
+        return answer;
+    }
+
+    public static String formAnswerByOperation(Operations operation){
         return operation.numOfSizeArguments == 1 ? ANSWER_SQUARE_MATRIX : ANSWER_COMMON_MATRIX;
     }
 
     @Override
     public Command execute(Long chatId, String addInfo, UserDB userDBData) {
-        operation = Operations.fromString(addInfo.toLowerCase(Locale.ROOT));
+        Operations operation = Operations.fromString(addInfo.toLowerCase(Locale.ROOT));
         int matricesNumber = operationsWithTwoMatrix.contains(operation) ? 2 : 1;
 
-        userDBData.setState(StateEnum.MATRIX_SIZE_INPUT);
+        if(operationsWithTwoMatrix.contains(operation)){
+            userDBData.setState(StateEnum.MATRIX_NUMBER_INPUT);
+            answer = MatrixNumberInputCommand.ANSWER;
+        }else{
+            userDBData.setState(StateEnum.MATRIX_SIZE_INPUT);
+            answer = ChooseOperationsCommand.formAnswerByOperation(operation);
+        }
+
         userDBData.setMatrixData(new MatrixDataDB(operation, matricesNumber));
         return this;
     }

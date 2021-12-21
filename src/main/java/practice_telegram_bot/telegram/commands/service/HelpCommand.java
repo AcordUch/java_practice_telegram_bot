@@ -35,13 +35,13 @@ public class HelpCommand extends ServiceCommand {
 
     private String makeHelpMessage(StateEnum state){
         return ANSWER_1 + "\n" +
-                AvailableCommands.getAvailableCommandsAsString(state) + "\n" +
+                AvailableCommands.getInString(state) + "\n" +
                 ANSWER_2;
     }
 
     private String lookAvailableCommands(StateEnum state){
         var res = new StringBuilder();
-        for(var command : AvailableCommands.getAvailableCommands(state)){
+        for(var command : AvailableCommands.get(state)){
             res.append(command).append("\n");
         }
         return res.toString();

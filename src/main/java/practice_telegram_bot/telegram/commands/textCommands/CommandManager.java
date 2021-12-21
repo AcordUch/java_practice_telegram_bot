@@ -22,6 +22,7 @@ public class CommandManager {
             entry(CommandEnum.GAME, new StartGameCommand()),
             entry(CommandEnum.RETURN, RETURN_TO_MENU_COMMAND),
             entry(CommandEnum.MATRIX_OPERATIONS, new ChooseOperationsCommand()),
+            entry(CommandEnum.MATRIX_NUMBER_INPUT, new MatrixNumberInputCommand()),
             entry(CommandEnum.MATRIX_SIZE, new MatrixSizeInputCommand()),
             entry(CommandEnum.MATRIX_ROW, new MatrixInputCommand()),
             entry(CommandEnum.MATRIX_RESULT, new MatrixResultOutputCommand()),
